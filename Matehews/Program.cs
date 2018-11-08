@@ -7,11 +7,21 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Matehews.Models;
 
 namespace Matehews
 {
     public class Program
     {
+
+        public static List<User> users{ get; set;} 
+
+        static Program()
+        {
+            users = new List<User>();
+        }
+
+
         public static void Main(string[] args)
         {
             CreateWebHostBuilder(args).Build().Run();

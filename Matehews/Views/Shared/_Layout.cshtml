@@ -3,14 +3,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" /> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>@ViewData["Title"] - Mateh News</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
          <link href="~/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+         <link rel="stylesheet" href="~/newspaper-template/style.css">
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -20,7 +22,7 @@
     </environment>
     @RenderSection("heads", required: false) 
 </head>
-<body>
+<body> 
    
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -34,32 +36,34 @@
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Mateh News</a>
             </div>
             <div class="navbar-collapse collapse menu">
-                <ul class="nav navbar-nav">
+                <DIV class="classynav">
+   <ul id="menu-list" class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">Sections</a></li>    
-       
-                        //Solo si es Administrador
-                        <!-- if(Model.AccessKey == 100){ -->
-                              <li><a asp-area="" asp-controller="Admin" asp-action="CPanel">Control Panel</a></li>  
-                            <li ><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
-                            <li><a asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>  
-                            <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-                                </a>
-                                <ul class="dropdown-menu dropdown-user">
-                                    <li><a href="~/Account/Profile"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                                    </li>
-                                    <li><a href="~/Admin/Settings"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                                    </li>
-                                    <li class="divider"></li> 
-                                    <li><a onclick="logout()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                                    </li>
-                                </ul>
-                                <!-- /.dropdown-user -->
+                    <li><a asp-area="" asp-controller="Home" asp-action="About">Sections</a></li>     
+                    <!-- Solo si es Administrador -->
+                        <!-- if(Model.AccessKey == 100){ --> 
+                    <li class="only-admin"><a asp-area="" asp-controller="Admin" asp-action="CPanel">Control Panel</a></li>    
+                    <li class="noLogged" ><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
+                    <li class="noLogged"><a asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>   
+                    <li class="only-logged dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul id="" class="dropdown-menu dropdown-user">
+                            <li><a href="~/Account/Profile"><i class="fa fa-user fa-fw"></i> User Profile</a>
                             </li>
-                            <!-- /.dropdown -->  
+                            <li><a href="~/Admin/Settings"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                            </li>
+                            <li class="divider"></li> 
+                            <li><a onclick="logout()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                            </li>
+                        </ul>
+                        <!-- /.dropdown-user -->
+                    </li>
+                    <!-- /.dropdown -->   
                 </ul>
+                </DIV>
+             
             </div>
         </div>
     </nav>
@@ -80,6 +84,19 @@
         <script src="~/js/site.js" asp-append-version="true"></script>
         <script src="~/js/app/consts.js" asp-append-version="true"></script>  
         <script src="~/js/app/account.js" asp-append-version="true"></script>
+        <script>
+                $('only-admin').hide();
+            isLogged(
+                (next)=>{
+                    if(isAdmin()){ $('only-admin').show();  }
+                   $('.noLogged').hide()
+                },
+                (err)=>{
+                    $('.noLogged').show()
+                    $('.only-logged').hide()
+                    $('.only-admin').hide()
+            }); 
+        </script>  
     </environment>
     <environment exclude="Development">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"

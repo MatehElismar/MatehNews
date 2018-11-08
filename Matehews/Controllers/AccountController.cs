@@ -10,15 +10,7 @@ using Services;
 namespace Matehews.Controllers
 {
     public class AccountController : Controller
-    {
-        
-        public static List<User> users{ get; set;} 
-
-        static AccountController()
-        {
-            AccountController.users = new List<User>();
-        }
-    
+    { 
         public IActionResult Register()
         {
               
@@ -37,8 +29,8 @@ namespace Matehews.Controllers
         public IActionResult Register(User form)
         { 
             form.logged = true;
-            form.id = users.Count +1 ;
-            AccountController.users.Add(form);
+            form.id = Program.users.Count +1 ;
+            Program.users.Add(form);
             return Json(form);  
         }
 
@@ -46,10 +38,10 @@ namespace Matehews.Controllers
         public IActionResult Login(User form)
         {  
 
-            var user = AccountController.users.Find(x => x.id == form.id);
+            var user = Program.users.Find(x => x.id == form.id);
             if(form.email == user.email && form.pass == user.pass)
             {
-                user = AccountController.users.Find(x => x.id == form.id);
+                user = Program.users.Find(x => x.id == form.id);
                 user.logged = true;
             }
             else
@@ -62,21 +54,23 @@ namespace Matehews.Controllers
 
          
          [HttpPost]
-        public IActionResult Logout(User form)
+        public bool Logout([FromBody]User form)
         {
-            // var user = AccountController.users.Find(x => x.id == form.id);
-            // if(user.email == form.email){
-            //     AccountController.users.RemoveAt(AccountController.users.FindIndex(x => x.id == form.id));
-            //     return "isLogout";
-            // }
-            // return "false";  
-            return Json(form);
+            var user = Program.users.Find(x => x.id == form.id);
+            if(user != null)
+            {
+                if(user.email == form.email){
+                    Program.users.RemoveAt(Program.users.FindIndex(x => x.id == form.id));
+                    return true;
+                }
+            } 
+            return false;   
         }
         
         [HttpPost]
         public string IsLogged(User form)
         {
-            if(AccountController.users.Find(x => x.id == form.id) != null)
+            if(Program.users.Find(x => x.id == form.id) != null)
             {
                return "logged"; 
             }
