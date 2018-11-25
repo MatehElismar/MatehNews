@@ -16,7 +16,7 @@ namespace Services
 
         public Server()
         {
-            Conn = new SqlConnection("Data Source=.;Initial Catalog=CVFormulario;Integrated Security=True");
+            Conn = new SqlConnection("Data Source=.;Initial Catalog=MatehNews;Integrated Security=True");
             Open();
         }
 
@@ -59,7 +59,7 @@ namespace Services
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Mi error" + ex.ToString());
+                Debug.WriteLine("Mi error: " + ex.ToString());
 
                 return false;
             }
