@@ -1,7 +1,7 @@
 # MatehNews
 Esta pagina permite gestionar Noticias
 
-MODULOS PRINCIPALES:
+# MODULOS PRINCIPALES:
 
 *Usuario administrador: 
 -pueda agregar secciones en las cuales agregar las noticias,
@@ -13,15 +13,24 @@ MODULOS PRINCIPALES:
 - Tener una cuenta en la plataforma.
 - Poder comentar su opinion.
 
--------Informacion que se manejara-------------
+# -------Informacion que se manejara-------------
 
-*Usuarios: Nombre - Username - Pass - AccessKey
-*Noticias: 
--IdSeccion
-- Id
--Fecha 
-- Reporteros
-- Titulo
-- Subtitulo
-- Contenido
-- Imagen de fondo (opcional)
+# Usuarios:
+-Nombre
+- Username
+- Pass
+- AccessKey
+
+# Secciones
+ - Id
+ - Nombre
+ 
+# Noticias: 
+  -IdSeccion
+  - Id
+  -Fecha 
+  - Reporteros
+  - Titulo
+  - Subtitulo
+  - Contenido
+  - Imagen de fondo (opcional)
