@@ -3,29 +3,29 @@ Esta pagina permite gestionar Noticias
 
 # MODULOS PRINCIPALES:
 
-*Usuario administrador: 
+* Usuario administrador: 
 -pueda agregar secciones en las cuales agregar las noticias,
 -darles de baja, 
 -programarles un tiempo para estar al aire
 
-*Usuario Comun
+* Usuario Comun
 - Ver Noticias.
 - Tener una cuenta en la plataforma.
 - Poder comentar su opinion.
 
 # -------Informacion que se manejara-------------
 
-# Usuarios:
+*  Usuarios:
 -Nombre
 - Username
 - Pass
 - AccessKey
 
-# Secciones
+* Secciones
  - Id
  - Nombre
  
-# Noticias: 
+* Noticias: 
   -IdSeccion
   - Id
   -Fecha 
