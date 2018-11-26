@@ -1,0 +1,58 @@
+use MatehNews
+go
+
+--CRUD de Secciones
+create proc InsertSection
+@Name varchar(30)
+as
+insert into Sections values(@Name)
+go
+
+
+create proc GetSections
+as
+select * from Sections
+go
+create proc UpdateSection
+@Id int,
+@Name varchar(30)
+as
+set Name = Name
+where Id = @Id
+go
+--Creamos e insertamos las tres claves de acceso principales
+create table AccessKeys(
+Id int identity(100,1),
+Name varchar(30)
+)
+go
+
+insert into AccessKeys values(Admin)
+insert into AccessKeys values(Worker)
+insert into AccessKeys values(User)
+
+--Cambia el nivel de acceso de un usuario
+go
+create proc ChangeUserAccessKey
+@MyID int
+@IdUser int,
+@IdAccessKey int
+as
+update Users 
+set IdAccessKey = @IdAccessKey
+where Id = @IdUser
+insert into Logs values(@MyID, 'Se cambio el nivel de acceso del Usuario (ID): getdate())
+
+--Selecciona todos los usuarios
+go
+create proc GetUsers
+as
+select * from Users
+
+//Logs que vera el administrador
+go
+Create table Logs(
+  UserID int not null,
+  Descripcion varchar(200),
+  Fecha datetime
+)
