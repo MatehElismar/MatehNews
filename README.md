@@ -13,7 +13,7 @@ Esta pagina permite gestionar Noticias
   > Tener una cuenta en la plataforma.
   > Poder comentar su opinion.
 
-# -------Informacion que se manejara-------------
+ ** -------Informacion que se manejara-------------
 
 *  Usuarios:
  > Nombre
@@ -26,7 +26,7 @@ Esta pagina permite gestionar Noticias
  > Nombre
  
 * Noticias: 
-  >IdSeccion
+  > IdSeccion
   > Id
   > Fecha 
   > Reporteros
