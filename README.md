@@ -14,7 +14,7 @@ Esta pagina permite gestionar Noticias
   - [ ] Tener una cuenta en la plataforma.
   - [ ] Poder comentar su opinion.
 
- ** INFORMACION QUE SE MANEJARA**
+ **INFORMACION QUE SE MANEJARA**
 
 *  Usuarios:
    - [ ] Nombre
