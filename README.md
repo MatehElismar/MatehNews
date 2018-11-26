@@ -33,4 +33,4 @@ Esta pagina permite gestionar Noticias
   - [] Titulo
   - [] Subtitulo
   - [] Contenido
-  - [] Imagen de fondo (opcional) xD
+  - [ ] Imagen de fondo (opcional) xD
