@@ -6,14 +6,15 @@ Esta pagina permite gestionar Noticias
 * Usuario administrador: 
   - [ ] pueda agregar secciones en las cuales agregar las noticias,
   - [ ] darles de baja, 
-  - [ ] programarles un tiempo para estar al aire
+  - [ ] programarles un tiempo para estar al aire\
+  - [ ] Administrar Usuarios
 
 * Usuario Comun
   - [ ] Ver Noticias.
   - [ ] Tener una cuenta en la plataforma.
   - [ ] Poder comentar su opinion.
 
- **-------Informacion que se manejara-------------**
+ **  INFORMACION QUE SE MANEJARA  **
 
 *  Usuarios:
    - [ ] Nombre
