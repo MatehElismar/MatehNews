@@ -16,14 +16,14 @@ Esta pagina permite gestionar Noticias
  **-------Informacion que se manejara-------------**
 
 *  Usuarios:
- - [ ] Nombre
- - [ ] Username
- - [ ] Pass
- - [ ] AccessKey
+   - [ ] Nombre
+   - [ ] Username
+   - [ ] Pass
+   - [ ] AccessKey
 
 * Secciones
- - [ ] Id
- - [ ] Nombre
+   - [ ] Id
+   - [ ] Nombre
  
 * Noticias: 
   - [ ] IdSeccion
