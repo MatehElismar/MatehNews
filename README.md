@@ -15,17 +15,17 @@ Esta pagina permite gestionar Noticias
 
 # -------Informacion que se manejara-------------
 
-*  Usuarios:
+>  Usuarios:
 -Nombre
 - Username
 - Pass
 - AccessKey
 
-* Secciones
+> Secciones
  - Id
  - Nombre
  
-* Noticias: 
+> Noticias: 
   -IdSeccion
   - Id
   -Fecha 
