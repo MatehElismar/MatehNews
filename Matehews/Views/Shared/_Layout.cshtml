@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model Matehews.Models.User
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -19,6 +21,7 @@
 
 </head>
 <body>
+   
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -34,25 +37,37 @@
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">Sections</a></li>  
-                    <li ><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
-                    <li><a asp-area="" asp-controller="Account" asp-action="Login">Login</a></li> 
+                    
+                    
+                    @{
+                        if(@Model == null)
+                        {
+                            <li ><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
+                            <li><a asp-area="" asp-controller="Account" asp-action="Login">Login</a></li> 
+                        }
+                        else
+                        {
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-user">
+                                    <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                                    </li>
+                                    <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                                    </li>
+                                    <li class="divider"></li> 
+                                    <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                                    </li>
+                                </ul>
+                                <!-- /.dropdown-user -->
+                            </li>
+                            <!-- /.dropdown -->
+                        }
+                    }
+                    
                      <li><a asp-area="" asp-controller="Admin" asp-action="CPanel">Control Panel</a></li> 
-                    <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-user -->
-                </li>
-                <!-- /.dropdown -->
+                    
                 </ul>
             </div>
         </div>

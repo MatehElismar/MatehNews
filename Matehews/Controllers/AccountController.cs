@@ -22,10 +22,18 @@ namespace Matehews.Controllers
         } 
 
          [HttpPost]
-        public string AddUser(User user)
+        public string Register(User user)
         {
-            Debug.WriteLine("Nombre" + user.Email);
+            Debug.WriteLine("Nombre: " + user.Email);
             AccountService.Register(user);
+           return AccountService.Msg;
+        }
+
+        [HttpPost]
+        public string Login(User user)
+        {
+            Debug.WriteLine("Nombre: " + user.Email);
+            AccountService.Login(user.Username, user.Pass);
            return AccountService.Msg;
         }
     }

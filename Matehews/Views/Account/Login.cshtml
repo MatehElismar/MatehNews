@@ -7,16 +7,16 @@
 
 
 <div class="container">
-    <form action="AddUser"> 
+    <form action="Login" method="post"> 
         <div class="form-group">
             <label for="Email">Correo Electronico o Nombre de Usuario</label>
-            <input type="text" id="Email" class="form-control" aria-describedby="EmailHelp" placeholder="Ej: mateh@elismar.com / mateh_elismar">
-            <!-- <small id="EmailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+            <input type="text" name="Email" id="Email" class="form-control" aria-describedby="EmailHelp" placeholder="Ej: mateh@elismar.com / mateh_elismar">
+            <!-- <small name="EmailHelp" id="EmailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
         </div>
         <div class="form-group">
             <label for="Pass">Contraseña</label>
-            <input type="text" id="Pass" class="form-control" aria-describedby="PassHelp" placeholder="Ej: laamo123">
-            <!-- <small id="PassHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+            <input type="text" name="Pass" id="Pass" class="form-control" aria-describedby="PassHelp" placeholder="Ej: laamo123">
+            <!-- <small name="PassHelp" id="PassHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
         </div> 
         <button class="btn btn-success" type="submit">Iniciar Sesion</button>
     </form>

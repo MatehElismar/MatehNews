@@ -10,9 +10,11 @@ namespace Matehews.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
+        public IActionResult Index(User user = null)
+        { 
+            user = new User();
+            user.First = "Mateh";
+            return View(user);
         }
 
         public IActionResult About()
