@@ -12,6 +12,7 @@ using Matehews.Models;
 { 
     public class AccountService
     {
+        public static string Msg;
         public AccountService()
         {
         }
@@ -26,9 +27,10 @@ using Matehews.Models;
             p.Add(new DbParameter("LastName", u.Last)); 
             p.Add(new DbParameter("AccessKey", u.AccessKey)); 
             p.Add(new DbParameter("Email", u.Email)); 
-            p.Add(new DbParameter("Msg", null, System.Data.ParameterDirection.Output)); 
-
-            return c.InsertOrUpdate("AddUser", p);
+            p.Add(new DbParameter("Msg", "", System.Data.ParameterDirection.Output)); 
+            var res = c.InsertOrUpdate("AddUser", p);
+            Msg = c.Msg;
+            return res;
         }
 
         public static string Login(string user, string pass)

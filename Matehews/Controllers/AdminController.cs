@@ -34,20 +34,6 @@ namespace Matehews.Controllers
         public IActionResult RemoveNews()
         {
             return View();
-        }
-
-        [HttpPost]
-        public IActionResult AddUser(User user)
-        {
-            Debug.WriteLine("Nombre" + user.Email);
-            if (AccountService.Register(user))
-            {
-                return StatusCode(200);
-            }
-            else
-            {
-                return StatusCode(500);
-            }
-        }
+        } 
     }
 }

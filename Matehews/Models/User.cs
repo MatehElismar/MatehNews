@@ -13,6 +13,11 @@ namespace Matehews.Models
         public string Username { get; set; }
         public string Pass { get; set; }
         public string Email { get; set; }
-        public bool AccessKey { get; set; }
+        public int AccessKey { get; set; }
+
+        public User()
+        {
+            this.AccessKey = 102;
+        }
     }
 }

@@ -19,20 +19,14 @@ namespace Matehews.Controllers
         public IActionResult Login()
         {
             return View();
-        }
+        } 
 
-        [HttpPost]
-        public IActionResult AddUser(User user)
+         [HttpPost]
+        public string AddUser(User user)
         {
             Debug.WriteLine("Nombre" + user.Email);
-            if (AccountService.Register(user))
-            {
-                return StatusCode(200);
-            }
-            else
-            {
-                return StatusCode(500);
-            }
+            AccountService.Register(user);
+           return AccountService.Msg;
         }
     }
 }

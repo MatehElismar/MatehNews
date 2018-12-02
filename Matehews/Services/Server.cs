@@ -10,6 +10,7 @@ namespace Services
     public class Server
     {
         SqlConnection Conn;
+        public string Msg{get; set;}
         SqlCommand Cmd;
         SqlDataAdapter Adapter;
         SqlDataReader Reader;
@@ -38,29 +39,15 @@ namespace Services
                 Cmd = new SqlCommand(spName, Conn);
                 Cmd.CommandType = CommandType.StoredProcedure;
                 Cmd.Parameters.AddRange(parameters);
-                Cmd.ExecuteNonQuery();
-                bool x = true;
-                /*
-                if (Cmd.Parameters.Contains("@Msg"))
-                {
-                     var res = Cmd.Parameters["@Msg"].Value.ToString();
-                     x = (res[0] == '|') ? true : false;
-
-                    if (res != "x")
-                    {
-                        var Icon = (res[0] == '|') ? MsgIcon.Ready : MsgIcon.Error;
-                        Box.Show(res, "Ready", MsgButton.OK, Icon);
-                    }
-                }
-                else Box.Show("OkBik", "Ready");
-                */
+                Cmd.ExecuteNonQuery(); 
                 Conn.Close();
-                return x;
+
+                this.Msg = "Todo bien, todo correcto y yo que me alegro";
+                return true;
             }
             catch (Exception ex)
-            {
-                Debug.WriteLine("Mi error: " + ex.ToString());
-
+            { 
+                this.Msg = "Mi error: " + ex.ToString();
                 return false;
             }
 
