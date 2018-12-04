@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿ 
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -8,6 +10,7 @@
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
+         <link href="~/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -15,10 +18,10 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
-        @RenderSection("heads", required: false)
-
+    @RenderSection("heads", required: false) 
 </head>
 <body>
+   
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -33,26 +36,29 @@
             <div class="navbar-collapse collapse menu">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">Sections</a></li>  
-                    <li ><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
-                    <li><a asp-area="" asp-controller="Account" asp-action="Login">Login</a></li> 
-                     <li><a asp-area="" asp-controller="Admin" asp-action="CPanel">Control Panel</a></li> 
-                    <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-user -->
-                </li>
-                <!-- /.dropdown -->
+                    <li><a asp-area="" asp-controller="Home" asp-action="About">Sections</a></li>    
+       
+                        //Solo si es Administrador
+                        <!-- if(Model.AccessKey == 100){ -->
+                              <li><a asp-area="" asp-controller="Admin" asp-action="CPanel">Control Panel</a></li>  
+                            <li ><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
+                            <li><a asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>  
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-user">
+                                    <li><a href="~/Account/Profile"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                                    </li>
+                                    <li><a href="~/Admin/Settings"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                                    </li>
+                                    <li class="divider"></li> 
+                                    <li><a href="~/Account/Logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                                    </li>
+                                </ul>
+                                <!-- /.dropdown-user -->
+                            </li>
+                            <!-- /.dropdown -->  
                 </ul>
             </div>
         </div>
@@ -72,6 +78,8 @@
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/app/consts.js" asp-append-version="true"></script>  
+        <script src="~/js/app/account.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
@@ -89,6 +97,6 @@
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
 
-    @RenderSection("Scripts", required: false)
+    @RenderSection("Scripts", required: false) 
 </body>
 </html>
