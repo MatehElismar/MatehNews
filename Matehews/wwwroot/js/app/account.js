@@ -14,45 +14,43 @@ function removeUser(){
   return localStorage.removeItem("user");
 }
 
-postRequest(url, data?, callback?, error?){
- //Option of request
- let opts = {
-    method: "post",
-    body: (data == null || data = undefined) ? {} : data,
-    header: { 'content-type' : 'application/json' }
-  };
-  
-  //Do the request
-  fetch(url, opts)
-    .then(res)=>{  
-      setUser(res.json())
-      console.log(res);  
-      console.log("Response as JSON", res.json());
-      callback();
-      return res;
-    }
-    .catch(error)=>{ 
-      console.log(error);
-      error();
-      return error;
-    }
-}
+function postRequest(url, data?, callback?, error?){
+   //Option of request
+   let opts = {
+      method: "post",
+      body: (data == null || data = undefined) ? {} : data,
+      header: { 'content-type' : 'application/json' }
+    };
 
-register(){
+    //Do the request
+    fetch(url, opts)
+      .then(res)=>{  
+        setUser(res.json())
+        console.log(res);  
+        console.log("Response as JSON", res.json());
+        callback();
+        return res;
+      }
+      .catch(error)=>{ 
+        console.log(error);
+        error();
+        return error;
+      };
+};
+
+function register(){
   //get data
-  let form = querySelector(#register-form);
-  
-  postRequest(`${url}/Login`, getFormasJson(form))
-  
+  let form = querySelector("#register-form"); 
+  postRequest(`${url}/Login`, FormData(form));
 }
 
-login(){
+function login(){
   //get data
-  let form = querySelector(#login-form);
-  postRequest(`${url}/Login/`, getFormAsJson(form));
+  let form = querySelector("#login-form");
+  postRequest(`${URL}/Login`, FormData(form))
 }
 
-logout(){
+function logout(){
   let user = getUser();
   postRequest(`${url}/Logout`, user.ID, (res)=>{
      if(res == true){
@@ -64,7 +62,7 @@ logout(){
   })
 }
 
-isLogged(){
+function isLogged(){
   let user = getUser();
   postRequest(`${url}/IsLogged`, user.ID, (response)=>{
     if(response){
