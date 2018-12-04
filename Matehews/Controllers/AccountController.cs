@@ -13,28 +13,52 @@ namespace Matehews.Controllers
     {
         public IActionResult Register()
         {
-            return View();
+             var user = new User();  
+             
+             return View(user);
         }
 
         public IActionResult Login()
         {
-            return View();
+            var user = new User();
+            return View(user);
         } 
 
          [HttpPost]
-        public string Register(User user)
+        public IActionResult Register(User user)
         {
-            Debug.WriteLine("Nombre: " + user.Email);
-            AccountService.Register(user);
-           return AccountService.Msg;
+            
+        //     AccountService.Register(user);
+        //    return AccountService.Msg; 
+
+            user = new User();
+            user.Logged = true;
+            return RedirectToAction("Index", "Home", user);
         }
 
         [HttpPost]
-        public string Login(User user)
+        public IActionResult Login(User user)
         {
-            Debug.WriteLine("Nombre: " + user.Email);
-            AccountService.Login(user.Username, user.Pass);
-           return AccountService.Msg;
+        //     Debug.WriteLine("Nombre: " + user.Email);
+        //     AccountService.Login(user.Username, user.Pass);
+        //    return AccountService.Msg;
+                user = new User(); 
+
+            if(user.AccessKey == 100){
+                user.Logged = true;
+                return RedirectToAction("CPanel", "Admin", user);
+            }
+            else{
+                user.Logged = true;
+                return RedirectToAction("Index", "Home", user); 
+            }
+
+        }
+
+         [HttpGet]
+        public IActionResult Logout(User user)
+        {
+            return RedirectToAction("Index", "Home"); 
         }
     }
 }
