@@ -2,6 +2,7 @@
 //La url debe estar en otro archivo
 var url = `${URL}/Account`
 
+
 function getUser(){
   return JSON.pase(localStorage.getItem("user"));
 }
@@ -14,40 +15,46 @@ function removeUser(){
   return localStorage.removeItem("user");
 }
 
-function postRequest(url, data?, callback?, error?){
-   //Option of request
+function postRequest(url, data, callback, error){
+   //Option of request  
    let opts = {
-      method: "post",
-      body: (data == null || data = undefined) ? {} : data,
+      method: "POST",
+      body: (data == null || data == undefined) ? {} : data,
       header: { 'content-type' : 'application/json' }
     };
 
     //Do the request
-    fetch(url, opts)
-      .then(res)=>{  
-        setUser(res.json())
-        console.log(res);  
-        console.log("Response as JSON", res.json());
-        callback();
+    return fetch(url, opts) 
+      .then((res)=>{  
+        setUser(res)
+        console.log(res.text());  
+        // console.log("Response as JSON", res.body.getReader())
+        // if(callback != null || undefined){
+        //   callback();
+        // }
+        
+        // return res;
         return res;
-      }
-      .catch(error)=>{ 
-        console.log(error);
-        error();
+      })
+      .then((data)=>{console.log("data: ", data)})
+      .catch((err)=>{ 
+        console.log("Error 2323: ", err); 
+        if(error != null || error != undefined)
+          { error(); }
         return error;
-      };
-};
+      })
+}
 
 function register(){
   //get data
-  let form = querySelector("#register-form"); 
-  postRequest(`${url}/Login`, FormData(form));
+  let form = document.querySelector("#register-form"); 
+  postRequest(`${url}/Register`, new FormData(form));
 }
 
-function login(){
+function login(e){ 
   //get data
-  let form = querySelector("#login-form");
-  postRequest(`${URL}/Login`, FormData(form))
+  let form = document.querySelector("#login-form");
+  postRequest(`${url}/Login`, new FormData("Hola malola")) 
 }
 
 function logout(){

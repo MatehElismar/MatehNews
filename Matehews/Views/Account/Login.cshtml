@@ -7,7 +7,7 @@
 
 
 <div class="container">
-    <form action="Login" method="post"> 
+    <form #login-form> 
         <div class="form-group">
             <label for="Email">Correo Electronico o Nombre de Usuario</label>
             <input type="text" name="Email" id="Email" class="form-control" aria-describedby="EmailHelp" placeholder="Ej: mateh@elismar.com / mateh_elismar">
@@ -18,7 +18,7 @@
             <input type="text" name="Pass" id="Pass" class="form-control" aria-describedby="PassHelp" placeholder="Ej: laamo123">
             <!-- <small name="PassHelp" id="PassHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
         </div> 
-        <button class="btn btn-success" type="submit">Iniciar Sesion</button>
+        <a class="btn btn-success" onclick="login()">Iniciar Sesion</a>
     </form>
 </div>
 

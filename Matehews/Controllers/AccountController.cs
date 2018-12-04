@@ -13,15 +13,15 @@ namespace Matehews.Controllers
     {
         public IActionResult Register()
         {
-             var user = new User();  
+              
              
-             return View(user);
+             return View( );
         }
 
         public IActionResult Login()
         {
-            var user = new User();
-            return View(user);
+           
+            return View( );
         } 
 
          [HttpPost]
@@ -31,27 +31,26 @@ namespace Matehews.Controllers
         //     AccountService.Register(user);
         //    return AccountService.Msg; 
 
-            user = new User();
-            user.Logged = true;
-            return RedirectToAction("Index", "Home", user);
+            return Json(user);
         }
 
         [HttpPost]
-        public IActionResult Login(User user)
+        public IActionResult Login(string user)
         {
         //     Debug.WriteLine("Nombre: " + user.Email);
         //     AccountService.Login(user.Username, user.Pass);
-        //    return AccountService.Msg;
-                user = new User(); 
+        //    return AccountService.Msg; 
 
-            if(user.AccessKey == 100){
-                user.Logged = true;
-                return RedirectToAction("CPanel", "Admin", user);
-            }
-            else{
-                user.Logged = true;
-                return RedirectToAction("Index", "Home", user); 
-            }
+            // if(user.AccessKey == 100){
+            //     user.Logged = true;
+            //     return RedirectToAction("CPanel", "Admin", user);
+            // }
+            // else{
+            //     user.Logged = true;
+            //     return RedirectToAction("Index", "Home", user); 
+            // }
+
+            return Json(user);
 
         }
 

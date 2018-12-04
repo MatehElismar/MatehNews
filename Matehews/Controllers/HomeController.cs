@@ -11,30 +11,29 @@ namespace Matehews.Controllers
     public class HomeController : Controller
     {
         
-        public IActionResult Index(User user = null)
+        public IActionResult Index( )
         {   
 
-            return View(user);
+            return View();
         }
  
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
-            var user = new User();  
-            return View(user);
+            ViewData["Message"] = "Your application description page."; 
+            return View( );
         }
 
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
-            var user = new User();  
-            return View(user);
+              
+            return View();
         }
 
         public IActionResult Privacy()
         {
-            var user = new User();  
-            return View(user);
+              
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

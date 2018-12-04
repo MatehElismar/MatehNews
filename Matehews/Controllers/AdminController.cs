@@ -11,34 +11,34 @@ namespace Matehews.Controllers
 {
     public class AdminController : Controller
     {
-        public IActionResult CPanel(User user = null)
+        public IActionResult CPanel( )
         { 
             
-            return View(user);
+            return View( );
         }
 
         public IActionResult ManageUsers()
         {
-            var user = new User();  
-            return View(user);
+             
+            return View();
         }
 
         public IActionResult AddNews()
         {
-            var user = new User();  
-            return View(user);
+             
+            return View();
         }
 
         public IActionResult AddSections()
         {
-            var user = new User();  
-            return View(user);
+             
+            return View();
         }
 
         public IActionResult RemoveNews()
         {
-            var user = new User();  
-            return View(user);
+             
+            return View();
         } 
     }
 }
