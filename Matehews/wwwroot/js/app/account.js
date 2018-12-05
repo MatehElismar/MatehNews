@@ -50,7 +50,7 @@ function logout(){
     .then(res=>res.text())
     .then((res)=>{
       console.log(res)
-     if(res == 'isLoggout'){
+     if(res == 'isLogout'){
        removeUser()
         window.location = "https://localhost:5001/"
      }
@@ -58,7 +58,7 @@ function logout(){
         alert("Hubo problemas con el logout, revise la consola");
      }
   })
-  .catch(err=>{console.log('eror:', err)})
+  .catch(err=>{console.log('eror: ', err)})
 }
 
 function isLogged(next, error?){
@@ -70,7 +70,7 @@ function isLogged(next, error?){
           return next();//si esta loggeado ejecutamoss un callback 
         }
         else{
-         alert("No esta usted loggeado; Proceso Fallado Exitosamente");
+         alert("No esta usted loggeado; El Proceso fallo Exitosamente");
           if(error!= null)
             error();
         } 
