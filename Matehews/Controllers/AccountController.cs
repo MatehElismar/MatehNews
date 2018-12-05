@@ -11,7 +11,7 @@ namespace Matehews.Controllers
 {
     public class AccountController : Controller
     {
-        public User user{ get; set;} 
+        public List<User> users{ get; set;} 
     
         public IActionResult Register()
         {
@@ -30,28 +30,46 @@ namespace Matehews.Controllers
         [HttpPost]
         public IActionResult Register(User form)
         { 
-            this.user = form;
-            this.user.Logged = true;
-            return Json(this.user);
+            form.Logged = true;
+            this.users.Add(form);
+            return Json(form);
         }
 
         [HttpPost]
         public IActionResult Login(User form)
-        {
-            this.user = form;
-            this.user.Logged = true;
-            return Json(this.user);
+        { 
+            var user = this.users.Find(x => x.ID = form.ID);
+            if(form.Email == user.Email && form.Pass == user.Pass)
+            {
+                user = this.users.Find(x => x.ID = form.ID).Logged = true;
+            }
+            else
+            {
+                user = new User();
+                user.Logged = false;
+            } 
+            return Json(user);
         }
 
          
          [HttpPost]
-        public bool Logout(User form)
+        public string Logout(User form)
         {
             if(this.user.Email == form.Email){
                 this.user.Logged = false;
-                return (true); 
+                return "isLogout"; 
             }
-            return (false); 
+            return "false"; 
+        }
+        
+        [HttpPost]
+        public string IsLogged(User form)
+        {
+            if(this.users.Find(x => x.ID == form.ID)
+            {
+               return "logged"; 
+            }
+            return "false"; 
         }
     }
 }
