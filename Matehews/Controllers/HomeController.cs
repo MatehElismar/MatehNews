@@ -35,6 +35,11 @@ namespace Matehews.Controllers
               
             return View();
         }
+        
+        public IActionResult NotFound()
+        {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
