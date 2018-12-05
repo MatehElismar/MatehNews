@@ -74,6 +74,18 @@ function isLogged(next, error?){
           if(error!= null)
             error();
         } 
-   })
-    
+   }) 
 }
+
+function redirectIfNoLogged(){
+  for(let i = 0; i < ONLY_USER_PATHS.length(); i++){
+    if(window.location.pathname == ONLY_USER_PATHS[i]){
+       isLogged(
+         ()=>{ console.log("this user is logged");},
+         ()=>{
+          window.location = 'https://localhost:5001/Home/NotFound'
+         })
+        return null;
+      }
+   }
+} 
