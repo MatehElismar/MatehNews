@@ -50,7 +50,7 @@ function logout(){
     .then(res=>res.text())
     .then((res)=>{
       console.log(res)
-     if(res == "true"){
+     if(res == 'isLoggout'){
        removeUser()
         window.location = "https://localhost:5001/"
      }
@@ -61,14 +61,19 @@ function logout(){
   .catch(err=>{console.log('eror:', err)})
 }
 
-function isLogged(){
+function isLogged(next, error?){
   let user = getUser();
-  postRequest(`${url}/IsLogged`, user.ID, (response)=>{
-    if(response){
-      removeUser();
-    }
-    else{
-     alert("Hubo problemas con el logout, revise la consola");
-    }
-  })
+   fetch('https://localhost:5001/Account/IsLogged', { method: 'POST', body: JSON.stringify(user) })
+    .then(res=> res.text())
+    .then((res)=>{
+       if(res == 'logged'){
+          return next();//si esta loggeado ejecutamoss un callback 
+        }
+        else{
+         alert("No esta usted loggeado; Proceso Fallado Exitosamente");
+          if(error!= null)
+            error();
+        } 
+   })
+    
 }
