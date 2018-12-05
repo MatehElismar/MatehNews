@@ -4,7 +4,7 @@ var url = `${URL}/Account`
 
 
 function getUser(){
-  return JSON.pase(localStorage.getItem("user"));
+  return JSON.parse(localStorage.getItem("user"));
 }
 
 function setUser(user){
@@ -13,60 +13,52 @@ function setUser(user){
 
 function removeUser(){
   return localStorage.removeItem("user");
-}
-
-function postRequest(url, data, callback, error){
-   //Option of request  
-   let opts = {
-      method: "POST",
-      body: (data == null || data == undefined) ? {} : data,
-      header: { 'content-type' : 'application/json' }
-    };
-
-    //Do the request
-    return fetch(url, opts) 
-      .then((res)=>{  
-        setUser(res)
-        console.log(res.text());  
-        // console.log("Response as JSON", res.body.getReader())
-        // if(callback != null || undefined){
-        //   callback();
-        // }
-        
-        // return res;
-        return res;
-      })
-      .then((data)=>{console.log("data: ", data)})
-      .catch((err)=>{ 
-        console.log("Error 2323: ", err); 
-        if(error != null || error != undefined)
-          { error(); }
-        return error;
-      })
-}
+} 
 
 function register(){
   //get data
-  let form = document.querySelector("#register-form"); 
-  postRequest(`${url}/Register`, new FormData(form));
+  let form = new FormData(document.querySelector("#register-form")); 
+ 
+  // Do the request
+  fetch('https://localhost:5001/Account/Register', {method: 'POST', body: form})
+    .then(res=>res.json())
+    .then(res=>{
+      if(res.logged == true){
+        setUser(res)
+          window.location = 'https://localhost:5001/'
+      }
+      console.log(res)
+    })
 }
 
 function login(e){ 
-  //get data
-  let form = document.querySelector("#login-form");
-  postRequest(`${url}/Login`, new FormData("Hola malola")) 
+  var form = new FormData(document.querySelector('#login-form'));
+  console.log('form: ', form);
+  // Do the request
+  fetch('https://localhost:5001/Account/Login', {method: 'POST', body: form }).then(res => res.json()).then(res=>{
+    if(res.logged == true){
+      setUser(res)
+        window.location = 'https://localhost:5001/'
+    }
+    console.log(res)
+  })
 }
 
 function logout(){
   let user = getUser();
-  postRequest(`${url}/Logout`, user.ID, (res)=>{
-     if(res == true){
+  fetch('https://localhost:5001/Account/Logout', {method: 'POST', body: JSON.stringify(user)})
+    .then(res=>res.text())
+    .then((res)=>{
+      console.log(res)
+     if(res == "true"){
+       removeUser()
         window.location = "https://localhost:5001/"
      }
      else{
         alert("Hubo problemas con el logout, revise la consola");
      }
   })
+  .catch(err=>{console.log('eror:', err)})
 }
 
 function isLogged(){

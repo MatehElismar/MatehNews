@@ -11,6 +11,8 @@ namespace Matehews.Controllers
 {
     public class AccountController : Controller
     {
+        public User user{ get; set;} 
+    
         public IActionResult Register()
         {
               
@@ -24,40 +26,32 @@ namespace Matehews.Controllers
             return View( );
         } 
 
-         [HttpPost]
-        public IActionResult Register(User user)
-        {
-            
-        //     AccountService.Register(user);
-        //    return AccountService.Msg; 
 
-            return Json(user);
+        [HttpPost]
+        public IActionResult Register(User form)
+        { 
+            this.user = form;
+            this.user.Logged = true;
+            return Json(this.user);
         }
 
         [HttpPost]
-        public IActionResult Login(string user)
+        public IActionResult Login(User form)
         {
-        //     Debug.WriteLine("Nombre: " + user.Email);
-        //     AccountService.Login(user.Username, user.Pass);
-        //    return AccountService.Msg; 
-
-            // if(user.AccessKey == 100){
-            //     user.Logged = true;
-            //     return RedirectToAction("CPanel", "Admin", user);
-            // }
-            // else{
-            //     user.Logged = true;
-            //     return RedirectToAction("Index", "Home", user); 
-            // }
-
-            return Json(user);
-
+            this.user = form;
+            this.user.Logged = true;
+            return Json(this.user);
         }
 
-         [HttpGet]
-        public IActionResult Logout(User user)
+         
+         [HttpPost]
+        public bool Logout(User form)
         {
-            return RedirectToAction("Index", "Home"); 
+            if(this.user.Email == form.Email){
+                this.user.Logged = false;
+                return (true); 
+            }
+            return (false); 
         }
     }
 }
