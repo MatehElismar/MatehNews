@@ -7,19 +7,19 @@ namespace Matehews.Models
 {
     public class User
     {
-        public int ID { get; set; }
-        public string First { get; set; }
-        public string Last { get; set; }
-        public string Username { get; set; }
-        public string Pass { get; set; }
-        public string Email { get; set; }
-        public int AccessKey { get; set; }
-        public bool Logged {get; set; }
+        public int id { get; set; }
+        public string first { get; set; }
+        public string last { get; set; }
+        public string username { get; set; }
+        public string pass { get; set; }
+        public string email { get; set; }
+        public int accessKey { get; set; }
+        public bool logged {get; set; }
 
         public User()
         {
-            this.Logged = false;
-            this.AccessKey = 102; 
+            this.logged = false;
+            this.accessKey = 102; 
         }
     }
 }

@@ -21,12 +21,12 @@ using Matehews.Models;
         {
             var c = new Server();
             var p = new List<DbParameter>();
-            p.Add(new DbParameter("Username", u.Username)); 
-            p.Add(new DbParameter("Pass", u.Pass)); 
-            p.Add(new DbParameter("FirstName", u.First)); 
-            p.Add(new DbParameter("LastName", u.Last)); 
-            p.Add(new DbParameter("AccessKey", u.AccessKey)); 
-            p.Add(new DbParameter("Email", u.Email)); 
+            p.Add(new DbParameter("Username", u.username)); 
+            p.Add(new DbParameter("Pass", u.pass)); 
+            p.Add(new DbParameter("FirstName", u.first)); 
+            p.Add(new DbParameter("LastName", u.last)); 
+            p.Add(new DbParameter("AccessKey", u.accessKey)); 
+            p.Add(new DbParameter("Email", u.email)); 
             p.Add(new DbParameter("Msg", "", System.Data.ParameterDirection.Output)); 
             var res = c.InsertOrUpdate("AddUser", p);
             Msg = c.Msg;

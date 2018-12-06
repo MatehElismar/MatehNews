@@ -25,7 +25,7 @@ function register(){
     .then(res=>{
       if(res.logged == true){
         setUser(res)
-          window.location = 'https://localhost:5001/'
+          // window.location = 'https://localhost:5001/'
       }
       console.log(res)
     })
@@ -35,7 +35,9 @@ function login(e){
   var form = new FormData(document.querySelector('#login-form'));
   console.log('form: ', form);
   // Do the request
-  fetch('https://localhost:5001/Account/Login', {method: 'POST', body: form }).then(res => res.json()).then(res=>{
+  fetch('https://localhost:5001/Account/Login', {method: 'POST', body: form })
+  .then(res => res.json())
+  .then(res=>{
     if(res.logged == true){
       setUser(res)
         window.location = 'https://localhost:5001/'
@@ -45,9 +47,13 @@ function login(e){
 }
 
 function logout(){
-  let user = getUser();
-  fetch('https://localhost:5001/Account/Logout', {method: 'POST', body: JSON.stringify(user)})
-    .then(res=>res.text())
+  let user = getUser();  
+  fetch('https://localhost:5001/Account/Logout', {method: 'POST', body: user, headers:{
+    'Accept': 'application/json',
+    "Content-Type": "application/json" ,
+    "credentials": 'include'
+  }})
+    .then(res=>res.json())
     .then((res)=>{
       console.log(res)
      if(res == 'isLogout'){
@@ -61,7 +67,7 @@ function logout(){
   .catch(err=>{console.log('eror: ', err)})
 }
 
-function isLogged(next, error?){
+function isLogged(next, error){
   let user = getUser();
    fetch('https://localhost:5001/Account/IsLogged', { method: 'POST', body: JSON.stringify(user) })
     .then(res=> res.text())
