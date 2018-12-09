@@ -97,10 +97,11 @@
        
 
         <script>
-                $('only-admin').hide();
+                $('.only-admin').hide();
             isLogged(
                 (user)=>{
-                    if(isAdmin()){ $('only-admin').show();  }
+                    console.log("IsAdmin? : ", isAdmin())
+                    if(isAdmin()){ $('.only-admin').show();  }
                    $('.noLogged').hide()
                    $('#username').val(user.first + ' ' + user.last)
                 },

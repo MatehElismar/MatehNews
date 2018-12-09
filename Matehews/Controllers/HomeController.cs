@@ -13,12 +13,12 @@ namespace Matehews.Controllers
         
         public IActionResult Index()
         {    
-            return View();
+            return View(Program.Posts);
         }
 
         public IActionResult Section(string section)
         {    
-            var posts= new News();
+            var posts = new News();
             return View( posts );
         }
 

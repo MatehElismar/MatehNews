@@ -37,22 +37,28 @@ namespace Matehews.Controllers
 
         [HttpPost]
         public IActionResult Login(User form)
-        {  
-
-            var user = Program.users.Find(x => x.id == form.id);
+        {   
+            var user = Program.users.Find(x => x.email == form.email);
             if(user != null)
             {
-                if(form.email == user.email && form.pass == user.pass)
+                  if(Program.Logs.Find(x => x.id == user.id) != null)
                 {
-                    user = Program.users.Find(x => x.id == form.id);
+                    //Ya esta logeado
+                     user.logged = true;
+                    return Json(user);
+                }
+                else if(form.email == user.email && form.pass == user.pass)
+                {
+                   //lo agregamos a la lista de logs
+                    Program.Logs.Add(user);
                     user.logged = true;
                 }
-            }
-          
+            } 
             else
             {
                 user = new User();
-                user.logged = false;
+                user.first = "Esta saliendo aqui";
+                user.logged = false; 
             } 
             return Json(user);
         }
@@ -61,12 +67,12 @@ namespace Matehews.Controllers
          [HttpPost]
         public bool Logout([FromBody]User form)
         {
-            if(form == null) {return false;}
-            var user = Program.users.Find(x => x.id == form.id);
+            if(form == null) {return false;} 
+            var user = Program.Logs.Find(x => x.id == form.id);
             if(user != null)
             {
                 if(user.email == form.email){
-                    Program.users.RemoveAt(Program.users.FindIndex(x => x.id == form.id));
+                    Program.Logs.Remove(Program.users.Find(x => x.id == form.id));
                     return true;
                 }
             } 
@@ -77,7 +83,7 @@ namespace Matehews.Controllers
         public bool IsLogged([FromBody]User form)
         {
             if(form == null){ return false;}
-            if(Program.users.Find(x => x.id == form.id) != null)
+            if(Program.Logs.Find(x => x.id == form.id) != null)
             {
                return true;   
             }

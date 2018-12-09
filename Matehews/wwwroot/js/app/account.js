@@ -29,7 +29,7 @@ function register(){
     })
 }
 
-function login(e){ 
+function login(){ 
   var form = new FormData(document.querySelector('#login-form'));
   console.log('form: ', form);
   // Do the request
