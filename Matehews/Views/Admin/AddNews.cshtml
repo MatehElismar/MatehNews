@@ -7,13 +7,39 @@
     //ESta pagina solo espara usuarios administradores asi que.
       isOnlyAdminPage(); 
     //redirectIfNoLogged();
-</script> 
-
-<div class="form-group">
-            <label for="Titulo">Titulo</label>
-            <input type="text" name="Titulo" id="Titulo" class="form-control" aria-describedby="Misael me regalo 2 empanada" placeholder="Ej: mateh@elismar.com / mateh_elismar">
-            <!-- <small name="TituloHelp" id="TituloHelp" class="form-text text-muted">We'll never share your Titulo with anyone else.</small> -->
+</script>  
+        <div class="form-group">
+            <label for="title">Titulo</label>
+            <input type="text" name="title" id="title" class="form-control" aria-describedby="Misael me regalo 2 empanada" placeholder="Tema a tratar">
+            <!-- <small name="titleHelp" id="titleHelp" class="form-text text-muted">We'll never share your title with anyone else.</small> -->
         </div>
+        <div class="form-group">
+            <label for="review">Descripcion Corta</label>
+            <input type="text" name="review" id="review" class="form-control" aria-describedby="Misael me regalo 2 empanada" placeholder="Punto Clave y llamativo de la publicacion">
+            <!-- <small name="titleHelp" id="titleHelp" class="form-text text-muted">We'll never share your title with anyone else.</small> -->
+        </div>
+
+        <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   Categorias
+  </button>
+  <b id="selectedCat">@ViewBag.Categories[0].name </b>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+       @for(int i = 0; i < ViewBag.Categories.Count; i++)
+        {
+            if(i == 0)
+            {
+                //ADD THE SELECTED CATEGORIE CLASS
+                <a id="@Html.DisplayFor(modelItem => i)" onclick="changeCategorie(event)" class="selectedCategorie dropdown-item">@ViewBag.Categories[i].name</a> 
+            }
+            else
+            {
+                <a id="@Html.DisplayFor(modelItem => i)" onclick="changeCategorie(event)" class=" dropdown-item">@ViewBag.Categories[i].name</a>
+            }
+        } 
+  </div>
+</div>
+
     <label>Contenido</label>
 <div height="600px" id="froala-editor"></div> 
 <a class="btn btn-success" onclick="addPost()">Publicar</a>

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Matehews.Models
+namespace Matehews.Models 
 {
-    public class News
+    public class News 
     {
         public string ImgUrl{ get; set; }
         public int id { get; set; }
@@ -29,6 +29,7 @@ namespace Matehews.Models
             this.review = review;
             this.categorieName = categorieName;
             this.author = "Mateh Elismar";
+            this.content = review; 
         }
     }
 }

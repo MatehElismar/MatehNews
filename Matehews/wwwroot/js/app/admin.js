@@ -2,9 +2,13 @@
 
 // Add post
 function addPost(){
+    var user = getUser();
     var post = {
-        title: $('#Titulo').val(),
-        content: $('#froala-editor').froalaEditor('html.get', true)
+        title: $('#title').val(),
+        review: $('#review').val(),
+        content: $('#froala-editor').froalaEditor('html.get', true),
+        author: user.first +' '+ user.last,
+        categorieName: $('.selectedCategorie').html() 
     }
     $.ajax({
         url: `${URL}/Admin/AddPost`, 
@@ -18,13 +22,17 @@ function addPost(){
             console.log(err)
         }
     })
-    console.log(post);
+    console.log('categorie Selected', $('.selectedCategorie').html());
 }
 
 function updatePost(){
+    var user = getUser();
     var post = {
-        title: $('#Titulo').val(),
-        content: $('#froala-editor').froalaEditor('html.get', true)
+        title: $('#title').val(),
+        review: $('#review').val(),
+        content: $('#froala-editor').froalaEditor('html.get', true),
+        author: user.first +' '+ user.last,
+        categorieName: $('.selectedCategorie').html() 
     }
     $.ajax({
         url: `${URL}/Admin/UpdatePost`, 
@@ -35,4 +43,12 @@ function updatePost(){
         error: (err)=>{}
     })
     console.log(post);
+}
+
+function changeCategorie(event){
+    console.log('categorie Selected', $('.selectedCategorie').html());
+    $('.selectedCategorie').removeClass('selectedCategorie')
+    $('#'+ event.target.id).addClass('selectedCategorie');
+    $('#selectedCat').html(event.target.innerHTML)
+    console.log('categorie Selected', $('.selectedCategorie').html());
 }

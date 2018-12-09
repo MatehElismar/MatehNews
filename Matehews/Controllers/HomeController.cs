@@ -22,10 +22,18 @@ namespace Matehews.Controllers
             return View(Program.SelectReviews(name));
         }
 
-         public IActionResult Post(string id)
+        public IActionResult Post(string id)
         {   
-            var post = new News();
-            return View( post );
+            var post = Program.GetPost(id);
+            if(post != null)
+            {
+                Console.WriteLine("I Am A Post");
+                ViewBag.Categories = Program.Categories; 
+                return View(post);
+
+            }
+            return Json("Post not found");
+            
         } 
  
         public IActionResult About()

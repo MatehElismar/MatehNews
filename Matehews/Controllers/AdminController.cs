@@ -23,9 +23,9 @@ namespace Matehews.Controllers
         }
 
 
-          public IActionResult AddNews()
+        public IActionResult AddNews()
         {
-             
+            ViewBag.Categories = Program.Categories; 
             return View();
         }
 

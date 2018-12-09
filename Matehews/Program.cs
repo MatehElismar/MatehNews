@@ -30,7 +30,7 @@ namespace Matehews
             Categories.Add(new Categorie("Robanzas"));
             Categories.Add(new Categorie("Alabanzas"));
  
-            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Finanzas","newspaper-template/img/bg-img/12.jpg"));
+            Posts.Add(new News("Alfredo se hizo pobre", "<h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...</h2>","Finanzas","newspaper-template/img/bg-img/12.jpg"));
             Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Finanzas", "newspaper-template/img/bg-img/13.jpg"));
             Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Finanzas"));
             Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Deportanzas"));
@@ -79,6 +79,20 @@ namespace Matehews
             }
             return l;
 
+        }
+
+
+        public static News GetPost(string id)
+        {
+            var title = id.Replace("-"," ");
+            foreach (var item in Posts)
+            {
+                if(item.title.ToLower() == title.ToLower())
+                {
+                    return item;
+                }
+            }
+            return null;
         }
 
 
