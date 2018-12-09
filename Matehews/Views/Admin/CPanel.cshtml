@@ -14,12 +14,15 @@
 
     <!-- Custom Fonts -->
     <link href="~/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+ 
+      
 
 } 
 
 <script>
     //ESta pagina solo espara usuarios administradores asi que.
-    redirectIfNoLogged();
+      isOnlyAdminPage(); 
+    //redirectIfNoLogged();
 </script>
 
 <div id="wrapper">
@@ -867,7 +870,7 @@
     <!-- Custom Theme JavaScript -->
     <script src="~/js/sb-admin-2.js"></script>
     <script src="~/socket/socket.io.js"></script>
-    <script src="~/menudo-chat/chat.js"></script>
+    <script src="~/menudo-chat/chat.js"></script> 
     
     }
 

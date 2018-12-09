@@ -38,7 +38,7 @@ function login(e){
   .then(res=>{
     if(res.logged == true){
       setUser(res)
-        // window.location = URL;
+        window.location = URL;
     }
     console.log(res)
   })
@@ -58,7 +58,7 @@ function logout(){
       console.log(res);
         if(res){
           removeUser();
-          // window.location = URL;
+          window.location = URL;
         }
         else{
           console.log('el proceso ha sido exitosamente fallido')
@@ -69,26 +69,49 @@ function logout(){
 
 function isLogged(next, error){
   let user = getUser();
-   fetch(`${URL}/${controller}/IsLogged`, { method: 'POST', body: JSON.stringify(user) })
-    .then(res=> res.text())
-    .then((res)=>{
-       if(res == 'logged'){
-          return next();//si esta loggeado ejecutamoss un callback 
-        }
-        else{
-         console.log("No esta usted loggeado; El Proceso fallo Exitosamente");
-          if(error!= null)
-            error();
-        } 
-   }) 
+  //  fetch(`${URL}/${controller}/IsLogged`, { method: 'POST', body: JSON.stringify(user) })
+  //   .then(res=> res.text())
+  //   .then((res)=>{
+  //      if(res == true){
+  //         return next(user);//si esta loggeado ejecutamoss un callback 
+  //       }
+  //       else{
+  //        console.log("No esta usted loggeado; El Proceso fallo Exitosamente");
+  //         if(error!= null)
+  //           error();
+  //       } 
+  //  }) 
+
+   $.ajax({
+    url: `${URL}/${controller}/IsLogged`,
+    type: 'POST', // add this
+    data: JSON.stringify(user),
+    contentType: "application/json; charset=utf-8",//Recuerda siempre poner los headers correspondientes
+    success: function (res) {
+      console.log(res);
+      if(res == true){
+        return next(user);//si esta loggeado ejecutamoss un callback 
+      }
+      else{
+       console.log("No esta usted loggeado; El Proceso fallo Exitosamente");
+        if(error!= null)
+          error();
+      } 
+    },
+    error: ()=>{
+      console.log("No esta usted loggeado; El Proceso fallo Exitosamente");
+        if(error!= null)
+          error();
+    }
+  });
 }
 
 function redirectIfNoLogged(){
   for(let i = 0; i < ONLY_USER_PATHS.length(); i++){
     if(window.location.pathname == ONLY_USER_PATHS[i]){
        isLogged(
-         ()=>{ console.log("this user is logged");},
-         ()=>{
+         (user)=>{ console.log("this user is logged");},
+         (err)=>{
           window.location = 'https://localhost:5001/Home/NotFound'
          })
         return null;
@@ -96,6 +119,22 @@ function redirectIfNoLogged(){
    }
 } 
 
+function isOnlyAdminPage(){
+  isLogged(
+    (user)=>{
+      console.log(isAdmin())
+        if(isAdmin()){  console.log('este usuario tiene acceso')   } 
+      else{
+        window.location = 'https://localhost:5001/Home/NotFound'
+      }
+    },
+    ()=>{ window.location = 'https://localhost:5001/Home/NotFound'}  
+  )
+}
+
 function isAdmin(){
-  return getUser().accesKey == true;
+  let user = getUser()
+  console.log(user);
+  if(user == null){ return false; }
+  return (user.accessKey == 100) 
 }

@@ -15,10 +15,20 @@ namespace Matehews
     {
 
         public static List<User> users{ get; set;} 
+        public static List<News> Posts{ get; set;} 
 
         static Program()
         {
             users = new List<User>();
+            Posts = new List<News>();
+
+            var u = new User();
+            u.first = "Admin";
+            u.last = "Prro";
+            u.email = "a@a.com"; 
+            u.pass = "123";
+            u.accessKey = 100;
+            users.Add(u);
         }
 
 

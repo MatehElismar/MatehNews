@@ -29,7 +29,7 @@ namespace Matehews.Controllers
         public IActionResult Register(User form)
         { 
             form.logged = true;
-            form.id = Program.users.Count +1 ;
+            form.id = Program.users.Count + 1;
             Program.users.Add(form);
             return Json(form);  
         }
@@ -39,11 +39,15 @@ namespace Matehews.Controllers
         {  
 
             var user = Program.users.Find(x => x.id == form.id);
-            if(form.email == user.email && form.pass == user.pass)
+            if(user != null)
             {
-                user = Program.users.Find(x => x.id == form.id);
-                user.logged = true;
+                if(form.email == user.email && form.pass == user.pass)
+                {
+                    user = Program.users.Find(x => x.id == form.id);
+                    user.logged = true;
+                }
             }
+          
             else
             {
                 user = new User();
@@ -56,6 +60,7 @@ namespace Matehews.Controllers
          [HttpPost]
         public bool Logout([FromBody]User form)
         {
+            if(form == null) {return false;}
             var user = Program.users.Find(x => x.id == form.id);
             if(user != null)
             {
@@ -66,15 +71,16 @@ namespace Matehews.Controllers
             } 
             return false;   
         }
-        
+         
         [HttpPost]
-        public string IsLogged(User form)
+        public bool IsLogged(User form)
         {
+            if(form == null){ return false;}
             if(Program.users.Find(x => x.id == form.id) != null)
             {
-               return "logged"; 
+               return true;   
             }
-            return "false"; 
+            return false; 
         }
     }
 }

@@ -1,7 +1,25 @@
 ﻿@{
-    ViewData["Title"] = "CPanel";
-}
-<h2>@ViewData["Title"]</h2>
-<!-- <h3>@ViewData["Message"]</h3> -->
+    ViewData["Title"] = "Agregar Publicacion";
+} 
+<h2>@ViewData["Title"]</h2>   
+    
 
-<p>Use this area to provide additional information.</p>
+<div class="form-group">
+            <label for="Titulo">Titulo</label>
+            <input type="text" name="Titulo" id="Titulo" class="form-control" aria-describedby="Misael me regalo 2 empanada" placeholder="Ej: mateh@elismar.com / mateh_elismar">
+            <!-- <small name="TituloHelp" id="TituloHelp" class="form-text text-muted">We'll never share your Titulo with anyone else.</small> -->
+        </div>
+    <label>Contenido</label>
+<div height="600px" id="froala-editor"></div> 
+<a class="btn btn-success" onclick="addPost()">Publicar</a>
+
+
+@section Scripts{
+     <script> 
+         $(function() {
+                $('#froala-editor').froalaEditor({
+                toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'inlineClass', 'clearFormatting', '|', 'emoticons', 'fontAwesome', 'specialCharacters', '-', 'paragraphFormat', 'lineHeight', 'paragraphStyle', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '|', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '-', 'insertHR', 'selectAll', 'getPDF', 'print', 'help', 'html', 'fullscreen', '|', 'undo', 'redo']
+                }) 
+        }); 
+    </script>
+}

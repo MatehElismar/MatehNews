@@ -12,7 +12,16 @@
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
          <link href="~/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-         <link rel="stylesheet" href="~/newspaper-template/style.css">
+         <link rel="stylesheet" href="~/newspaper-template/style.css">  
+
+<!-- include summernote css/js -->
+<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet"> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">
+
+ 
+<link href='https://cdn.jsdelivr.net/npm/froala-editor@2.9.1/css/froala_editor.min.css' rel='stylesheet' type='text/css' />
+<link href='https://cdn.jsdelivr.net/npm/froala-editor@2.9.1/css/froala_style.min.css' rel='stylesheet' type='text/css' />
+ 
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -23,6 +32,13 @@
     @RenderSection("heads", required: false) 
 </head>
 <body> 
+     <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+       
+     <script src="~/js/app/consts.js" asp-append-version="true"></script>  
+        <script src="~/js/app/account.js" asp-append-version="true"></script>
+    <script src="~/js/app/admin.js" asp-append-version="true"></script>
    
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -60,7 +76,8 @@
                         </ul>
                         <!-- /.dropdown-user -->
                     </li>
-                    <!-- /.dropdown -->   
+                    <!-- /.dropdown -->
+                    <a id="username" class="navbar-brand"></a>   
                 </ul>
                 </DIV>
              
@@ -79,17 +96,15 @@
     </div>
 
     <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-        <script src="~/js/app/consts.js" asp-append-version="true"></script>  
-        <script src="~/js/app/account.js" asp-append-version="true"></script>
+       
+
         <script>
                 $('only-admin').hide();
             isLogged(
-                (next)=>{
+                (user)=>{
                     if(isAdmin()){ $('only-admin').show();  }
                    $('.noLogged').hide()
+                   $('#username').val(user.first + ' ' + user.last)
                 },
                 (err)=>{
                     $('.noLogged').show()
@@ -111,9 +126,14 @@
                 crossorigin="anonymous"
                 integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
         </script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-    </environment>
-
+        <script src="~/js/site.min.js" asp-append-version="true"></script> 
+ </environment>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script> -->
+<script type='text/javascript' src='https://cdn.jsdelivr.net/npm/froala-editor@2.9.1/js/froala_editor.min.js'></script><!-- Include PDF export JS lib. -->
+ <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
+ 
+<script type="text/javascript" src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
     @RenderSection("Scripts", required: false) 
 </body>
 </html>

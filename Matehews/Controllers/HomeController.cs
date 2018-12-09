@@ -11,11 +11,22 @@ namespace Matehews.Controllers
     public class HomeController : Controller
     {
         
-        public IActionResult Index( )
-        {   
-
-            return View("News");
+        public IActionResult Index()
+        {    
+            return View();
         }
+
+        public IActionResult Section(string section)
+        {    
+            var posts= new News();
+            return View( posts );
+        }
+
+         public IActionResult Post(string id)
+        {   
+            var post = new News();
+            return View( post );
+        } 
  
         public IActionResult About()
         {
