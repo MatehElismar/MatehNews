@@ -68,28 +68,16 @@ function logout(){
 }
 
 function isLogged(next, error){
-  let user = getUser();
-  //  fetch(`${URL}/${controller}/IsLogged`, { method: 'POST', body: JSON.stringify(user) })
-  //   .then(res=> res.text())
-  //   .then((res)=>{
-  //      if(res == true){
-  //         return next(user);//si esta loggeado ejecutamoss un callback 
-  //       }
-  //       else{
-  //        console.log("No esta usted loggeado; El Proceso fallo Exitosamente");
-  //         if(error!= null)
-  //           error();
-  //       } 
-  //  }) 
+  let user = getUser(); 
 
    $.ajax({
     url: `${URL}/${controller}/IsLogged`,
     type: 'POST', // add this
-    data: JSON.stringify(user),
+    data: JSON.stringify(user), 
     contentType: "application/json; charset=utf-8",//Recuerda siempre poner los headers correspondientes
     success: function (res) {
-      console.log(res);
-      if(res == true){
+      console.log("Is Logged?", res);
+      if(res == true){  
         return next(user);//si esta loggeado ejecutamoss un callback 
       }
       else{
@@ -123,7 +111,7 @@ function isOnlyAdminPage(){
   isLogged(
     (user)=>{
       console.log(isAdmin())
-        if(isAdmin()){  console.log('este usuario tiene acceso')   } 
+        if(isAdmin()){  console.log('Este usuario tiene acceso')   } 
       else{
         window.location = 'https://localhost:5001/Home/NotFound'
       }

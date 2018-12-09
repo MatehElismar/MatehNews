@@ -31,6 +31,7 @@ namespace Matehews.Controllers
             form.logged = true;
             form.id = Program.users.Count + 1;
             Program.users.Add(form);
+            Program.Logs.Add(form);
             return Json(form);  
         }
 
@@ -73,7 +74,7 @@ namespace Matehews.Controllers
         }
          
         [HttpPost]
-        public bool IsLogged(User form)
+        public bool IsLogged([FromBody]User form)
         {
             if(form == null){ return false;}
             if(Program.users.Find(x => x.id == form.id) != null)

@@ -13,14 +13,15 @@ namespace Matehews
 {
     public class Program
     {
-
         public static List<User> users{ get; set;} 
+        public static List<User> Logs{ get; set;} 
         public static List<News> Posts{ get; set;} 
 
         static Program()
         {
             users = new List<User>();
             Posts = new List<News>();
+            Logs = new List<User>();
 
             var u = new User();
             u.first = "Admin";
