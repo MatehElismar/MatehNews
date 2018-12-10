@@ -16,26 +16,33 @@ namespace Matehews
         public static List<User> users{ get; set;} 
         public static List<User> Logs{ get; set;} 
         public static List<News> Posts{ get; set;} 
+        public static List<Categorie> Categories{ get; set;} 
 
         static Program()
         {
             users = new List<User>();
             Posts = new List<News>();
             Logs = new List<User>();
+            Categories = new List<Categorie>();
+
+            Categories.Add(new Categorie("Finanzas"));
+            Categories.Add(new Categorie("Deportanzas"));
+            Categories.Add(new Categorie("Robanzas"));
+            Categories.Add(new Categorie("Alabanzas"));
  
-            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","newspaper-template/img/bg-img/12.jpg"));
-            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...", "newspaper-template/img/bg-img/13.jpg"));
-            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac..."));
-            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac..."));
-            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac..."));
-            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac..."));
-            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac..."));
-            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac..."));
-            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac..."));
-            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac..."));
-            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac..."));
-            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac..."));
-            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac..."));
+            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Finanzas","newspaper-template/img/bg-img/12.jpg"));
+            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Finanzas", "newspaper-template/img/bg-img/13.jpg"));
+            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Finanzas"));
+            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Deportanzas"));
+            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Deportanzas"));
+            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Deportanzas"));
+            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Alabanzas"));
+            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Alabanzas"));
+            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Alabanzas"));
+            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Alabanzas"));
+            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Alabanzas"));
+            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Alabanzas"));
+            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Robanzas"));
 
             var u = new User();
             u.id = 1;
@@ -53,6 +60,24 @@ namespace Matehews
             e.accessKey = 102;
             users.Add(u);
             users.Add(e);
+
+        }
+
+        public static List<News> SelectReviews(string categorie){
+            var l = new List<News>();
+            var count = 0;
+            foreach (var item in Program.Posts)
+            {
+                if(item.categorieName == categorie && count <10)
+                {
+                    var post = new News();
+                    post.title = item.title;
+                    post.review = item.review; 
+                    l.Add(post);
+                    count++;
+                }
+            }
+            return l;
 
         }
 

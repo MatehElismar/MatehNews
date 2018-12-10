@@ -30,9 +30,9 @@
     @RenderSection("heads", required: false) 
 </head>
 <body> 
-     <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
        
      <script src="~/js/app/consts.js" asp-append-version="true"></script>  
         <script src="~/js/app/account.js" asp-append-version="true"></script>
@@ -52,13 +52,14 @@
             <div class="navbar-collapse collapse menu">
                 <DIV class="classynav">
    <ul id="menu-list" class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">Sections</a></li>     
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Principal</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Sections">Categorias</a></li>     
+                    <li><a asp-area="" asp-controller="Home" asp-action="About">Acerca De Nosotros</a></li>     
                     <!-- Solo si es Administrador -->
                         <!-- if(Model.AccessKey == 100){ --> 
-                    <li class="only-admin"><a asp-area="" asp-controller="Admin" asp-action="CPanel">Control Panel</a></li>    
-                    <li class="noLogged" ><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
-                    <li class="noLogged"><a asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>   
+                    <li class="only-admin"><a asp-area="" asp-controller="Admin" asp-action="CPanel">Panel De Control</a></li>    
+                    <li class="noLogged" ><a asp-area="" asp-controller="Account" asp-action="Register">Resgistrarse</a></li>
+                    <li class="noLogged"><a asp-area="" asp-controller="Account" asp-action="Login">Iniciar Sesion</a></li>   
                     <li class="only-logged dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                             <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>

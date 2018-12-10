@@ -29,6 +29,12 @@ namespace Matehews.Controllers
             return View();
         }
 
+        public IActionResult Sections()
+        {
+             
+            return View(Program.Categories);
+        }
+
         [HttpPost]
         public IActionResult AddPost([FromBody]newsRequest response)
         {
@@ -41,11 +47,23 @@ namespace Matehews.Controllers
             return Json(null);
         }
 
-        public IActionResult AddSections()
-        {
-             
-            return View();
-        }
+        [HttpPost]
+        public IActionResult UpdateSection([FromBody]newsRequest response)
+        { 
+            return Json("Actualizado");
+        } 
+
+         [HttpPost]
+        public IActionResult AddSection([FromBody]newsRequest response)
+        { 
+            return Json("Agregado");
+        } 
+
+         [HttpPost]
+        public IActionResult GetSection([FromBody]string name)
+        { 
+            return Json(Program.Categories.Find(x => x.name == name));
+        } 
 
         public IActionResult RemoveNews()
         {

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Matehews.Models;
 
 namespace Matehews.Controllers
-{
+{ 
     public class HomeController : Controller
     {
         
@@ -16,10 +16,10 @@ namespace Matehews.Controllers
             return View(Program.Posts);
         }
 
-        public IActionResult Section(string section)
+        public IActionResult Sections(string name = "Finanzas")
         {    
-            var posts = new News();
-            return View( posts );
+            ViewBag.Categories = Program.Categories; 
+            return View(Program.SelectReviews(name));
         }
 
          public IActionResult Post(string id)

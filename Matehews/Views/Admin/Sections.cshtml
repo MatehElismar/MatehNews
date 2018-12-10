@@ -1,0 +1,138 @@
+﻿@model List<Matehews.Models.Categorie>
+
+@{
+    ViewData["Title"] = "Categorias";
+}
+<h2>@ViewData["Title"]</h2>
+<!-- <h3>@ViewData["Message"]</h3> -->
+
+<script>
+    //ESta pagina solo espara usuarios administradores asi que.
+      isOnlyAdminPage(); 
+    //redirectIfNoLogged();
+</script> 
+
+@foreach(var categorie in Model)
+{ 
+  <button onclick="showInfo(event)" type="button" class="btn btn-danger">@Html.DisplayFor(modelItem => categorie.name)</button>
+  
+}
+ 
+<hr>
+<div class="container">
+<div class="row">
+    <div  class="col-8">
+        <form class="" id="categorie-form">
+            <div class="form-group">
+                    <label for="name">Nombre</label>
+                    <input readonly type="text" name="name" id="name" class="form-control" aria-describedby="nameHelp" placeholder="Ej: Finanzas">
+                    <!-- <small name="nameHelp" id="nameHelp" class="form-text text-muted">We'll never share your name with anyone else.</small> -->
+                </div>
+                <div class="form-group">
+                    <label for="description">Descripcion</label>
+                    <input readonly type="text" name="description" id="description" class="form-control" aria-describedby="descriptionHelp" placeholder="Ej: Contenido acerca de economia, mayordomia y blosa de valores">
+                    <!-- <small name="nameHelp" id="nameHelp" class="form-text text-muted">We'll never share your name with anyone else.</small> -->
+                </div>
+                <div class="form-group">
+                    <label for="count">Cantidad de Publicaciones</label>
+                    <input readonly type="text" name="cantPosts" id="cantPosts" class="form-control" aria-describedby="countHelp" placeholder="320">
+                    <!-- <small name="countHelp" id="countHelp" class="form-text text-muted">We'll never share your name with anyone else.</small> -->
+                </div> 
+                <button disabled id="saveBtn" class="btn btn-success" >Guardar</button> 
+                <button disabled id="cancelBtn" class="btn btn-danger" >Cancelar</button> 
+        </form>
+    </div> 
+    <div class="col-4">
+        <button onclick="update()" disabled id="updateBtn" class="btn btn-dark" >Modificar</button>
+        <button onclick="add()" id="addBtn" class="btn btn-dark" >Nueva</button>
+    </div>
+</div>
+</div>
+
+
+
+@section Scripts
+{
+    <script>
+        var operation = ''
+
+        function cancel(){
+            $('#saveBtn').attr('disabled', true) 
+            $('#cancelBtn').attr('disabled', true)
+             $('#name').attr('readonly', 'readonly')
+             $('#description').attr('readonly', 'readonly')
+             operation = ''
+        }
+
+        function active(){
+             $('#saveBtn').attr('disabled', false) 
+            $('#cancelBtn').attr('disabled', false) 
+             $('#name').removeAttr('readonly') 
+             $('#description').removeAttr('readonly') 
+        }
+
+        function update(){
+            operation = 'update'
+            active() 
+        }
+
+        function save(){
+            var categorie = new FormData($('#categorie-form')) 
+             if(operation == "update"){ 
+                //Guardar
+                $.ajax({
+                    url: `${URL}/Admin/UpdateSection`,
+                    type: 'POST', // add this
+                    data: categorie,
+                    contentType: "application/json; charset=utf-8",//Recuerda siempre poner los headers correspondientes
+                    success: function (res) {
+                        console.log(res);  
+                    }
+                });
+            }
+            else{
+                
+                //Guardar
+                $.ajax({
+                    url: `${URL}/Admin/AddSection`,
+                    type: 'POST', // add this
+                    data: categorie,
+                    contentType: "application/json; charset=utf-8",//Recuerda siempre poner los headers correspondientes
+                    success: function (res) {
+                        console.log(res);  
+                    }
+                }); 
+            }
+        }
+
+        function add(){ 
+           if(operation != ''){
+               alert('Cancele o Guarde la operacion actual')
+           }
+           else{
+               active();
+               $('#name').val('')
+               $('#count').val('')
+               $('#description').val('')
+           }
+        }
+
+        function showInfo(e){
+            console.log(e)
+            $('#updateBtn').attr('disabled', false)
+            $('#name').val(e.target.innerText); 
+             $.ajax({
+                    url: `${URL}/Admin/GetSection`,
+                    type: 'POST', // add this
+                    data: JSON.stringify(e.target.innerText),
+                    contentType: "application/json; charset=utf-8",//Recuerda siempre poner los headers correspondientes
+                    success: function (categorie) {
+                        console.log(categorie);  
+                        $('#description').val(categorie.description)
+                        $('#cantPosts').val(categorie.cantPosts)
+                    }
+                }); 
+        }
+
+    </script>
+}
