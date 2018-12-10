@@ -41,6 +41,7 @@ namespace Matehews.Controllers
             if(Program.users.Find(x => x.id == response.user.id) != null && response.user.accessKey < 102)
             { 
                 response.post.id = Program.Posts.Count + 1;
+                response.post.datetimePosted = DateTime.Now;
                 Program.Posts.Add(response.post);
                 return Json(Program.Posts);
             }

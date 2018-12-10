@@ -13,7 +13,9 @@ namespace Matehews.Controllers
         
         public IActionResult Index()
         {    
-            return View(Program.Posts);
+                ViewBag.TopTen = Program.GetTopTenPosts();
+                 var post = Program.GetSeventLastPosts();
+                return View(post);
         }
 
         public IActionResult Sections(string name = "Finanzas")

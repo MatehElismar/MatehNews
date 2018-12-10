@@ -1,4 +1,4 @@
-﻿
+﻿@model List<Matehews.Models.News>
     <!-- ##### Featured Post Area Start ##### -->
     <div class="featured-post-area">
         <div class="container">
@@ -10,16 +10,16 @@
                         <div class="col-12 col-lg-7">
                             <div class="single-blog-post featured-post">
                                 <div class="post-thumb">
-                                    <a href="#"><img src="newspaper-template/img/bg-img/16.jpg" alt=""></a>
+                                    <a href='@Url.Action("Post", "Home", new {id = @Model[0].url})'><img src="newspaper-template/img/bg-img/16.jpg" alt=""></a>
                                 </div>
                                 <div class="post-data">
-                                    <a href="#" class="post-catagory">Finance</a>
+                                    <a href="#" class="post-catagory">@Model[0].categorieName</a>
                                     <a href="#" class="post-title">
-                                        <h6>Financial news: A new company is born today at the stock market</h6>
+                                        <h6>@Model[0].title</h6>
                                     </a>
                                     <div class="post-meta">
-                                        <p class="post-author">By <a href="#">Christinne Williams</a></p>
-                                        <p class="post-excerp">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac leo fermentum, eu cursus nunc maximus. Integer convallis nisi nibh, et ornare neque ullamcorper ac. Nam id congue lectus, a venenatis massa. Maecenas justo libero, vulputate vel nunc id, blandit feugiat sem. </p>
+                                        <p class="post-author">By <a href="#">@Model[0].author</a></p>
+                                        <p class="post-excerp">>@Model[0].review </p>
                                         <!-- Post Like & Post Comment -->
                                         <div class="d-flex align-items-center">
                                             <a href="#" class="post-like"><img src="newspaper-template/img/core-img/like.png" alt=""> <span>392</span></a>
@@ -37,10 +37,10 @@
                                     <a href="#"><img src="newspaper-template/img/bg-img/17.jpg" alt=""></a>
                                 </div>
                                 <div class="post-data">
-                                    <a href="#" class="post-catagory">Finance</a>
+                                    <a href="#" class="post-catagory">@Model[1].categorieName</a>
                                     <div class="post-meta">
-                                        <a href="#" class="post-title">
-                                            <h6>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...</h6>
+                                        <a href='@Url.Action("Post", "Home", new {id = @Model[1].url})' class="post-title">
+                                            <h6>@Model[1].title</h6>
                                         </a>
                                         <!-- Post Like & Post Comment -->
                                         <div class="d-flex align-items-center">
@@ -57,10 +57,10 @@
                                     <a href="#"><img src="newspaper-template/img/bg-img/18.jpg" alt=""></a>
                                 </div>
                                 <div class="post-data">
-                                    <a href="#" class="post-catagory">Finance</a>
+                                    <a href='@Url.Action("Post", "Home", new {id = @Model[2].url})' class="post-catagory">@Model[2].categorieName</a>
                                     <div class="post-meta">
                                         <a href="#" class="post-title">
-                                            <h6>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...</h6>
+                                            <h6>@Model[2].title</h6>
                                         </a>
                                         <!-- Post Like & Post Comment -->
                                         <div class="d-flex align-items-center">
@@ -75,101 +75,27 @@
                 </div>
 
                 <div class="col-12 col-md-6 col-lg-4">
-                    <!-- Single Featured Post -->
-                    <div class="single-blog-post small-featured-post d-flex">
-                        <div class="post-thumb">
-                            <a href="#"><img src="newspaper-template/img/bg-img/19.jpg" alt=""></a>
-                        </div>
-                        <div class="post-data">
-                            <a href="#" class="post-catagory">Finance</a>
-                            <div class="post-meta">
-                                <a href="#" class="post-title">
-                                    <h6>Pellentesque mattis arcu massa, nec fringilla turpis eleifend id.</h6>
-                                </a>
-                                <p class="post-date"><span>7:00 AM</span> | <span>April 14</span></p>
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- Single Featured Post -->
+                    @for(int i = 3; i < Model.Count; i++)
+                    {
+<!-- Single Featured Post -->
                     <div class="single-blog-post small-featured-post d-flex">
                         <div class="post-thumb">
-                            <a href="#"><img src="newspaper-template/img/bg-img/20.jpg" alt=""></a>
+                            <a href='@Url.Action("Post", "Home", new {id = Model[i].url})'><img src="newspaper-template/img/bg-img/19.jpg" alt=""></a>
                         </div>
                         <div class="post-data">
-                            <a href="#" class="post-catagory">Politics</a>
+                            <a href='@Url.Action("Post", "Home", new {id = Model[i].url})' class="post-catagory">@Model[i].categorieName)</a>
                             <div class="post-meta">
-                                <a href="#" class="post-title">
-                                    <h6>Sed a elit euismod augue semper congue sit amet ac sapien.</h6>
+                                <a href='@Url.Action("Post", "Home", new {id = Model[i].url})' class="post-title">
+                                    <h6>@Model[i].title)</h6>
                                 </a>
-                                <p class="post-date"><span>7:00 AM</span> | <span>April 14</span></p>
+                                <p class="post-date"><span>@Model[i].datetimePosted)</span></p>
                             </div>
                         </div>
                     </div>
+                    }
+                    
 
-                    <!-- Single Featured Post -->
-                    <div class="single-blog-post small-featured-post d-flex">
-                        <div class="post-thumb">
-                            <a href="#"><img src="newspaper-template/img/bg-img/21.jpg" alt=""></a>
-                        </div>
-                        <div class="post-data">
-                            <a href="#" class="post-catagory">Health</a>
-                            <div class="post-meta">
-                                <a href="#" class="post-title">
-                                    <h6>Pellentesque mattis arcu massa, nec fringilla turpis eleifend id.</h6>
-                                </a>
-                                <p class="post-date"><span>7:00 AM</span> | <span>April 14</span></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Single Featured Post -->
-                    <div class="single-blog-post small-featured-post d-flex">
-                        <div class="post-thumb">
-                            <a href="#"><img src="newspaper-template/img/bg-img/22.jpg" alt=""></a>
-                        </div>
-                        <div class="post-data">
-                            <a href="#" class="post-catagory">Finance</a>
-                            <div class="post-meta">
-                                <a href="#" class="post-title">
-                                    <h6>Augue semper congue sit amet ac sapien. Fusce consequat.</h6>
-                                </a>
-                                <p class="post-date"><span>7:00 AM</span> | <span>April 14</span></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Single Featured Post -->
-                    <div class="single-blog-post small-featured-post d-flex">
-                        <div class="post-thumb">
-                            <a href="#"><img src="newspaper-template/img/bg-img/23.jpg" alt=""></a>
-                        </div>
-                        <div class="post-data">
-                            <a href="#" class="post-catagory">Travel</a>
-                            <div class="post-meta">
-                                <a href="#" class="post-title">
-                                    <h6>Pellentesque mattis arcu massa, nec fringilla turpis eleifend id.</h6>
-                                </a>
-                                <p class="post-date"><span>7:00 AM</span> | <span>April 14</span></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Single Featured Post -->
-                    <div class="single-blog-post small-featured-post d-flex">
-                        <div class="post-thumb">
-                            <a href="#"><img src="newspaper-template/img/bg-img/24.jpg" alt=""></a>
-                        </div>
-                        <div class="post-data">
-                            <a href="#" class="post-catagory">Politics</a>
-                            <div class="post-meta">
-                                <a href="#" class="post-title">
-                                    <h6>Augue semper congue sit amet ac sapien. Fusce consequat.</h6>
-                                </a>
-                                <p class="post-date"><span>7:00 AM</span> | <span>April 14</span></p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -182,86 +108,32 @@
             <div class="row">
                 <div class="col-12 col-lg-8">
                     <div class="section-heading">
-                        <h6>Popular News</h6>
+                        <h6>Publicaciones Populares</h6>
                     </div>
 
                     <div class="row">
-
-                        <!-- Single Post -->
+                        <!-- llega hata el indice 3; -->
+                        @for(int i = 0; i < ViewBag.TopTen.Count - 6; i++) 
+                        {
+                        var item = ViewBag.TopTen[i];
                         <div class="col-12 col-md-6">
                             <div class="single-blog-post style-3">
                                 <div class="post-thumb">
-                                    <a href="#"><img src="newspaper-template/img/bg-img/12.jpg" alt=""></a>
+                                    <a href='@Url.Action("Post", "Home", new {id = Model[i].url})'><img src="newspaper-template/img/bg-img/12.jpg" alt=""></a>
                                 </div>
                                 <div class="post-data">
-                                    <a href="#" class="post-catagory">Finance</a>
-                                    <a href="#" class="post-title">
-                                        <h6>Dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placer. Sed varius leo ac...</h6>
+                                    <a href='@Url.Action("Post", "Home", new {id = Model[i].url})' class="post-catagory">ViewBag.TopTen[i].categorieName</a>
+                                    <a href='@Url.Action("Post", "Home", new {id = Model[i].url})' class="post-title">
+                                        <h6>ViewBag.TopTen[i].title</h6>
                                     </a>
                                     <div class="post-meta d-flex align-items-center">
-                                        <a href="#" class="post-like"><img src="newspaper-template/img/core-img/like.png" alt=""> <span>392</span></a>
-                                        <a href="#" class="post-comment"><img src="newspaper-template/img/core-img/chat.png" alt=""> <span>10</span></a>
+                                        <a href='#' class="post-like"><img src="newspaper-template/img/core-img/like.png" alt=""> <span>392</span></a>
+                                        <a href='#' class="post-comment"><img src="newspaper-template/img/core-img/chat.png" alt=""> <span>10</span></a>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <!-- Single Post -->
-                        <div class="col-12 col-md-6">
-                            <div class="single-blog-post style-3">
-                                <div class="post-thumb">
-                                    <a href="#"><img src="newspaper-template/img/bg-img/13.jpg" alt=""></a>
-                                </div>
-                                <div class="post-data">
-                                    <a href="#" class="post-catagory">Finance</a>
-                                    <a href="#" class="post-title">
-                                        <h6>Dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placer. Sed varius leo ac...</h6>
-                                    </a>
-                                    <div class="post-meta d-flex align-items-center">
-                                        <a href="#" class="post-like"><img src="newspaper-template/img/core-img/like.png" alt=""> <span>392</span></a>
-                                        <a href="#" class="post-comment"><img src="newspaper-template/img/core-img/chat.png" alt=""> <span>10</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Single Post -->
-                        <div class="col-12 col-md-6">
-                            <div class="single-blog-post style-3">
-                                <div class="post-thumb">
-                                    <a href="#"><img src="newspaper-template/img/bg-img/14.jpg" alt=""></a>
-                                </div>
-                                <div class="post-data">
-                                    <a href="#" class="post-catagory">Finance</a>
-                                    <a href="#" class="post-title">
-                                        <h6>Dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placer. Sed varius leo ac...</h6>
-                                    </a>
-                                    <div class="post-meta d-flex align-items-center">
-                                        <a href="#" class="post-like"><img src="newspaper-template/img/core-img/like.png" alt=""> <span>392</span></a>
-                                        <a href="#" class="post-comment"><img src="newspaper-template/img/core-img/chat.png" alt=""> <span>10</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Single Post -->
-                        <div class="col-12 col-md-6">
-                            <div class="single-blog-post style-3">
-                                <div class="post-thumb">
-                                    <a href="#"><img src="newspaper-template/img/bg-img/15.jpg" alt=""></a>
-                                </div>
-                                <div class="post-data">
-                                    <a href="#" class="post-catagory">Finance</a>
-                                    <a href="#" class="post-title">
-                                        <h6>Dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placer. Sed varius leo ac...</h6>
-                                    </a>
-                                    <div class="post-meta d-flex align-items-center">
-                                        <a href="#" class="post-like"><img src="newspaper-template/img/core-img/like.png" alt=""> <span>392</span></a>
-                                        <a href="#" class="post-comment"><img src="newspaper-template/img/core-img/chat.png" alt=""> <span>10</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        </div> 
+                            }
                     </div>
                 </div>
 
@@ -271,39 +143,18 @@
                     </div>
                     <!-- Popular News Widget -->
                     <div class="popular-news-widget mb-30">
-                        <h3>4 Most Popular News</h3>
+                        <h3>4 Mas Concurrentes</h3>
 
+                        @for(int i = 6; i < ViewBag.TopTen.Count - 6; i++)
+                        {
                         <!-- Single Popular Blog -->
                         <div class="single-popular-post">
                             <a href="#">
-                                <h6><span>1.</span> Amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales.</h6>
+                                <h6><span>@Html.DisplayFor(modelItem => i)</span> @ViewBag.TopTen[i].title)</h6>
                             </a>
-                            <p>April 14, 2018</p>
-                        </div>
-
-                        <!-- Single Popular Blog -->
-                        <div class="single-popular-post">
-                            <a href="#">
-                                <h6><span>2.</span> Consectetur adipiscing elit. Nam eu metus sit amet odio sodales placer.</h6>
-                            </a>
-                            <p>April 14, 2018</p>
-                        </div>
-
-                        <!-- Single Popular Blog -->
-                        <div class="single-popular-post">
-                            <a href="#">
-                                <h6><span>3.</span> Adipiscing elit. Nam eu metus sit amet odio sodales placer. Sed varius leo.</h6>
-                            </a>
-                            <p>April 14, 2018</p>
-                        </div>
-
-                        <!-- Single Popular Blog -->
-                        <div class="single-popular-post">
-                            <a href="#">
-                                <h6><span>4.</span> Eu metus sit amet odio sodales placer. Sed varius leo ac...</h6>
-                            </a>
-                            <p>April 14, 2018</p>
-                        </div>
+                            <p>@ViewBag.TopTen[i].datetimePosted</p>
+                        </div> 
+                        }
                     </div>
 
                     <!-- Newsletter Widget -->

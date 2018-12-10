@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Threading.Tasks; 
 
 namespace Matehews.Models 
-{
+{  
     public class News 
     {
         public string ImgUrl{ get; set; }
@@ -14,9 +14,16 @@ namespace Matehews.Models
         public string content { get; set; }
         public string categorieName {get; set;}
         public string author { get; set; }
+        public DateTime datetimePosted { get; set; }  
+        public string url { 
+            get{
+                return title.Replace(' ', '-');
+            }
+        }
         
         public News( )
         { 
+            this.datetimePosted = new DateTime();
             this.ImgUrl = ImgUrl;
             this.title = title;
             this.content = content;
@@ -24,6 +31,7 @@ namespace Matehews.Models
         }
         public News(string title, string review, string categorieName, string ImgUrl = "")
         { 
+            this.datetimePosted = new DateTime();
             this.ImgUrl = ImgUrl;
             this.title = title;
             this.review = review;

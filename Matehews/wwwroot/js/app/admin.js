@@ -45,10 +45,8 @@ function updatePost(){
     console.log(post);
 }
 
-function changeCategorie(event){
-    console.log('categorie Selected', $('.selectedCategorie').html());
+function changeCategorie(event){  
     $('.selectedCategorie').removeClass('selectedCategorie')
     $('#'+ event.target.id).addClass('selectedCategorie');
-    $('#selectedCat').html(event.target.innerHTML)
-    console.log('categorie Selected', $('.selectedCategorie').html());
+    $('#selectedCat').html(event.target.innerHTML) 
 }

@@ -43,14 +43,34 @@ namespace Matehews
             Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Alabanzas"));
             Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Alabanzas"));
             Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Robanzas"));
-
+             Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Deportanzas"));
+            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Deportanzas"));
+            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Deportanzas"));
+            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Alabanzas"));
+            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Alabanzas"));
+            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Alabanzas"));
+            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Alabanzas"));
+            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Alabanzas"));
+            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Alabanzas"));
+            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Robanzas"));
+             Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Alabanzas"));
+            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Alabanzas"));
+            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Alabanzas"));
+            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Alabanzas"));
+            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Robanzas"));
+             Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Alabanzas"));
+            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Alabanzas"));
+            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Alabanzas"));
+            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Alabanzas"));
+            Posts.Add(new News("Alfredo se hizo rico", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu metus sit amet odio sodales placerat. Sed varius leo ac...","Robanzas"));
+ 
             var u = new User();
             u.id = 1;
             u.first = "Admin";
-            u.last = "Prro";
+            u.last = "Prro"; 
             u.email = "a@a.com"; 
             u.pass = "123";
-            u.accessKey = 100;
+            u.accessKey = 100; 
 
             var e = new User();
             e.id = 2;
@@ -80,19 +100,39 @@ namespace Matehews
             return l;
 
         }
-
+  
 
         public static News GetPost(string id)
         {
             var title = id.Replace("-"," ");
             foreach (var item in Posts)
-            {
+            { 
                 if(item.title.ToLower() == title.ToLower())
                 {
                     return item;
                 }
             }
             return null;
+        }
+
+
+        public static List<News> GetSeventLastPosts()
+        {
+            var l = new List<News>();
+            for (int i = Posts.Count -1 ; i > Posts.Count - 10; i--)
+            {
+                l.Add(Posts[i]);//Retornamos los 10 ultimos posts
+            }
+            return l;
+        }
+        public static List<News> GetTopTenPosts()
+        {
+            var l = new List<News>();
+            for (int i = 0 ; i <  10; i++)
+            {
+                l.Add(Posts[i]);//Retornamos los 10 primeros posts
+            }
+            return l;
         }
 
 
