@@ -13,8 +13,8 @@
                                     <a href='@Url.Action("Post", "Home", new {id = @Model[0].url})'><img src="newspaper-template/img/bg-img/16.jpg" alt=""></a>
                                 </div>
                                 <div class="post-data">
-                                    <a href="#" class="post-catagory">@Model[0].categorieName</a>
-                                    <a href="#" class="post-title">
+                                    <a href='@Url.Action("Post", "Home", new {id = @Model[0].url})' class="post-catagory">@Model[0].categorieName</a>
+                                    <a href='@Url.Action("Post", "Home", new {id = @Model[0].url})' class="post-title">
                                         <h6>@Model[0].title</h6>
                                     </a>
                                     <div class="post-meta">
@@ -34,10 +34,10 @@
                             <!-- Single Featured Post -->
                             <div class="single-blog-post featured-post-2">
                                 <div class="post-thumb">
-                                    <a href="#"><img src="newspaper-template/img/bg-img/17.jpg" alt=""></a>
+                                    <a href='@Url.Action("Post", "Home", new {id = @Model[1].url})'><img src="newspaper-template/img/bg-img/17.jpg" alt=""></a>
                                 </div>
                                 <div class="post-data">
-                                    <a href="#" class="post-catagory">@Model[1].categorieName</a>
+                                    <a href='@Url.Action("Post", "Home", new {id = @Model[1].url})' class="post-catagory">@Model[1].categorieName</a>
                                     <div class="post-meta">
                                         <a href='@Url.Action("Post", "Home", new {id = @Model[1].url})' class="post-title">
                                             <h6>@Model[1].title</h6>
@@ -54,12 +54,12 @@
                             <!-- Single Featured Post -->
                             <div class="single-blog-post featured-post-2">
                                 <div class="post-thumb">
-                                    <a href="#"><img src="newspaper-template/img/bg-img/18.jpg" alt=""></a>
+                                    <a href='@Url.Action("Post", "Home", new {id = @Model[0].url})'><img src="newspaper-template/img/bg-img/18.jpg" alt=""></a>
                                 </div>
                                 <div class="post-data">
                                     <a href='@Url.Action("Post", "Home", new {id = @Model[2].url})' class="post-catagory">@Model[2].categorieName</a>
                                     <div class="post-meta">
-                                        <a href="#" class="post-title">
+                                        <a href='@Url.Action("Post", "Home", new {id = @Model[2].url})' class="post-title">
                                             <h6>@Model[2].title</h6>
                                         </a>
                                         <!-- Post Like & Post Comment -->
@@ -149,8 +149,8 @@
                         {
                         <!-- Single Popular Blog -->
                         <div class="single-popular-post">
-                            <a href="#">
-                                <h6><span>@Html.DisplayFor(modelItem => i)</span> @ViewBag.TopTen[i].title)</h6>
+                            <a href='@Url.Action("Post", "Home", new {id = @Model[i].url})'>
+                                <h6><span>@Html.DisplayFor(modelItem => i)</span> ViewBag.TopTen[i].title)</h6>
                             </a>
                             <p>@ViewBag.TopTen[i].datetimePosted</p>
                         </div> 
