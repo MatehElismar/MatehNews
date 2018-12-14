@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Matehews.Models;
+using Services;
 
 namespace Matehews.Controllers
 { 
@@ -14,23 +15,23 @@ namespace Matehews.Controllers
         public IActionResult Index()
         {    
                 ViewBag.TopTen = Program.GetTopTenPosts();
-                 var post = Program.GetSeventLastPosts();
+                 var post = PostService.GetTopOfPosts(10);
+                 Debug.WriteLine(post.Count);
                 return View(post);
         }
 
         public IActionResult Sections(string name = "Finanzas")
         {    
-            ViewBag.Categories = Program.Categories; 
-            return View(Program.SelectReviews(name));
+            ViewBag.Categories = PostService.SelectCategories(); 
+            return View(PostService.GetTopReviews(name, 10));
         }
 
         public IActionResult Post(string id)
         {   
-            var post = Program.GetPost(id);
+            var post = PostService.GetPost(id);
             if(post != null)
-            {
-                Console.WriteLine("I Am A Post");
-                ViewBag.Categories = Program.Categories; 
+            { 
+                ViewBag.Categories = PostService.SelectCategories(); 
                 return View(post);
 
             }

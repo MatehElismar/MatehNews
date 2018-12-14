@@ -7,7 +7,7 @@ function addPost(){
         title: $('#title').val(),
         review: $('#review').val(),
         content: $('#froala-editor').froalaEditor('html.get', true),
-        author: user.first +' '+ user.last,
+        author: user.id,
         categorieName: $('.selectedCategorie').html() 
     }
     $.ajax({
@@ -17,6 +17,13 @@ function addPost(){
         contentType: "application/json; charset=utf-8",//Recuerda siempre poner los headers correspondientes
         success : (res)=>{
             console.log(res)
+            if(res){
+                alert("Proceso Exitoso")
+
+            }
+            else{
+                alert("Process Failed. Please check the debug console")
+            }
         },
         error: (err)=>{
             console.log(err)
@@ -39,8 +46,19 @@ function updatePost(){
         type: 'POST', // add this
         data: JSON.stringify(post),
         contentType: "application/json; charset=utf-8",//Recuerda siempre poner los headers correspondientes
-        success : (res)=>{},
-        error: (err)=>{}
+        success : (res)=>{
+            console.log(res)
+            if(res){
+                alert("Proceso Exitoso")
+
+            }
+            else{
+                alert("Process Failed. Please check the debug console")
+            }
+        },
+        error: (err)=>{
+            console.error(err)
+        }
     })
     console.log(post);
 }

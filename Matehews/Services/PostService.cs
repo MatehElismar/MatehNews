@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq; 
 using System.Web;
 using Matehews.Models;
+using System.Diagnostics;
 
 /// <summary>
 /// Summary description for Binding
@@ -20,14 +21,15 @@ using Matehews.Models;
         {
             var c = new Server();
             var p = new List<DbParameter>();
-            p.Add(new DbParameter("imgUrl", post.ImgUrl));  
-            p.Add(new DbParameter("title", post.title)); 
+            p.Add(new DbParameter("imgUrl", "post.ImgUrl"));  
+            p.Add(new DbParameter("title", post.title.ToLower())); 
             p.Add(new DbParameter("review", post.review)); 
             p.Add(new DbParameter("content", post.content)); 
             p.Add(new DbParameter("categorieName", post.categorieName)); 
-            p.Add(new DbParameter("author", post.author));  
-            p.Add(new DbParameter("datetimePosted", post.datetimePosted));  
+            p.Add(new DbParameter("idAuthor", post.author));  
+            p.Add(new DbParameter("datetimePosted", "12/12/12"));  
             var res = c.InsertOrUpdate("AddPost", p); 
+            Debug.WriteLine(c.Msg);
             return res;
         }
 
@@ -35,14 +37,14 @@ using Matehews.Models;
         {
             var c = new Server();
             var p = new List<DbParameter>();
-            p.Add(new DbParameter("imgUrl", post.ImgUrl)); 
+            p.Add(new DbParameter("imgUrl", "post.ImgUrl")); 
             p.Add(new DbParameter("id", post.id)); 
-            p.Add(new DbParameter("title", post.title)); 
+            p.Add(new DbParameter("title", post.title.ToLower())); 
             p.Add(new DbParameter("review", post.review)); 
             p.Add(new DbParameter("content", post.content)); 
             p.Add(new DbParameter("categorieName", post.categorieName)); 
-            p.Add(new DbParameter("author", post.author));  
-            p.Add(new DbParameter("datetimePosted", post.datetimePosted));  
+            p.Add(new DbParameter("idAuthor", post.author));  
+            p.Add(new DbParameter("datetimePosted","12/12/12"));  
             var res = c.InsertOrUpdate("UpdatePost", p); 
             return res;
         }
@@ -56,6 +58,7 @@ using Matehews.Models;
 
            
            var reader = c.QueryList("FindCategorieByName", p);
+           Debug.WriteLine(c.Msg);
            var cat = new Categorie();
             if (reader.Read())
             { 
@@ -72,6 +75,7 @@ using Matehews.Models;
             var c = new Server(); 
            
            var reader = c.QueryList("getCategories", null);
+           Debug.WriteLine(c.Msg);
            var cat = new Categorie();
            var list = new List<Categorie>();
             while (reader.Read())
@@ -85,6 +89,72 @@ using Matehews.Models;
             return list;
         }
 
+          public static News GetPost(string title)
+        {
+            title = title.Replace("-"," ");
+            title = title.ToLower();
+            var c = new Server(); 
+            var p = new List<DbParameter>();
+           p.Add(new DbParameter("title", title));
+           var reader = c.QueryList("GetPost", p);
+           Debug.WriteLine(c.Msg);
+           var cat = new Categorie();  
+            if (reader.Read())
+            {   
+                 var post = new News();
+                post.title = reader["title"].ToString();
+                post.review = reader["review"].ToString();
+                post.content = reader["content"].ToString();
+                post.categorieName = reader["categorieName"].ToString();
+                post.author = reader["author"].ToString();
+                post.datetimePosted = Convert.ToDateTime(reader["datetimePosted"]);
+                return post; 
+            }
+            return null;
+        }
+
+
+        public static List<News> GetTopOfPosts(int top)
+        {
+            var c = new Server(); 
+           var p = new List<DbParameter>();
+           p.Add(new DbParameter("top", top));
+           var reader = c.QueryList("GetTopOfPosts", p);
+           Debug.WriteLine(c.Msg); 
+           var list = new List<News>();
+            while (reader.Read())
+            {   var post = new News();
+                post.title = reader["title"].ToString();
+                post.review = reader["review"].ToString();
+                post.content = reader["content"].ToString();
+                post.categorieName = reader["categorieName"].ToString();
+                post.author = reader["author"].ToString();
+                post.datetimePosted = Convert.ToDateTime(reader["datetimePosted"]);
+                list.Add(post);
+            }
+            return list;
+        }
+
+        
+        public static List<News> GetTopReviews(string name, int top)
+        {
+            var c = new Server(); 
+           var p = new List<DbParameter>();
+           p.Add(new DbParameter("name", name));
+           p.Add(new DbParameter("top", top));
+           var reader = c.QueryList("GetTopReviews", p);
+           Debug.WriteLine(c.Msg); 
+           var l = new List<News>();
+            while (reader.Read())
+            {   var post = new News();
+                post.title = reader["title"].ToString();
+                post.review = reader["review"].ToString(); 
+                l.Add(post);
+            }
+            return l;
+        }
+
+
         public static bool AddCategorie(Categorie cat)
         {
             var c = new Server();
@@ -93,6 +163,7 @@ using Matehews.Models;
             p.Add(new DbParameter("description", cat.description)); 
             p.Add(new DbParameter("cantPosts", cat.cantPosts));  
             var res = c.InsertOrUpdate("AddCategorie", p); 
+            Debug.WriteLine(c.Msg);
             return res;
         }
 
@@ -105,6 +176,7 @@ using Matehews.Models;
             p.Add(new DbParameter("description", cat.description)); 
             p.Add(new DbParameter("cantPosts", cat.cantPosts));  
             var res = c.InsertOrUpdate("AddCategorie", p); 
+            Debug.WriteLine(c.Msg);
             return res;
         }
     }

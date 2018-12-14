@@ -42,8 +42,8 @@ namespace Matehews.Controllers
             { 
                 response.post.id = Program.Posts.Count + 1;
                 response.post.datetimePosted = DateTime.Now;
-                PostService.AddPost(response.post);
-                return Json(response.post);
+                
+                return Json(PostService.AddPost(response.post));
             }
             return Json(null);
         }
@@ -54,8 +54,8 @@ namespace Matehews.Controllers
             { 
                 response.post.id = Program.Posts.Count + 1;
                 response.post.datetimePosted = DateTime.Now;
-                PostService.UpdatePost(response.post);
-                return Json(response.post);
+                
+                return Json(PostService.UpdatePost(response.post));
             }
             return Json(null);
         }
