@@ -38,9 +38,9 @@
                     <input readonly type="text" name="cantPosts" id="cantPosts" class="form-control" aria-describedby="countHelp" placeholder="320">
                     <!-- <small name="countHelp" id="countHelp" class="form-text text-muted">We'll never share your name with anyone else.</small> -->
                 </div> 
-                <button disabled id="saveBtn" class="btn btn-success" >Guardar</button> 
-                <button disabled id="cancelBtn" class="btn btn-danger" >Cancelar</button> 
         </form>
+        <button disabled id="saveBtn" class="btn btn-success" onclick="save()">Guardar</button> 
+        <button disabled id="cancelBtn" class="btn btn-danger" onclick="cancel()">Cancelar</button> 
     </div> 
     <div class="col-4">
         <button onclick="update()" disabled id="updateBtn" class="btn btn-dark" >Modificar</button>
@@ -84,7 +84,7 @@
                 $.ajax({
                     url: `${URL}/Admin/UpdateSection`,
                     type: 'POST', // add this
-                    data: {user: getUser(), categorie: categorie, lastname : selectedName},
+                    data: JSON.stringify({user: getUser(), categorie: categorie, lastname : selectedName}),
                     contentType: "application/json; charset=utf-8",//Recuerda siempre poner los headers correspondientes
                     success: function (res) {
                         console.log(res);  
@@ -97,7 +97,7 @@
                 $.ajax({
                     url: `${URL}/Admin/AddSection`,
                     type: 'POST', // add this
-                    data: categorie,
+                    data: JSON.stringify({user: getUser(), categorie: categorie, lastname : selectedName}),
                     contentType: "application/json; charset=utf-8",//Recuerda siempre poner los headers correspondientes
                     success: function (res) {
                         console.log(res);  

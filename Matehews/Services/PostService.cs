@@ -62,8 +62,27 @@ using Matehews.Models;
                 cat.name = reader["name"].ToString();
                 cat.cantPosts = Convert.ToInt32(reader["cantPosts"].ToString());
                 cat.description = reader["description"].ToString();
+                return cat;
             }
             return null;
+        }
+
+        public static List<Categorie> SelectCategories()
+        {
+            var c = new Server(); 
+           
+           var reader = c.QueryList("getCategories", null);
+           var cat = new Categorie();
+           var list = new List<Categorie>();
+            while (reader.Read())
+            { 
+                cat.name = reader["name"].ToString();
+                cat.cantPosts = Convert.ToInt32(reader["cantPosts"]);
+                cat.description = reader["description"].ToString();
+                list.Add(cat);
+
+            }
+            return list;
         }
 
         public static bool AddCategorie(Categorie cat)

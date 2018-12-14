@@ -34,8 +34,7 @@ namespace Services
                 parameters[i] = DBparameters[i].ToSql;
             }
             try
-            {
-
+            { 
                 Cmd = new SqlCommand(spName, Conn);
                 Cmd.CommandType = CommandType.StoredProcedure;
                 Cmd.Parameters.AddRange(parameters);

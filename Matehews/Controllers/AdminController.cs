@@ -32,7 +32,7 @@ namespace Matehews.Controllers
         public IActionResult Sections()
         {
              
-            return View(Program.Categories);
+            return View(PostService.SelectCategories());
         }
 
         [HttpPost]
@@ -66,8 +66,8 @@ namespace Matehews.Controllers
             
              if(AccountService.GetUserByID(response.user.id) != null && response.user.accessKey < 102)
             {  
-                PostService.UpdateCategorie(response.categorie, response.lastname );
-                return Json(response.categorie);
+                
+                return Json(PostService.UpdateCategorie(response.categorie, response.lastname ));
             }
             return Json(null);
         } 
