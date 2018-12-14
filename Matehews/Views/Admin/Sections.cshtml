@@ -11,18 +11,18 @@
       isOnlyAdminPage(); 
     //redirectIfNoLogged();
 </script> 
-
-@foreach(var categorie in Model)
-{ 
-  <button onclick="showInfo(event)" type="button" class="btn btn-danger">@Html.DisplayFor(modelItem => categorie.name)</button>
-  
-}
- 
+<div id="categories-container"> 
+    @foreach(var categorie in Model)
+    { 
+    <button onclick="showInfo(event)" type="button" class="btn btn-danger">@Html.DisplayFor(modelItem => categorie.name)</button>
+    
+    }
+</div>
 <hr>
 <div class="container">
 <div class="row">
     <div  class="col-8">
-        <form class="" id="categorie-form">
+        <form id="categorie-form">
             <div class="form-group">
                     <label for="name">Nombre</label>
                     <input readonly type="text" name="name" id="name" class="form-control" aria-describedby="nameHelp" placeholder="Ej: Finanzas">
@@ -54,87 +54,7 @@
 @section Scripts
 {
     <script>
-        var operation = ''
-        var selectedName = ''
-
-        function cancel(){
-            $('#saveBtn').attr('disabled', true) 
-            $('#cancelBtn').attr('disabled', true)
-             $('#name').attr('readonly', 'readonly')
-             $('#description').attr('readonly', 'readonly')
-             operation = ''
-        }
-
-        function active(){
-             $('#saveBtn').attr('disabled', false) 
-            $('#cancelBtn').attr('disabled', false) 
-             $('#name').removeAttr('readonly') 
-             $('#description').removeAttr('readonly') 
-        }
-
-        function update(){
-            operation = 'update'
-            active() 
-        }
-
-        function save(){
-            var categorie = new FormData($('#categorie-form')) 
-             if(operation == "update"){ 
-                //Guardar
-                $.ajax({
-                    url: `${URL}/Admin/UpdateSection`,
-                    type: 'POST', // add this
-                    data: JSON.stringify({user: getUser(), categorie: categorie, lastname : selectedName}),
-                    contentType: "application/json; charset=utf-8",//Recuerda siempre poner los headers correspondientes
-                    success: function (res) {
-                        console.log(res);  
-                    }
-                });
-            }
-            else{
-                
-                //Guardar
-                $.ajax({
-                    url: `${URL}/Admin/AddSection`,
-                    type: 'POST', // add this
-                    data: JSON.stringify({user: getUser(), categorie: categorie, lastname : selectedName}),
-                    contentType: "application/json; charset=utf-8",//Recuerda siempre poner los headers correspondientes
-                    success: function (res) {
-                        console.log(res);  
-                    }
-                }); 
-            }
-        }
-
-        function add(){ 
-           if(operation != ''){
-               alert('Cancele o Guarde la operacion actual')
-           }
-           else{
-               active();
-               $('#name').val('')
-               $('#count').val('')
-               $('#description').val('')
-           }
-        }
-
-        function showInfo(e){
-            console.log(e)
-            $('#updateBtn').attr('disabled', false)
-            $('#name').val(e.target.innerText); 
-            selectedName = e.target.innerText;
-             $.ajax({
-                    url: `${URL}/Admin/GetSection`,
-                    type: 'POST', // add this
-                    data: JSON.stringify(e.target.innerText),
-                    contentType: "application/json; charset=utf-8",//Recuerda siempre poner los headers correspondientes
-                    success: function (categorie) {
-                        console.log(categorie);  
-                        $('#description').val(categorie.description)
-                        $('#cantPosts').val(categorie.cantPosts)
-                    }
-                }); 
-        }
+  
 
     </script>
 }

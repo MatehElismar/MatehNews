@@ -57,13 +57,11 @@ using System.Diagnostics;
             p.Add(new DbParameter("name", name)); 
 
            
-           var reader = c.QueryList("FindCategorieByName", p);
-           Debug.WriteLine(c.Msg);
+           var reader = c.QueryList("FindCategorieByName", p); 
            var cat = new Categorie();
             if (reader.Read())
             { 
                 cat.name = reader["name"].ToString();
-                cat.cantPosts = Convert.ToInt32(reader["cantPosts"].ToString());
                 cat.description = reader["description"].ToString();
                 return cat;
             }
@@ -76,12 +74,11 @@ using System.Diagnostics;
            
            var reader = c.QueryList("getCategories", null);
            Debug.WriteLine(c.Msg);
-           var cat = new Categorie();
            var list = new List<Categorie>();
             while (reader.Read())
             { 
-                cat.name = reader["name"].ToString();
-                cat.cantPosts = Convert.ToInt32(reader["cantPosts"]);
+                var cat = new Categorie();
+                cat.name = reader["name"].ToString(); 
                 cat.description = reader["description"].ToString();
                 list.Add(cat);
 
@@ -122,16 +119,27 @@ using System.Diagnostics;
            var reader = c.QueryList("GetTopOfPosts", p);
            Debug.WriteLine(c.Msg); 
            var list = new List<News>();
+           var count = 0;
             while (reader.Read())
-            {   var post = new News();
-                post.title = reader["title"].ToString();
-                post.review = reader["review"].ToString();
-                post.content = reader["content"].ToString();
-                post.categorieName = reader["categorieName"].ToString();
-                post.author = reader["author"].ToString();
-                post.datetimePosted = Convert.ToDateTime(reader["datetimePosted"]);
-                list.Add(post);
+            {   
+                // if(count < top)
+                // { 
+                    var post = new News();
+                    post.title = reader["title"].ToString();
+                    post.review = reader["review"].ToString();
+                    post.content = reader["content"].ToString();
+                    post.categorieName = reader["categorieName"].ToString();
+                    post.author = reader["author"].ToString();
+                    post.datetimePosted = Convert.ToDateTime(reader["datetimePosted"]);
+                    list.Add(post);
+                    count++;
+                // }
+                // else {
+                //     list.Reverse();
+                //     Console.WriteLine(list.Count);
+                //     return list;}
             }
+            list.Reverse();
             return list;
         }
 
@@ -140,7 +148,7 @@ using System.Diagnostics;
         {
             var c = new Server(); 
            var p = new List<DbParameter>();
-           p.Add(new DbParameter("name", name));
+           p.Add(new DbParameter("categorieName", name));
            p.Add(new DbParameter("top", top));
            var reader = c.QueryList("GetTopReviews", p);
            Debug.WriteLine(c.Msg); 
@@ -151,6 +159,7 @@ using System.Diagnostics;
                 post.review = reader["review"].ToString(); 
                 l.Add(post);
             }
+            l.Reverse();
             return l;
         }
 
@@ -160,10 +169,8 @@ using System.Diagnostics;
             var c = new Server();
             var p = new List<DbParameter>();
             p.Add(new DbParameter("name", cat.name));  
-            p.Add(new DbParameter("description", cat.description)); 
-            p.Add(new DbParameter("cantPosts", cat.cantPosts));  
-            var res = c.InsertOrUpdate("AddCategorie", p); 
-            Debug.WriteLine(c.Msg);
+            p.Add(new DbParameter("description", cat.description));  
+            var res = c.InsertOrUpdate("AddCategorie", p);  
             return res;
         }
 
@@ -173,10 +180,8 @@ using System.Diagnostics;
             var p = new List<DbParameter>();
             p.Add(new DbParameter("name", cat.name));  
             p.Add(new DbParameter("lastname", lastname));  
-            p.Add(new DbParameter("description", cat.description)); 
-            p.Add(new DbParameter("cantPosts", cat.cantPosts));  
-            var res = c.InsertOrUpdate("AddCategorie", p); 
-            Debug.WriteLine(c.Msg);
+            p.Add(new DbParameter("description", cat.description));  
+            var res = c.InsertOrUpdate("UpdateCategorie", p);  
             return res;
         }
     }

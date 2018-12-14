@@ -41,7 +41,8 @@ function login(){
   .then(res=>{
     if(res.logged == true){
       setUser(res)
-        window.location = URL;
+        if(res.accessKey == 100)
+        window.location = `${URL}/Admin/CPanel`;
     }
     else{
       alert('error: '+ res.first)

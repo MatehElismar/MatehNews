@@ -41,12 +41,13 @@ namespace Services
                 Cmd.ExecuteNonQuery(); 
                 Conn.Close();
 
-                this.Msg = "Todo bien, todo correcto y yo que me alegro";
+                Console.WriteLine("Todo bien, todo correcto y yo que me alegro");
                 return true;
             }
             catch (Exception ex)
             { 
-                this.Msg = "Mi error: " + ex.ToString();
+                 Console.WriteLine("\n\n--> Error en el InsertOrUpdate(): {0}\n\n", ex.Message);
+                this.Msg = ex.Message;
                 return false;
             }
 
@@ -77,13 +78,15 @@ namespace Services
                 Adapter.Fill(dt);
                 //var res = Cmd.Parameters["@Msg"].Value.ToString();
                 // Box.Show(res, "Ready", MsgButton.OK, MsgIcon.Warning);
+                Console.WriteLine("Todo bien, todo correcto y yo que me alegro");
+
                 return dt;
             }
             catch (Exception ex)
             {
-
                 //  Box.Show(ex.ToString(), "Error", MsgButton.Retry, MsgIcon.Error);
-                Debug.WriteLine("Error at the Query: {0}", ex.Message);
+                Console.WriteLine("\n\n--> Error en el query: {0}\n\n", ex.Message);
+                this.Msg = ex.Message; 
                 return dt;
             }
         }
@@ -113,11 +116,15 @@ namespace Services
 
                 Reader = Cmd.ExecuteReader();
                 var x = Reader;
+                Console.WriteLine("Todo bien, todo correcto y yo que me alegro");
+
                 return x;
             }
             catch (Exception ex)
             {
                 // Box.Show(ex.ToString(), "Error", MsgButton.Retry, MsgIcon.Error);
+                Console.WriteLine("\n\n--> Error en el query: {0}\n\n", ex.Message);
+                this.Msg = ex.Message;
                 return null;
             }
         }

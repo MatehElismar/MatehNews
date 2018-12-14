@@ -31,8 +31,8 @@ namespace Matehews.Controllers
 
         public IActionResult Sections()
         {
-             
-            return View(PostService.SelectCategories());
+             var categories = PostService.SelectCategories();
+            return View(categories);
         }
 
         [HttpPost]
@@ -77,8 +77,8 @@ namespace Matehews.Controllers
         { 
              if(AccountService.GetUserByID(response.user.id) != null && response.user.accessKey < 102)
             {  
-                PostService.AddCategorie(response.categorie);
-                return Json(response.categorie);
+                
+                return Json(PostService.AddCategorie(response.categorie));
             }
             return Json(null);
         } 
@@ -86,7 +86,8 @@ namespace Matehews.Controllers
          [HttpPost]
         public IActionResult GetSection([FromBody]string name)
         { 
-            return Json(PostService.FindCategorieByName(name));
+            var categorie = PostService.FindCategorieByName(name);
+            return Json(categorie);
         } 
 
         public IActionResult RemoveNews()

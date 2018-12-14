@@ -44,7 +44,7 @@
                                     <a href='@Url.Action("Post", "Home", new {id = @Model[1].url})' class="post-catagory">@Model[1].categorieName</a>
                                     <div class="post-meta">
                                         <a href='@Url.Action("Post", "Home", new {id = @Model[1].url})' class="post-title">
-                                            <h6>@Model[1].title</h6>
+                                            <h6 class="wrap-text">@Model[1].title</h6>
                                         </a>
                                         <!-- Post Like & Post Comment -->
                                         <div class="d-flex align-items-center">
@@ -61,9 +61,9 @@
                                     <a href='@Url.Action("Post", "Home", new {id = @Model[0].url})'><img src="newspaper-template/img/bg-img/18.jpg" alt=""></a>
                                 </div>
                                 <div class="post-data">
-                                    <a href='@Url.Action("Post", "Home", new {id = @Model[2].url})' class="post-catagory">@Model[2].categorieName</a>
+                                    <a href='@Url.Action("Post", "Home", new {id = @Model[2].url})' class="post-catagory wrap-text">@Model[2].categorieName</a>
                                     <div class="post-meta">
-                                        <a href='@Url.Action("Post", "Home", new {id = @Model[2].url})' class="post-title">
+                                        <a href='@Url.Action("Post", "Home", new {id = @Model[2].url})' class="post-title  wrap-text">
                                             <h6>@Model[2].title</h6>
                                         </a>
                                         <!-- Post Like & Post Comment -->
@@ -90,7 +90,7 @@
                         <div class="post-data">
                             <a href='@Url.Action("Post", "Home", new {id = Model[i].url})' class="post-catagory">@Model[i].categorieName)</a>
                             <div class="post-meta">
-                                <a href='@Url.Action("Post", "Home", new {id = Model[i].url})' class="post-title">
+                                <a class="wrap text" href='@Url.Action("Post", "Home", new {id = Model[i].url})' class="post-title">
                                     <h6>@Model[i].title)</h6>
                                 </a>
                                 <p class="post-date"><span>@Model[i].datetimePosted)</span></p>
