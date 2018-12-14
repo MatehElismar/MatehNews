@@ -25,6 +25,9 @@ function register(){
         setUser(res)
           // window.location = URL;
       }
+      else{
+        alert("error: "+ res)
+      }
       console.log(res)
     })
 }
@@ -39,6 +42,9 @@ function login(){
     if(res.logged == true){
       setUser(res)
         window.location = URL;
+    }
+    else{
+      alert('error: '+ res.first)
     }
     console.log(res)
   })

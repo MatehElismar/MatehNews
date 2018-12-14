@@ -28,17 +28,29 @@ namespace Matehews.Controllers
         [HttpPost]
         public IActionResult Register(User form)
         { 
-            form.logged = true;
-            form.id = Program.users.Count + 1;
-            Program.users.Add(form);
-            Program.Logs.Add(form);
-            return Json(form);  
+            // form.id = Program.users.Count + 1;
+            // Program.users.Add(form);
+            if(ValidUser())
+            {
+                if(AccountService.Register(form))
+                {
+                    var callBackUser = AccountService.GetLastUserRegistred();
+                    callBackUser.logged = true;
+                    Program.Logs.Add(callBackUser);//lo logeamos
+                    return Json(callBackUser);
+                }
+                else
+                {
+                    Json("Hubon problemas con la base de datos;");
+                }
+            }
+            return Json("el usuario no es valido");  
         }
 
         [HttpPost]
         public IActionResult Login(User form)
         {   
-            var user = Program.users.Find(x => x.email == form.email);
+            var user = AccountService.GetUserByEmail(form.email);
             if(user != null)
             {
                   if(Program.Logs.Find(x => x.id == user.id) != null)
@@ -57,7 +69,7 @@ namespace Matehews.Controllers
             else
             {
                 user = new User();
-                user.first = "Esta saliendo aqui";
+                user.first = "Credenciales incorrectas";
                 user.logged = false; 
             } 
             return Json(user);
@@ -88,6 +100,11 @@ namespace Matehews.Controllers
                return true;   
             }
             return false; 
+        }
+
+        private bool ValidUser()
+        {
+            return true;
         }
     }
 }

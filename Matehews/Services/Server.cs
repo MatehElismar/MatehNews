@@ -84,6 +84,7 @@ namespace Services
             {
 
                 //  Box.Show(ex.ToString(), "Error", MsgButton.Retry, MsgIcon.Error);
+                Debug.WriteLine("Error at the Query: {0}", ex.Message);
                 return dt;
             }
         }

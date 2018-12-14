@@ -55,6 +55,7 @@
 {
     <script>
         var operation = ''
+        var selectedName = ''
 
         function cancel(){
             $('#saveBtn').attr('disabled', true) 
@@ -83,7 +84,7 @@
                 $.ajax({
                     url: `${URL}/Admin/UpdateSection`,
                     type: 'POST', // add this
-                    data: categorie,
+                    data: {user: getUser(), categorie: categorie, lastname : selectedName},
                     contentType: "application/json; charset=utf-8",//Recuerda siempre poner los headers correspondientes
                     success: function (res) {
                         console.log(res);  
@@ -121,6 +122,7 @@
             console.log(e)
             $('#updateBtn').attr('disabled', false)
             $('#name').val(e.target.innerText); 
+            selectedName = e.target.innerText;
              $.ajax({
                     url: `${URL}/Admin/GetSection`,
                     type: 'POST', // add this

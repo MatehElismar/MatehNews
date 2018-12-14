@@ -14,12 +14,14 @@ namespace Matehews.Models
         public string pass { get; set; }
         public string email { get; set; }
         public int accessKey { get; set; }
-        public bool logged {get; set; }
+        public bool logged { get; set; }
+        public DateTime DateRegistred { get; set; }
 
         public User()
         {
             this.logged = false;
             this.accessKey = 102; 
+            this.DateRegistred = DateTime.Now;
         }
     }
 }

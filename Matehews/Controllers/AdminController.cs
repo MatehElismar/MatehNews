@@ -38,32 +38,55 @@ namespace Matehews.Controllers
         [HttpPost]
         public IActionResult AddPost([FromBody]newsRequest response)
         {
-            if(Program.users.Find(x => x.id == response.user.id) != null && response.user.accessKey < 102)
+            if(AccountService.GetUserByID(response.user.id) != null && response.user.accessKey < 102)
             { 
                 response.post.id = Program.Posts.Count + 1;
                 response.post.datetimePosted = DateTime.Now;
-                Program.Posts.Add(response.post);
-                return Json(Program.Posts);
+                PostService.AddPost(response.post);
+                return Json(response.post);
+            }
+            return Json(null);
+        }
+
+        public IActionResult UpdatePost([FromBody]newsRequest response)
+        {
+            if(AccountService.GetUserByID(response.user.id) != null && response.user.accessKey < 102)
+            { 
+                response.post.id = Program.Posts.Count + 1;
+                response.post.datetimePosted = DateTime.Now;
+                PostService.UpdatePost(response.post);
+                return Json(response.post);
             }
             return Json(null);
         }
 
         [HttpPost]
-        public IActionResult UpdateSection([FromBody]newsRequest response)
+        public IActionResult UpdateSection([FromBody]CategorieRequest response)
         { 
-            return Json("Actualizado");
+            
+             if(AccountService.GetUserByID(response.user.id) != null && response.user.accessKey < 102)
+            {  
+                PostService.UpdateCategorie(response.categorie, response.lastname );
+                return Json(response.categorie);
+            }
+            return Json(null);
         } 
 
          [HttpPost]
-        public IActionResult AddSection([FromBody]newsRequest response)
+        public IActionResult AddSection([FromBody]CategorieRequest response)
         { 
-            return Json("Agregado");
+             if(AccountService.GetUserByID(response.user.id) != null && response.user.accessKey < 102)
+            {  
+                PostService.AddCategorie(response.categorie);
+                return Json(response.categorie);
+            }
+            return Json(null);
         } 
 
          [HttpPost]
         public IActionResult GetSection([FromBody]string name)
         { 
-            return Json(Program.Categories.Find(x => x.name == name));
+            return Json(PostService.FindCategorieByName(name));
         } 
 
         public IActionResult RemoveNews()
@@ -81,6 +104,19 @@ namespace Matehews.Controllers
         {
             this.user = new User();
             this.post = new News();
+        }
+    }
+
+      public class CategorieRequest
+    {
+        public User user{ get; set; }
+        public Categorie categorie{ get; set; }
+
+        public string lastname { get; set; }
+        public CategorieRequest()
+        {
+            this.user = new User();
+            this.categorie = new Categorie();
         }
     }
 }
