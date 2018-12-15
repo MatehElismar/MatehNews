@@ -1,5 +1,4 @@
-'use strict'
-
+'use strict' 
 //#region Add post
 function addPost(){
     var user = getUser();
@@ -71,6 +70,72 @@ function changeCategorie(event){
 
 //#endregion
 
+//#region UpdatePosts
+function searchPosts(){
+    let authorName = $('#selectedUser').html()
+     var n = authorName.indexOf("(") + 1; 
+    var m = authorName.indexOf(")");
+    let idAuthor = authorName.substring( n, m);
+    console.log(idAuthor)
+
+    var post = {
+        id: $('#id').val(),
+        title:$('#title').val(),
+        review: $('#review').val(), 
+        author: idAuthor 
+    } 
+    console.log('authorName', authorName)
+    console.log('user ', getUser())
+    console.log('post ', post)
+    $.ajax({
+        url: `${URL}/Admin/SearchPostsa`, 
+        type: 'POST', // add this
+        data: { user: getUser(), post: post},
+        contentType: "application/json; charset=utf-8",//Recuerda siempre poner los headers correspondientes
+        success : (res)=>{
+            console.log(res)
+            if(res){
+                alert("Proceso Exitoso")
+
+            }
+            else{
+                alert("Process Failed. Please check the debug console")
+            }
+        },
+        error: (err)=>{
+            console.log(err)
+        }
+    })
+}
+
+function fillTable(results){
+    if(results.length <= 0){
+        alert('no se encontraron resultados')
+    }
+    else{ 
+       results.forEach((post, index)=>{
+            var row = 
+            `
+                <tr>
+                <th scope="row">${post.id}</th>
+                <td>${post.title}</td>
+                <td>${post.review}</td>
+                <td>${post.author}</td>
+                <td>${post.datetimePosted}</td>
+                </tr>
+            `;
+            $('#results-table-body').append(row);
+       })
+           
+    }
+}
+    
+    function changeUser(event){  
+        $('.selectedUser').removeClass('selectedUser')
+        $('#'+ event.target.id).addClass('selectedUser');
+        $('#selectedUser').html(event.target.innerHTML) 
+    }
+//#endregion
 //#region  Categories
 
 var operation = ''
@@ -176,5 +241,5 @@ function showInfo(e){
                 $('#cantPosts').val(categorie.cantPosts)
             }
         }); 
-}
+};
 //#endregion

@@ -17,6 +17,10 @@ namespace Matehews.Models
         public bool logged { get; set; }
         public DateTime DateRegistred { get; set; }
 
+        public string fullName{ get{
+            return string.Format("{0} {1} ({2})", this.first, this.last, this.id);
+        }}
+
         public User()
         {
             this.logged = false;

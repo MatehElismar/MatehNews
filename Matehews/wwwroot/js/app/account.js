@@ -23,7 +23,7 @@ function register(){
     .then(res=>{
       if(res.logged == true){
         setUser(res)
-          // window.location = URL;
+          window.location = URL;
       }
       else{
         alert("error: "+ res)
@@ -42,12 +42,15 @@ function login(){
     if(res.logged == true){
       setUser(res)
         if(res.accessKey == 100)
-        window.location = `${URL}/Admin/CPanel`;
+           window.location = `${URL}/Admin/CPanel`;
+        else 
+          window.location = URL;
     }
     else{
       alert('error: '+ res.first)
     }
     console.log(res)
+
   })
 }
 

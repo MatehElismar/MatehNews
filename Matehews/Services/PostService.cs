@@ -116,8 +116,7 @@ using System.Diagnostics;
             var c = new Server(); 
            var p = new List<DbParameter>();
            p.Add(new DbParameter("top", top));
-           var reader = c.QueryList("GetTopOfPosts", p);
-           Debug.WriteLine(c.Msg); 
+           var reader = c.QueryList("GetTopOfPosts", p); 
            var list = new List<News>();
            var count = 0;
             while (reader.Read())
@@ -140,6 +139,30 @@ using System.Diagnostics;
                 //     return list;}
             }
             list.Reverse();
+            return list;
+        }
+ 
+         public static List<News> SearchPosts(News pst)
+        {
+            var c = new Server(); 
+           var p = new List<DbParameter>();
+           p.Add(new DbParameter("id", pst.id));
+           p.Add(new DbParameter("title", pst.title));
+           p.Add(new DbParameter("review", pst.review));
+           p.Add(new DbParameter("idAuthor", pst.author)); 
+           var reader = c.QueryList("SearchPosts", p); 
+           var list = new List<News>(); 
+            while (reader.Read())
+            {    
+                    var post = new News();
+                    post.title = reader["title"].ToString();
+                    post.review = reader["review"].ToString();
+                    post.content = reader["content"].ToString();
+                    post.categorieName = reader["categorieName"].ToString();
+                    post.author = reader["author"].ToString();
+                    post.datetimePosted = Convert.ToDateTime(reader["datetimePosted"]);
+                    list.Add(post); 
+            } 
             return list;
         }
 

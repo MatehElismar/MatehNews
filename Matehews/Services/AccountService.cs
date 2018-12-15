@@ -61,12 +61,12 @@ using Matehews.Models;
             if (reader.Read())
             {
                 u.id = Convert.ToInt32(reader["id"]); 
-                u.first = reader["first"].ToString(); 
-                u.last = reader["last"].ToString(); 
-                u.username = reader["username"].ToString(); 
-                u.pass = reader["pass"].ToString(); 
-                u.email = reader["email"].ToString(); 
-                u.accessKey = Convert.ToInt32(reader["accessKey"]); 
+                u.first = reader["FirstName"].ToString(); 
+                u.last = reader["LastName"].ToString(); 
+                u.username = reader["Username"].ToString(); 
+                u.pass = reader["Pass"].ToString(); 
+                u.email = reader["Email"].ToString(); 
+                u.accessKey = Convert.ToInt32(reader["AccessKey"]); 
                 u.DateRegistred = Convert.ToDateTime(reader["DateRegistred"]); 
                 return u;
             }
@@ -94,6 +94,29 @@ using Matehews.Models;
                 return u;
             }
             return null;
+        }
+
+        public static List<User> SelectAdministrativeUsers()
+        {
+            var c = new Server(); 
+            var p = new List<DbParameter>(); 
+           
+           var reader = c.QueryList("SelectAdministrativeUsers", null);
+            var u = new User();
+            var list = new List<User>();
+            if (reader.Read())
+            {
+                u.id = Convert.ToInt32(reader["Id"]); 
+                u.first = reader["FirstName"].ToString(); 
+                u.last = reader["LastName"].ToString(); 
+                u.username = reader["Username"].ToString(); 
+                u.pass = reader["Pass"].ToString(); 
+                u.email = reader["Email"].ToString(); 
+                u.accessKey = Convert.ToInt32(reader["AccessKey"]); 
+                u.DateRegistred = Convert.ToDateTime(reader["DateRegistred"]); 
+                list.Add(u);
+            }
+            return list;
         }
 
         public static User GetUserByEmail(string email)

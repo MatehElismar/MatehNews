@@ -25,9 +25,16 @@ namespace Matehews.Controllers
 
         public IActionResult AddNews()
         {
-            ViewBag.Categories = Program.Categories; 
+            ViewBag.Categories = PostService.SelectCategories(); 
             return View();
         }
+
+        public IActionResult UpdateNews()
+        {
+            ViewBag.Users = AccountService.SelectAdministrativeUsers(); 
+            return View();
+        }
+
 
         public IActionResult Sections()
         {
@@ -36,49 +43,60 @@ namespace Matehews.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddPost([FromBody]newsRequest response)
+        public IActionResult AddPost([FromBody]newsRequest request)
         {
-            if(AccountService.GetUserByID(response.user.id) != null && response.user.accessKey < 102)
+            if(AccountService.GetUserByID(request.user.id) != null && request.user.accessKey < 102)
             { 
-                response.post.id = Program.Posts.Count + 1;
-                response.post.datetimePosted = DateTime.Now;
+                request.post.id = Program.Posts.Count + 1;
+                request.post.datetimePosted = DateTime.Now;
                 
-                return Json(PostService.AddPost(response.post));
-            }
-            return Json(null);
-        }
-
-        public IActionResult UpdatePost([FromBody]newsRequest response)
-        {
-            if(AccountService.GetUserByID(response.user.id) != null && response.user.accessKey < 102)
-            { 
-                response.post.id = Program.Posts.Count + 1;
-                response.post.datetimePosted = DateTime.Now;
-                
-                return Json(PostService.UpdatePost(response.post));
+                return Json(PostService.AddPost(request.post));
             }
             return Json(null);
         }
 
         [HttpPost]
-        public IActionResult UpdateSection([FromBody]CategorieRequest response)
+        public IActionResult SearchPostsa([FromBody]newsRequest request)
+        {
+            if(AccountService.GetUserByID(request.user.id) != null && request.user.accessKey < 102)
+            { 
+                 var postsResult = PostService.SearchPosts(request.post);
+                
+                return Json(postsResult);
+            }
+            return Json(null);
+        }
+        public IActionResult UpdatePost([FromBody]newsRequest request)
+        {
+            if(AccountService.GetUserByID(request.user.id) != null && request.user.accessKey < 102)
+            { 
+                request.post.id = Program.Posts.Count + 1;
+                request.post.datetimePosted = DateTime.Now;
+                
+                return Json(PostService.UpdatePost(request.post));
+            }
+            return Json(null);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateSection([FromBody]CategorieRequest request)
         { 
             
-             if(AccountService.GetUserByID(response.user.id) != null && response.user.accessKey < 102)
+             if(AccountService.GetUserByID(request.user.id) != null && request.user.accessKey < 102)
             {  
                 
-                return Json(PostService.UpdateCategorie(response.categorie, response.lastname ));
+                return Json(PostService.UpdateCategorie(request.categorie, request.lastname ));
             }
             return Json(null);
         } 
 
          [HttpPost]
-        public IActionResult AddSection([FromBody]CategorieRequest response)
+        public IActionResult AddSection([FromBody]CategorieRequest request)
         { 
-             if(AccountService.GetUserByID(response.user.id) != null && response.user.accessKey < 102)
+             if(AccountService.GetUserByID(request.user.id) != null && request.user.accessKey < 102)
             {  
                 
-                return Json(PostService.AddCategorie(response.categorie));
+                return Json(PostService.AddCategorie(request.categorie));
             }
             return Json(null);
         } 
