@@ -17,17 +17,17 @@ namespace Matehews.Models
         public DateTime datetimePosted { get; set; }  
         public string url { 
             get{
-                return title.Replace(' ', '-');
+                if(title == null)
+                    return "";
+                else
+                 return title.Replace(' ', '-');
             }
         }
         
         public News( )
         { 
-            this.datetimePosted = new DateTime();
-            this.ImgUrl = ImgUrl;
-            this.title = title;
-            this.content = content;
-            this.author = "Mateh Elismar";
+            this.datetimePosted = DateTime.Now; 
+            this.title = this.review = this.content = this.author = this.ImgUrl = "";
         }
         public News(string title, string review, string categorieName, string ImgUrl = "")
         { 

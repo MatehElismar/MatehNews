@@ -26,7 +26,21 @@ namespace Matehews.Controllers
         public IActionResult AddNews()
         {
             ViewBag.Categories = PostService.SelectCategories(); 
+            ViewData["Title"] = "Agregar Publicacion";
+            ViewData["mode"] = "insert";
+             ViewBag.Post = new News();
             return View();
+        }
+
+        [HttpGet]
+         public IActionResult UpdatePost(string title)
+        {
+            ViewBag.Categories = PostService.SelectCategories(); 
+            ViewData["Title"] = "Actualizar Publicacion";
+            ViewBag.Post = PostService.GetPost(title);
+            ViewData["mode"] = "update";
+
+            return View("AddNews");
         }
 
         public IActionResult UpdateNews()
@@ -55,18 +69,20 @@ namespace Matehews.Controllers
             return Json(null);
         }
 
-        [HttpPost]
-        public IActionResult SearchPostsa([FromBody]newsRequest request)
+      [HttpPost]
+        public IActionResult SearchPosts([FromBody]newsRequest data)
         {
-            if(AccountService.GetUserByID(request.user.id) != null && request.user.accessKey < 102)
+            if(AccountService.GetUserByID(data.user.id) != null && data.user.accessKey < 102)
             { 
-                 var postsResult = PostService.SearchPosts(request.post);
+                var postsResults = PostService.SearchPosts(data.post);
                 
-                return Json(postsResult);
+                return Json(postsResults);
             }
             return Json(null);
         }
-        public IActionResult UpdatePost([FromBody]newsRequest request)
+
+        [HttpPost]
+        public IActionResult UpdatePost([FromHeader]newsRequest request)
         {
             if(AccountService.GetUserByID(request.user.id) != null && request.user.accessKey < 102)
             { 
@@ -113,29 +129,5 @@ namespace Matehews.Controllers
              
             return View();
         } 
-    }
-
-    public class newsRequest
-    {
-        public User user{ get; set; }
-        public News post{ get; set; }
-        public newsRequest()
-        {
-            this.user = new User();
-            this.post = new News();
-        }
-    }
-
-      public class CategorieRequest
-    {
-        public User user{ get; set; }
-        public Categorie categorie{ get; set; }
-
-        public string lastname { get; set; }
-        public CategorieRequest()
-        {
-            this.user = new User();
-            this.categorie = new Categorie();
-        }
     }
 }

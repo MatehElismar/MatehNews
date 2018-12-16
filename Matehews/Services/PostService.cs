@@ -25,7 +25,7 @@ using System.Diagnostics;
             p.Add(new DbParameter("title", post.title.ToLower())); 
             p.Add(new DbParameter("review", post.review)); 
             p.Add(new DbParameter("content", post.content)); 
-            p.Add(new DbParameter("categorieName", post.categorieName)); 
+            p.Add(new DbParameter("categorieName", DateTime.Now)); 
             p.Add(new DbParameter("idAuthor", post.author));  
             p.Add(new DbParameter("datetimePosted", "12/12/12"));  
             var res = c.InsertOrUpdate("AddPost", p); 
@@ -42,7 +42,7 @@ using System.Diagnostics;
             p.Add(new DbParameter("title", post.title.ToLower())); 
             p.Add(new DbParameter("review", post.review)); 
             p.Add(new DbParameter("content", post.content)); 
-            p.Add(new DbParameter("categorieName", post.categorieName)); 
+            p.Add(new DbParameter("categorieName", DateTime.Now)); 
             p.Add(new DbParameter("idAuthor", post.author));  
             p.Add(new DbParameter("datetimePosted","12/12/12"));  
             var res = c.InsertOrUpdate("UpdatePost", p); 
@@ -155,6 +155,7 @@ using System.Diagnostics;
             while (reader.Read())
             {    
                     var post = new News();
+                    post.id = Convert.ToInt32(reader["id"]);
                     post.title = reader["title"].ToString();
                     post.review = reader["review"].ToString();
                     post.content = reader["content"].ToString();
