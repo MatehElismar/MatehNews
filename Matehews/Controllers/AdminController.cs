@@ -53,7 +53,7 @@ namespace Matehews.Controllers
         public IActionResult Sections()
         {
              var categories = PostService.SelectCategories();
-            return View(categories);
+            return View(categories);    
         }
 
         [HttpPost]
