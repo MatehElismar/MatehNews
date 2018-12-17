@@ -77,9 +77,11 @@ namespace Matehews
             e.first = "Usuario Comun";
             e.email = "e@e.com";   
             e.pass = "1234";
-            e.accessKey = 102;
+            e.accessKey = 102; 
             users.Add(u);
             users.Add(e);
+
+            Logs.Add(new User{email ="a@a.com", pass="123456"});
 
         }
 

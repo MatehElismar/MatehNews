@@ -48,7 +48,9 @@
 
 
 @section Scripts{
-     <script> 
+    <script src="~/js/app/admin/updateNews.js"></script> 
+    <script src="~/js/app/admin/AddNews.js"></script> 
+     <script>  
          $(function() {
                 $('#froala-editor').froalaEditor({
                 toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'inlineClass', 'clearFormatting', '|', 'emoticons', 'fontAwesome', 'specialCharacters', '-', 'paragraphFormat', 'lineHeight', 'paragraphStyle', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '|', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '-', 'insertHR', 'selectAll', 'getPDF', 'print', 'help', 'html', 'fullscreen', '|', 'undo', 'redo']
@@ -56,10 +58,10 @@
         });
 
     </script>
-}
 
-<script>  
-        var 'needUpdate = @(ViewBag.Post)';
-         $('#froala-editor').froalaEditor('setHTML', needUpdate.content, false) 
-         console.log($('#froala-editor').froalaEditor('html.get', true))
-</script>
+    <script>  
+            var 'needUpdate = @(ViewBag.Post)';
+            $('#froala-editor').froalaEditor('html.set', needUpdate.content) 
+            console.log($('#froala-editor').froalaEditor('html.get', true))
+    </script>
+}

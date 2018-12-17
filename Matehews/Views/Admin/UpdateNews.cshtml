@@ -30,7 +30,7 @@
    Autor
   </button>
   <b id="selectedUser">@ViewBag.Users[0].fullName </b>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+  <!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
        @for(int i = 0; i < ViewBag.Users.Count; i++)
         {
             if(i == 0)
@@ -43,7 +43,7 @@
                 <a id="@Html.DisplayFor(modelItem => i)" onclick="changeUser(event)" class=" dropdown-item">@ViewBag.Users[i].fullName</a>
             }
         } 
-  </div>
+  </div> -->
 </div> 
 <a onclick="searchPosts()" class="btn btn-success">Buscar Publicacion</a> 
 
@@ -64,3 +64,8 @@
         </tbody>
     </table>
 </div>  
+
+@section Scripts
+{
+    <script src="~/js/app/admin/updateNews.js"></script>
+}

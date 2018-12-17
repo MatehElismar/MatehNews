@@ -82,15 +82,18 @@ namespace Matehews.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdatePost([FromHeader]newsRequest request)
+        public IActionResult Actualizar([FromBody]newsRequest body)
         {
-            if(AccountService.GetUserByID(request.user.id) != null && request.user.accessKey < 102)
+            if(AccountService.GetUserByID(body.user.id) != null && body.user.accessKey < 102)
             { 
-                request.post.id = Program.Posts.Count + 1;
-                request.post.datetimePosted = DateTime.Now;
+                Debug.WriteLine("Param is OK");
+
+                body.post.id = Program.Posts.Count + 1;
+                body.post.datetimePosted = DateTime.Now;
                 
-                return Json(PostService.UpdatePost(request.post));
+                return Json(PostService.UpdatePost(body.post));
             }
+            Debug.WriteLine("Param is null"); 
             return Json(null);
         }
 

@@ -11,5 +11,15 @@
             ],
             "problemMatcher": "$msCompile"
         }
+        ,{
+            "label": "watch",
+            "command": "dotnet watch run",
+            "type": "process",
+            "args": [
+                "",
+                "${workspaceFolder}/Matehews.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        }
     ]
 }
