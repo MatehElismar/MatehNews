@@ -15,11 +15,11 @@
                     {
                         <div class="single-blog-post featured-post mb-30">
                             <div class="post-thumb">
-                                <a href='@Url.Action("Post", "Home", new {name = item.title})'><img src="~/newspaper-template/img/bg-img/25.jpg" alt=""></a>
+                                <a href='@Url.Action("Post", "Home", new {id = item.url})'><img src="~/newspaper-template/img/bg-img/25.jpg" alt=""></a>
                             </div>
                             <div class="post-data">
-                                <a href='@Url.Action("Post", "Home", new {name = item.title})' class="post-catagory">@Html.DisplayFor(modelItem => item.categorieName)</a>
-                                <a href='@Url.Action("Post", "Home", new {name = item.title})' class="post-title">
+                                <a href='@Url.Action("Post", "Home", new {id = item.url})' class="post-catagory">@Html.DisplayFor(modelItem => item.categorieName)</a>
+                                <a href='@Url.Action("Post", "Home", new {id = item.url})' class="post-title">
                                     <h6>Financial news: @Html.DisplayFor(modelItem => item.title)</h6>
                                 </a>
                                 <div class="post-meta">

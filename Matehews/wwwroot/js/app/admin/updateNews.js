@@ -39,11 +39,11 @@ function searchPosts(){
 }
 
 function fillTable(results){
+    $('#results-table-body').html("");
     if(results.length <= 0){
         alert('no se encontraron resultados')
     }
     else{ 
-        $('#results-table-body').html("loading");
         results.forEach((post, index)=>{
             var row = 
             `
@@ -53,6 +53,7 @@ function fillTable(results){
                 <td class="review">${post.review}</td>
                 <td class="author">${post.author}</td>
                 <td class="datetimePosted">${post.datetimePosted}</td>
+                <td class="datetimePosted">${post.status}</td>
                 </tr>
             `;
             $('#results-table-body').append(row);

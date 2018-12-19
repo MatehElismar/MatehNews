@@ -14,7 +14,7 @@ using System.Diagnostics;
     public class PostService
     { 
         public PostService()
-        {
+        { 
         }
 
         public static bool AddPost(News post)
@@ -22,14 +22,14 @@ using System.Diagnostics;
             var c = new Server();
             var p = new List<DbParameter>();
             p.Add(new DbParameter("imgUrl", "post.ImgUrl"));  
-            p.Add(new DbParameter("title", post.title.ToLower())); 
+            p.Add(new DbParameter("title", post.title)); 
             p.Add(new DbParameter("review", post.review)); 
             p.Add(new DbParameter("content", post.content)); 
-            p.Add(new DbParameter("categorieName", DateTime.Now)); 
+            p.Add(new DbParameter("categorieName", post.categorieName)); 
             p.Add(new DbParameter("idAuthor", post.author));  
-            p.Add(new DbParameter("datetimePosted", "12/12/12"));  
+            p.Add(new DbParameter("datetimePosted", DateTime.UtcNow));  
             var res = c.InsertOrUpdate("AddPost", p); 
-            Debug.WriteLine(c.Msg);
+            Debug.WriteLine(c.Msg); 
             return res;
         }
 
@@ -39,13 +39,14 @@ using System.Diagnostics;
             var p = new List<DbParameter>();
             p.Add(new DbParameter("imgUrl", "post.ImgUrl")); 
             p.Add(new DbParameter("id", post.id)); 
-            p.Add(new DbParameter("title", post.title.ToLower())); 
+            p.Add(new DbParameter("title", post.title)); 
             p.Add(new DbParameter("review", post.review)); 
             p.Add(new DbParameter("content", post.content)); 
-            p.Add(new DbParameter("categorieName", DateTime.Now)); 
+            p.Add(new DbParameter("categorieName", post.categorieName)); 
             p.Add(new DbParameter("idAuthor", post.author));  
-            p.Add(new DbParameter("datetimePosted","12/12/12"));  
-            var res = c.InsertOrUpdate("UpdatePost", p); 
+            p.Add(new DbParameter("status", post.status));  
+            p.Add(new DbParameter("datetimePosted",DateTime.UtcNow));  
+            var res = c.InsertOrUpdate("UpdatePost", p);  
             return res;
         }
 
@@ -63,10 +64,12 @@ using System.Diagnostics;
             { 
                 cat.name = reader["name"].ToString();
                 cat.description = reader["description"].ToString();
+                c.Close();
                 return cat;
             }
+            c.Close();
             return null;
-        }
+        } 
 
         public static List<Categorie> SelectCategories()
         {
@@ -83,30 +86,33 @@ using System.Diagnostics;
                 list.Add(cat);
 
             }
+            c.Close();
             return list;
         }
 
           public static News GetPost(string title)
-        {
-            title = title.Replace("-"," ");
-            title = title.ToLower();
+        { 
             var c = new Server(); 
             var p = new List<DbParameter>();
-           p.Add(new DbParameter("title", title));
+           p.Add(new DbParameter("title", title.Replace("-"," ")));
            var reader = c.QueryList("GetPost", p);
            Debug.WriteLine(c.Msg);
            var cat = new Categorie();  
             if (reader.Read())
             {   
                  var post = new News();
+                post.id = Convert.ToInt32(reader["id"]);
                 post.title = reader["title"].ToString();
                 post.review = reader["review"].ToString();
                 post.content = reader["content"].ToString();
                 post.categorieName = reader["categorieName"].ToString();
                 post.author = reader["author"].ToString();
+                post.status = reader["status"].ToString();
                 post.datetimePosted = Convert.ToDateTime(reader["datetimePosted"]);
+                c.Close();
                 return post; 
             }
+            c.Close();
             return null;
         }
 
@@ -124,11 +130,13 @@ using System.Diagnostics;
                 // if(count < top)
                 // { 
                     var post = new News();
+                post.id = Convert.ToInt32(reader["id"]);                    
                     post.title = reader["title"].ToString();
                     post.review = reader["review"].ToString();
                     post.content = reader["content"].ToString();
                     post.categorieName = reader["categorieName"].ToString();
                     post.author = reader["author"].ToString();
+                    post.status = reader["status"].ToString();
                     post.datetimePosted = Convert.ToDateTime(reader["datetimePosted"]);
                     list.Add(post);
                     count++;
@@ -139,11 +147,12 @@ using System.Diagnostics;
                 //     return list;}
             }
             list.Reverse();
+            c.Close();
             return list;
         }
  
          public static List<News> SearchPosts(News pst)
-        {
+        { 
             var c = new Server(); 
            var p = new List<DbParameter>();
            p.Add(new DbParameter("id", pst.id));
@@ -156,14 +165,16 @@ using System.Diagnostics;
             {    
                     var post = new News();
                     post.id = Convert.ToInt32(reader["id"]);
-                    post.title = reader["title"].ToString();
+                    post.title = reader["title"].ToString(); 
                     post.review = reader["review"].ToString();
                     post.content = reader["content"].ToString();
                     post.categorieName = reader["categorieName"].ToString();
                     post.author = reader["author"].ToString();
+                    post.status = reader["status"].ToString();
                     post.datetimePosted = Convert.ToDateTime(reader["datetimePosted"]);
                     list.Add(post); 
             } 
+            c.Close();
             return list;
         }
 
@@ -184,6 +195,24 @@ using System.Diagnostics;
                 l.Add(post);
             }
             l.Reverse();
+            c.Close();
+            return l;
+        }
+
+         public static List<AuxiliarTable> GetPostStatus( )
+        {
+            var c = new Server();  
+           var reader = c.QueryList("getPostStatus", null);
+           Debug.WriteLine(c.Msg); 
+           var l = new List<AuxiliarTable>();
+            while (reader.Read())
+            {   var status = new AuxiliarTable();
+                status.id = Convert.ToInt32(reader["id"]);
+                status.description = reader["description"].ToString(); 
+                l.Add(status);
+            }
+            l.Reverse();
+            c.Close();
             return l;
         }
 
@@ -194,7 +223,7 @@ using System.Diagnostics;
             var p = new List<DbParameter>();
             p.Add(new DbParameter("name", cat.name));  
             p.Add(new DbParameter("description", cat.description));  
-            var res = c.InsertOrUpdate("AddCategorie", p);  
+            var res = c.InsertOrUpdate("AddCategorie", p);   
             return res;
         }
 
@@ -207,6 +236,6 @@ using System.Diagnostics;
             p.Add(new DbParameter("description", cat.description));  
             var res = c.InsertOrUpdate("UpdateCategorie", p);  
             return res;
-        }
+        } 
     }
 }

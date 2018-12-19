@@ -14,6 +14,7 @@ namespace Matehews.Models
         public string content { get; set; }
         public string categorieName {get; set;}
         public string author { get; set; }
+        public string status { get; set; }
         public DateTime datetimePosted { get; set; }  
         public string url { 
             get{
@@ -31,7 +32,7 @@ namespace Matehews.Models
         }
         public News(string title, string review, string categorieName, string ImgUrl = "")
         { 
-            this.datetimePosted = new DateTime();
+            this.datetimePosted = DateTime.Now;
             this.ImgUrl = ImgUrl;
             this.title = title;
             this.review = review;

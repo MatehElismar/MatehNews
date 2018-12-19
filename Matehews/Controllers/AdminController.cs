@@ -28,6 +28,7 @@ namespace Matehews.Controllers
             ViewBag.Categories = PostService.SelectCategories(); 
             ViewData["Title"] = "Agregar Publicacion";
             ViewData["mode"] = "insert";
+            ViewData["Post_status"] = PostService.GetPostStatus();
              ViewBag.Post = new News();
             return View();
         }
@@ -39,6 +40,7 @@ namespace Matehews.Controllers
             ViewData["Title"] = "Actualizar Publicacion";
             ViewBag.Post = PostService.GetPost(title);
             ViewData["mode"] = "update";
+            ViewData["Post_status"] = PostService.GetPostStatus();
 
             return View("AddNews");
         }
@@ -48,7 +50,7 @@ namespace Matehews.Controllers
             ViewBag.Users = AccountService.SelectAdministrativeUsers(); 
             return View();
         }
-
+ 
 
         public IActionResult Sections()
         {
@@ -57,14 +59,13 @@ namespace Matehews.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddPost([FromBody]newsRequest request)
+        public IActionResult AddPost([FromBody]newsRequest data)
         {
-            if(AccountService.GetUserByID(request.user.id) != null && request.user.accessKey < 102)
+            if(AccountService.GetUserByID(data.user.id) != null && data.user.accessKey < 102)
             { 
-                request.post.id = Program.Posts.Count + 1;
-                request.post.datetimePosted = DateTime.Now;
+                var postsResults = PostService.AddPost(data.post);
                 
-                return Json(PostService.AddPost(request.post));
+                return Json(postsResults);
             }
             return Json(null);
         }
@@ -81,15 +82,16 @@ namespace Matehews.Controllers
             return Json(null);
         }
 
+        public ActionResult GetDate(){
+            return Json(DateTime.UtcNow);
+        }
+
         [HttpPost]
-        public IActionResult Actualizar([FromBody]newsRequest body)
+        public IActionResult UpdatePost([FromBody]newsRequest body)
         {
             if(AccountService.GetUserByID(body.user.id) != null && body.user.accessKey < 102)
             { 
-                Debug.WriteLine("Param is OK");
-
-                body.post.id = Program.Posts.Count + 1;
-                body.post.datetimePosted = DateTime.Now;
+                Debug.WriteLine("Param is OK"); 
                 
                 return Json(PostService.UpdatePost(body.post));
             }

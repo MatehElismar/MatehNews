@@ -1,67 +1,107 @@
-﻿@{
-    ViewData["ButtonText"] = (ViewBag.mode == "update") ? "Publicar actualizacion": "Publicar";
-}
-<h2>@ViewData["Title"] - Post ID: <b id="postID">@ViewBag.Post.id</b></h2>   
-    
+﻿
+ @if(ViewBag.mode == "update")
+ {
+     <h2>@ViewBag.Title - Post ID: <span id="postID">@ViewBag.Post.id</span></h2>
+ }
+ else
+ {
+    <h2>@ViewBag.Title</h2>
+ } 
+
 <script>
-    //ESta pagina solo espara usuarios administradores asi que.
-      isOnlyAdminPage(); 
-    //redirectIfNoLogged();
-</script>   
+    isOnlyAdminPage()
+</script>
 
-
-        <div class="form-group">
-            <label for="title">Titulo</label>
-            <input type="text" name="title" id="title" class="form-control" aria-describedby="Misael me regalo 2 empanada" placeholder="Tema a tratar" value="@ViewBag.Post.title">
-            <!-- <small name="titleHelp" id="titleHelp" class="form-text text-muted">We'll never share your title with anyone else.</small> -->
-        </div>
-        <div class="form-group">
-            <label for="review">Descripcion Corta</label>
-            <input type="text" name="review" id="review" class="form-control" aria-describedby="Misael me regalo 2 empanada" placeholder="Punto Clave y llamativo de la publicacion" value="@ViewBag.Post.review">
-            <!-- <small name="titleHelp" id="titleHelp" class="form-text text-muted">We'll never share your title with anyone else.</small> -->
-        </div>
-
-        <div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-   Categorias
-  </button>
-  <b id="selectedCat">@ViewBag.Categories[0].name </b>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-       @for(int i = 0; i < ViewBag.Categories.Count; i++)
+<div class="form">
+    <div class="form-group">
+        <label for="title">Titulo</label>
+        <input type="text" name="title" id="title" class="form-control" placeholder="Tema a tratar" value="@ViewBag.Post.title">
+    </div>
+    <div class="form-group">
+        <label for="review">Descripcion</label>
+        <input type="text" name="review" id="review" class="form-control" placeholder="Descripcion Corta" value="@ViewBag.Post.review">
+    </div>
+    
+    <!-- Categories Dropdown -->
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         Categorias
+        </button> 
+        @if(ViewBag.mode == "update")
         {
-            if(i == 0)
+            <b id="selectedCat">@ViewBag.Post.categorieName </b>
+        }
+        else
+        {
+            <b id="selectedCat">@ViewBag.Categories[0].name</b>
+        }
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+             @for(int i = 0; i < ViewBag.Categories.Count; i++)
+              {
+                  if(i == 0)
+                  {
+                      //ADD THE SELECTED CATEGORIE CLASS
+                      <a id="@Html.DisplayFor(modelItem => i)" onclick="changeCategorie(event)" class="selectedCategorie dropdown-item">@ViewBag.Categories[i].name</a> 
+                  }
+                  else
+                  {
+                      <a id="@Html.DisplayFor(modelItem => i)" onclick="changeCategorie(event)" class=" dropdown-item">@ViewBag.Categories[i].name</a>
+                  }
+              } 
+        </div>
+      </div>
+      <hr>
+      <label>Contenido</label>
+      <div id="froala-editor">@Html.Raw(ViewBag.Post.content)</div>
+
+<!-- Status Dropdown -->
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Estado de la publicacion
+        </button> 
+        @if(ViewBag.mode == "update")
+        {
+            <b id="selectedSta">@ViewBag.Post.status </b>
+        }
+        else
+        {
+            <b id="selectedSta">@ViewBag.Post_status[0].description</b>
+        }
+        <div id="post-status" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            @for(int i = 0; i < ViewBag.Post_status.Count; i++)
             {
-                //ADD THE SELECTED CATEGORIE CLASS
-                <a id="@Html.DisplayFor(modelItem => i)" onclick="changeCategorie(event)" class="selectedCategorie dropdown-item">@ViewBag.Categories[i].name</a> 
-            }
-            else
-            {
-                <a id="@Html.DisplayFor(modelItem => i)" onclick="changeCategorie(event)" class=" dropdown-item">@ViewBag.Categories[i].name</a>
-            }
-        } 
-  </div>
+                if(i == 0)
+                {
+                    //ADD THE SELECTED CATEGORIE CLASS
+                    <a id="@Html.DisplayFor(modelItem => i)" onclick="changeStatus(event)" class="selectedStatus dropdown-item">@ViewBag.Post_status[i].description</a> 
+                }
+                else
+                {
+                    <a id="@Html.DisplayFor(modelItem => i)" onclick="changeStatus(event)" class="dropdown-item">@ViewBag.Post_status[i].description</a>
+                }
+            } 
+        </div>
+   </div>
+      <br>
+      @if(ViewBag.mode == "update")
+      {
+          <button class="btn btn-success" onclick="updatePost()">Publicar Actualizacion</button>
+      }
+      else
+      {
+        <button class="btn btn-success" onclick="addPost()">Publicar</button>
+      }
 </div>
 
-    <label>Contenido</label>
-<div height="600px" id="froala-editor"></div> 
-<a class="btn btn-success" onclick="addPost(event)">@ViewData["ButtonText"]</a>
-
-
-@section Scripts{
-    <script src="~/js/app/admin/updateNews.js"></script> 
-    <script src="~/js/app/admin/AddNews.js"></script> 
-     <script>  
-         $(function() {
-                $('#froala-editor').froalaEditor({
+@section Scripts
+{
+    <script src="~/js/app/admin/addNews.js"></script>
+    <script>
+        $(()=>{
+            $('#froala-editor').froalaEditor({
                 toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'inlineClass', 'clearFormatting', '|', 'emoticons', 'fontAwesome', 'specialCharacters', '-', 'paragraphFormat', 'lineHeight', 'paragraphStyle', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '|', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '-', 'insertHR', 'selectAll', 'getPDF', 'print', 'help', 'html', 'fullscreen', '|', 'undo', 'redo']
-                }) 
-        });
-
-    </script>
-
-    <script>  
-            var 'needUpdate = @(ViewBag.Post)';
-            $('#froala-editor').froalaEditor('html.set', needUpdate.content) 
-            console.log($('#froala-editor').froalaEditor('html.get', true))
+            })
+        })  
     </script>
 }
+
