@@ -16,7 +16,7 @@ namespace Matehews.Models
         public int accessKey { get; set; }
         public bool logged { get; set; }
         public DateTime DateRegistred { get; set; }
-
+        public int cantPosts{ get; set;}
         public string fullName{ get{
             return string.Format("{0} {1} ({2})", this.first, this.last, this.id);
         }}

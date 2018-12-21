@@ -14,11 +14,19 @@ namespace Matehews.Controllers
         public IActionResult CPanel( )
         {  
             return View( ); 
-        }
+        } 
 
-        public IActionResult ManageUsers()
+         public IActionResult Users()
         {
-             
+             ViewData["AccessKeys"] = AccountService.GetAccessKeys();
+            //  ViewData["UserStadists"] = AccountService.GetUserStadists();
+            AccountService.GenerateStadists();
+            ViewBag.total = UserStatist.total;
+            ViewBag.common = UserStatist.common;
+            ViewBag.admin = UserStatist.admin;
+            ViewBag.reporter = UserStatist.reporter;
+            ViewBag.enabled = UserStatist.enabled;
+            ViewBag.disabled = UserStatist.disabled;
             return View();
         }
 

@@ -1,26 +1,100 @@
-﻿
-@{
-    ViewData["Title"] = "Inicio de Sesion";
+﻿@{
+    ViewData["Title"] = "Registrar";
 }
 
-<h2>Agregar Usuarios</h2>
-
+<h2>Agregar Nuevo Usuario</h2>
 
 <div class="container">
-    <form action="AddUser"> 
+    <form id="register-form">
         <div class="form-group">
-            <label for="Email">Correo Electronico o Nombre de Usuario</label>
-            <input type="text" id="Email" class="form-control" aria-describedby="EmailHelp" placeholder="Ej: mateh@elismar.com / mateh_elismar">
-            <!-- <small id="EmailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                <label for="first">Nombres</label>
+                <input type="text" name="first" id="first" class="form-control" aria-describedby="firstHelp" placeholder="Ej: Mateh">
+                <small name="firstHelp" id="firstHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
         <div class="form-group">
-            <label for="Pass">Contraseña</label>
-            <input type="text" id="Pass" class="form-control" aria-describedby="PassHelp" placeholder="Ej: laamo123">
-            <!-- <small id="PassHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                <label for="last">Apellidos</label>
+                <input type="text" name="last" id="last" class="form-control" aria-describedby="lastHelp" placeholder="Ej: Elismar">
+                <!-- <small name="lastHelp" id="lastHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+        </div>
+        <div class="form-group">
+                <label for="username">Nombre de Usuario</label>
+                <input type="text" name="username" id="username" class="form-control" aria-describedby="usernameHelp" placeholder="Ej: Mateh_Elismar">
+                <small name="usernameHelp" id="usernameHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+                <label for="email">Correo Electronico</label>
+                <input type="text" name="email" id="email" class="form-control" aria-describedby="emailHelp" placeholder="Ej: mateh@elismar.com">
+                <!-- <small name="emailHelp" id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+        </div>
+<!-- Privilegios de Acceso -->
+        <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Privilegios de Acceso
+                </button>  
+                    <b id="selectedAccess">@ViewBag.AccessKeys[0].description</b> 
+                <div id="post-status" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    @for(int i = 0; i < ViewBag.AccessKeys.Count; i++)
+                    {
+                        if(i == 0)
+                        {
+                            //ADD THE SELECTED CATEGORIE CLASS
+                            <a id="@Html.DisplayFor(modelItem => i)" onclick="changeAccess(event)" class="selectedAccessKey dropdown-item">@ViewBag.AccessKeys[i].description</a> 
+                        }
+                        else
+                        {
+                            <a id="@Html.DisplayFor(modelItem => i)" onclick="changeAccess(event)" class="dropdown-item">@ViewBag.AccessKeys[i].description</a>
+                        }
+                    } 
+                </div>
+           </div>
+        <div class="form-group">
+                <label for="pass">Contraseña</label>
+                <input type="password" name="pass" id="pass" class="form-control" aria-describedby="passHelp" placeholder="Ej: laamo123">
+                <!-- <small name="passHelp" id="passHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+        </div>
+        <div class="form-group">
+                <label for="pass2">Repite la Contraseña</label>
+                <input type="password" name="pass2" id="pass2" class="form-control" aria-describedby="passHelp" >
+                <!-- <small name="passHelp" id="passHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
         </div> 
-        <button class="btn btn-success" type="submit">Iniciar Sesion</button>
+        <a class="btn btn-danger" onclick="register()">Registrar</a>
     </form>
 </div>
 
 
+@section Scripts
+{
+    <script>
+        function register(){
+            var user = {
+                first: $('#first').val(),
+                last: $('#last').val(),
+                email: $('#email').val(),
+                username: $('#username').val(),
+                pass: $('#pass').val(),
+                accessKey: $('#selectedAccess').html()
+            }
 
+            $.ajax({
+                url: `${URL}/Account/AddUser`,
+                type: 'POST',
+                data: {user: getUser(), post: user},
+                contentType: 'application/json',
+                success: (res)=>{
+                    console.log(res)
+                },
+                error: (err)=>{
+                    console.error(err)
+                }
+            })
+        }
+        
+        function changeAccess(event){   
+            $('.selectedAccessKey').removeClass('selectedAccessKey');
+            $('#'+ event.target.id).addClass('selectedAccessKey');
+            $('#selectedAccess').html(event.target.innerHTML)  
+        } 
+
+        
+    </script>
+}

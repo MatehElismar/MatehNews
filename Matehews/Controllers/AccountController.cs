@@ -106,5 +106,24 @@ namespace Matehews.Controllers
         {
             return true;
         }
+
+        // ##########ADMIN#######
+        public ActionResult AddUsers(){
+            ViewData["AccessKeys"] = AccountService.GetAccessKeys();
+            Debug.WriteLine(ViewData["AccessKeys"]);
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult GetAdministrativeUsers()
+        {
+            return Json(AccountService.SelectAdministrativeUsers());
+        }
+
+        [HttpGet]
+        public ActionResult GetAccessKeys()
+        {
+            return Json(AccountService.GetAccessKeys());
+        }
     }
 }

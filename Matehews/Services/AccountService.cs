@@ -114,6 +114,7 @@ using Matehews.Models;
                 u.email = reader["Email"].ToString(); 
                 u.accessKey = Convert.ToInt32(reader["AccessKey"]); 
                 u.DateRegistred = Convert.ToDateTime(reader["DateRegistred"]); 
+                u.cantPosts = Convert.ToInt32(reader["publicaciones"]); 
                 list.Add(u);
             }
             return list;
@@ -141,5 +142,66 @@ using Matehews.Models;
             }
             return null;
         }
+
+         public static List<AuxiliarTable> GetAccessKeys()
+        {
+            var c = new Server();   
+           
+           var reader = c.QueryList("getAccessKeys", null);
+            var l = new List<AuxiliarTable>();
+            while(reader.Read())
+            {
+                var u = new AuxiliarTable();
+                u.id = Convert.ToInt32(reader["Id"]); 
+                u.description = reader["name"].ToString();  
+                l.Add(u);
+            }
+            return l;
+        }
+
+        public static List<AuxiliarTable> GetUserStadists()
+        {
+            var c = new Server();   
+           
+           var reader = c.QueryList("getUserStadists", null);
+            var l = new List<AuxiliarTable>();
+            while(reader.Read())
+            {
+                if(reader["categorie"].ToString().ToLower() == "admin")
+                    UserStatist.admin = Convert.ToInt32(reader["cantidad"]);
+
+                if(reader["categorie"].ToString().ToLower() == "reporter")
+                    UserStatist.reporter = Convert.ToInt32(reader["cantidad"]);
+
+                if(reader["categorie"].ToString().ToLower() == "user")
+                    UserStatist.common = Convert.ToInt32(reader["cantidad"]);
+
+            }
+            return l;
+        }
+
+          public static List<AuxiliarTable> GetUsersStatus()
+        {
+            var c = new Server();   
+           
+           var reader = c.QueryList("get_users_status", null);
+            var l = new List<AuxiliarTable>();
+            while(reader.Read())
+            {
+                if(Convert.ToInt32(reader["status"]) == 1)
+                    UserStatist.enabled = Convert.ToInt32(reader["cantidad"]);
+                else
+                    UserStatist.disabled = Convert.ToInt32(reader["cantidad"]);
+            }
+            return l;
+        }
+
+
+        public static void GenerateStadists()
+        {
+            GetUserStadists();
+            GetUsersStatus();
+        }
+
     }
 }

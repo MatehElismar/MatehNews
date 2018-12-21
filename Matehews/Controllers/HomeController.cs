@@ -29,6 +29,7 @@ namespace Matehews.Controllers
         public IActionResult Post(string id)
         {   
             var post = PostService.GetPost(id);
+            post.comments = CommentService.GetComments(post.id);
             if(post != null)
             { 
                 ViewBag.Categories = PostService.SelectCategories(); 

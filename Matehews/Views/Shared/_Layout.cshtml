@@ -37,6 +37,16 @@
      <script src="~/js/app/consts.js" asp-append-version="true"></script>  
         <script src="~/js/app/account.js" asp-append-version="true"></script>
     <script src="~/js/app/admin.js" asp-append-version="true"></script>
+
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v3.2&appId=213555639552661&autoLogAppEvents=1';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
    
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -65,12 +75,10 @@
                             <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                         </a>
                         <ul id="" class="dropdown-menu dropdown-user">
-                            <li><a href="~/Account/Profile"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                            </li>
-                            <li><a href="~/Admin/Settings"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                            <li><a href="~/Account/Profile"><i class="fa fa-user fa-fw"></i>Perfil de Usuario</a>
                             </li>
                             <li class="divider"></li> 
-                            <li><a onclick="logout()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                            <li><a onclick="logout()"><i class="fa fa-sign-out fa-fw"></i>Cerrar Sesion</a>
                             </li>
                         </ul>
                         <!-- /.dropdown-user -->

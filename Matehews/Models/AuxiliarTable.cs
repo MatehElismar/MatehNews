@@ -8,6 +8,11 @@ namespace Matehews.Models
         public String description {get; set;}
         public AuxiliarTable()
         { 
+        } 
+        public AuxiliarTable(int id, string description)
+        { 
+            this.id = id;
+            this.description = description;
         }
     }
 }

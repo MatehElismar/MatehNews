@@ -10,7 +10,8 @@ namespace Services
     public class Server
     {
         SqlConnection Conn;
-        public string Msg{get; set;}
+        public string Msg{get; set;} 
+        public int Id{get; set;} 
         SqlCommand Cmd;
         SqlDataAdapter Adapter;
         SqlDataReader Reader;
@@ -39,7 +40,12 @@ namespace Services
                 Cmd.CommandType = CommandType.StoredProcedure;
                 Cmd.Parameters.AddRange(parameters);
                 Cmd.ExecuteNonQuery(); 
-                Conn.Close();
+                Conn.Close(); 
+                
+                if(Cmd.Parameters["id"].Value != null)
+                {
+                    this.Id = Convert.ToInt32(Cmd.Parameters["id"].Value);
+                } 
 
                 Console.WriteLine("Todo bien, todo correcto y yo que me alegro");
                 return true;

@@ -50,6 +50,15 @@ using System.Diagnostics;
             return res;
         }
 
+        public static bool LikePost(int postID)
+        {
+            var c = new Server();
+            var p = new List<DbParameter>();
+            p.Add(new DbParameter("postID", postID)); 
+            var res = c.InsertOrUpdate("likePost", p);  
+            return res;
+        }
+
         public static Categorie FindCategorieByName(string name)
         {
             var c = new Server();
@@ -102,6 +111,7 @@ using System.Diagnostics;
             {   
                  var post = new News();
                 post.id = Convert.ToInt32(reader["id"]);
+                post.likesCount = Convert.ToInt32(reader["likes"]);
                 post.title = reader["title"].ToString();
                 post.review = reader["review"].ToString();
                 post.content = reader["content"].ToString();
@@ -130,7 +140,8 @@ using System.Diagnostics;
                 // if(count < top)
                 // { 
                     var post = new News();
-                post.id = Convert.ToInt32(reader["id"]);                    
+                post.id = Convert.ToInt32(reader["id"]);
+                post.likesCount = Convert.ToInt32(reader["likes"]);                    
                     post.title = reader["title"].ToString();
                     post.review = reader["review"].ToString();
                     post.content = reader["content"].ToString();
@@ -165,6 +176,7 @@ using System.Diagnostics;
             {    
                     var post = new News();
                     post.id = Convert.ToInt32(reader["id"]);
+                    post.likesCount = Convert.ToInt32(reader["likes"]);
                     post.title = reader["title"].ToString(); 
                     post.review = reader["review"].ToString();
                     post.content = reader["content"].ToString();

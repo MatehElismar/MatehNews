@@ -1,67 +1,119 @@
 ﻿@{
-    ViewData["ButtonText"] = (ViewBag.mode == "update") ? "Publicar actualizacion": "Publicar";
+    ViewData["Title"] = " Usuarios Del Sistema";
 }
-<h2>@ViewData["Title"] - Post ID: <b id="postID">@ViewBag.Post.id</b></h2>   
+<h2>@ViewData["Title"]</h2>   
     
 <script>
     //ESta pagina solo espara usuarios administradores asi que.
       isOnlyAdminPage(); 
     //redirectIfNoLogged();
 </script>   
+<ul>
+    <li>
+        <h5>Total De Usuarios <span id="total">@ViewBag.total</span></h5>
+        <li>
+            <h6>Usuarios Comunes: <span id="common-users">@ViewBag.common</span></h6>
+            <h6>Administradores: <span id="admins">@ViewBag.admin</span></h6>
+            <h6>Reporteros: <span id="reportes">@ViewBag.reporter</span></h6>
+        </li>
+    </li>
+</ul>
+ 
+
+<h5>Activos <span id="activos">@ViewBag.enabled</span></h5>
+<h5>Desabilitados <span id="Desabilitados">@ViewBag.disabled</span></h5>
+    <br>
+    <hr>
+    <a href="~/Account/Profile" class="btn btn-success">Ver Perfil</a>
+    <a href="~/Account/AddUsers" class="btn btn-success">Agregar Nuevo</a>
+    <a class="btn btn-success">Cambiar Estado de cuenta</a>
+    <a class="btn btn-success">Ir al chat</a> 
+
+<div id="users-table">
+    <table class="table">
+        <thead>
+            <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre Completo</th>
+            <th scope="col">Email</th>
+            <th scope="col">Privilegios</th>
+            <th scope="col">Cantidad De Publicaciones</th>
+            </tr>
+        </thead>
+        <tbody id="users-table-body">
+        </tbody>
+    </table>
+</div>  
 
 
-        <div class="form-group">
-            <label for="title">Titulo</label>
-            <input type="text" name="title" id="title" class="form-control" aria-describedby="Misael me regalo 2 empanada" placeholder="Tema a tratar" value="@ViewBag.Post.title">
-            <!-- <small name="titleHelp" id="titleHelp" class="form-text text-muted">We'll never share your title with anyone else.</small> -->
-        </div>
-        <div class="form-group">
-            <label for="review">Descripcion Corta</label>
-            <input type="text" name="review" id="review" class="form-control" aria-describedby="Misael me regalo 2 empanada" placeholder="Punto Clave y llamativo de la publicacion" value="@ViewBag.Post.review">
-            <!-- <small name="titleHelp" id="titleHelp" class="form-text text-muted">We'll never share your title with anyone else.</small> -->
-        </div>
-
-        <div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-   Categorias
-  </button>
-  <b id="selectedCat">@ViewBag.Categories[0].name </b>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-       @for(int i = 0; i < ViewBag.Categories.Count; i++)
-        {
-            if(i == 0)
-            {
-                //ADD THE SELECTED CATEGORIE CLASS
-                <a id="@Html.DisplayFor(modelItem => i)" onclick="changeCategorie(event)" class="selectedCategorie dropdown-item">@ViewBag.Categories[i].name</a> 
-            }
-            else
-            {
-                <a id="@Html.DisplayFor(modelItem => i)" onclick="changeCategorie(event)" class=" dropdown-item">@ViewBag.Categories[i].name</a>
-            }
-        } 
-  </div>
-</div>
-
-    <label>Contenido</label>
-<div height="600px" id="froala-editor"></div> 
-<a class="btn btn-success" onclick="addPost(event)">@ViewData["ButtonText"]</a>
-
-
-@section Scripts{
-    <script src="~/js/app/admin/updateNews.js"></script> 
-    <script src="~/js/app/admin/AddNews.js"></script> 
-     <script>  
-         $(function() {
-                $('#froala-editor').froalaEditor({
-                toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'inlineClass', 'clearFormatting', '|', 'emoticons', 'fontAwesome', 'specialCharacters', '-', 'paragraphFormat', 'lineHeight', 'paragraphStyle', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '|', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '-', 'insertHR', 'selectAll', 'getPDF', 'print', 'help', 'html', 'fullscreen', '|', 'undo', 'redo']
-                }) 
-        });
-
-    </script>
-
+@section Scripts
+{
+    <script src="~/js/app/admin/updateNews.js"></script>
     <script>  
-            var 'needUpdate = @(ViewBag.Post)';
-            $('#froala-editor').froalaEditor('html.set', needUpdate.content) 
-            console.log($('#froala-editor').froalaEditor('html.get', true))
-    </script>
+        $(()=>{
+            getUsers()  
+        })
+
+        var accesskeys = []
+
+        function getUsers(){
+            var user = {
+                first: $('#first').val(),
+                last: $('#last').val(),
+                email: $('#email').val(),
+                username: $('#username').val(),
+                pass: $('#pass').val(),
+                accessKey: $('#selectedAccess').html()
+            }
+
+             $.ajax({
+                url: `${URL}/Account/GetAccessKeys`,
+                type: 'GET', 
+                contentType: 'application/json',
+                success: (keys)=>{
+                    console.log(keys)
+                    accesskeys =  keys
+                },
+                error: (err)=>{
+                    console.error(err)
+                }
+            })
+
+            $.ajax({
+                url: `${URL}/Account/GetAdministrativeUsers`,
+                type: 'GET', 
+                contentType: 'application/json',
+                success: (users)=>{
+                    console.log(users)
+                    fillTable(users)
+                },
+                error: (err)=>{
+                    console.error(err)
+                }
+            })
+        }
+
+        function fillTable(results){ 
+            $('#users-table-body').html("");
+            if(results.length <= 0){
+                alert('no se encontraron resultados')
+            }
+            else{ 
+                results.forEach((user, index)=>{
+                    var row = 
+                    `
+                        <tr id="row${index}" onclick="selectPost(event)">
+                        <th class="id" scope="row">${user.id}</th>
+                        <th class="id" scope="row">${user.fullName}</th> 
+                        <td class="review">${user.email}</td>  
+                        <td class="datetimePosted">${accesskeys.find(x => x.id == user.accessKey).description}</td>
+                        <td class="datetimePosted">${user.cantPosts}</td>
+                        </tr>
+                    `;
+                    $('#users-table-body').append(row);
+            })
+                
+            }
+        }
+    </script> 
 }

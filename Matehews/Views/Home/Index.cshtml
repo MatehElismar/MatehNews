@@ -126,9 +126,9 @@
                                     <a href='@Url.Action("Post", "Home", new {id = Model[i].url})'><img src="newspaper-template/img/bg-img/12.jpg" alt=""></a>
                                 </div>
                                 <div class="post-data">
-                                    <a href='@Url.Action("Post", "Home", new {id = Model[i].url})' class="post-catagory">ViewBag.TopTen[i].categorieName</a>
+                                    <a href='@Url.Action("Post", "Home", new {id = Model[i].url})' class="post-catagory">@ViewBag.TopTen[i].categorieName</a>
                                     <a href='@Url.Action("Post", "Home", new {id = Model[i].url})' class="post-title">
-                                        <h6>ViewBag.TopTen[i].title</h6>
+                                        <h6>@ViewBag.TopTen[i].title</h6>
                                     </a>
                                     <div class="post-meta d-flex align-items-center">
                                         <a href='#' class="post-like"><img src="newspaper-template/img/core-img/like.png" alt=""> <span>392</span></a>
