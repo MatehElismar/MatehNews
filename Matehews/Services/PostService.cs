@@ -19,9 +19,10 @@ using System.Diagnostics;
 
         public static bool AddPost(News post)
         {
+            var imgUrl = (post.ImgUrl != null) ? post.ImgUrl : "newspaper-template/img/bg-img/4.jpg";
             var c = new Server();
             var p = new List<DbParameter>();
-            p.Add(new DbParameter("imgUrl", "post.ImgUrl"));  
+            p.Add(new DbParameter("imgUrl", imgUrl));  
             p.Add(new DbParameter("title", post.title)); 
             p.Add(new DbParameter("review", post.review)); 
             p.Add(new DbParameter("content", post.content)); 
@@ -35,9 +36,10 @@ using System.Diagnostics;
 
          public static bool UpdatePost(News post)
         {
+            var imgUrl = (post.ImgUrl != null) ? post.ImgUrl : "newspaper-template/img/bg-img/4.jpg";
             var c = new Server();
             var p = new List<DbParameter>();
-            p.Add(new DbParameter("imgUrl", "post.ImgUrl")); 
+            p.Add(new DbParameter("imgUrl", imgUrl)); 
             p.Add(new DbParameter("id", post.id)); 
             p.Add(new DbParameter("title", post.title)); 
             p.Add(new DbParameter("review", post.review)); 
@@ -119,6 +121,7 @@ using System.Diagnostics;
                 post.author = reader["author"].ToString();
                 post.status = reader["status"].ToString();
                 post.datetimePosted = Convert.ToDateTime(reader["datetimePosted"]);
+                post.ImgUrl = reader["imgUrl"].ToString();
                 c.Close();
                 return post; 
             }
@@ -149,6 +152,7 @@ using System.Diagnostics;
                     post.author = reader["author"].ToString();
                     post.status = reader["status"].ToString();
                     post.datetimePosted = Convert.ToDateTime(reader["datetimePosted"]);
+                    post.ImgUrl = reader["imgUrl"].ToString();
                     list.Add(post);
                     count++;
                 // }
@@ -184,6 +188,7 @@ using System.Diagnostics;
                     post.author = reader["author"].ToString();
                     post.status = reader["status"].ToString();
                     post.datetimePosted = Convert.ToDateTime(reader["datetimePosted"]);
+                    post.ImgUrl = reader["imgUrl"].ToString();
                     list.Add(post); 
             } 
             c.Close();

@@ -14,7 +14,7 @@
                         <div class="col-12 col-lg-7">
                             <div class="single-blog-post featured-post">
                                 <div class="post-thumb">
-                                    <a href='@Url.Action("Post", "Home", new {id = @Model[0].url})'><img src="newspaper-template/img/bg-img/16.jpg" alt=""></a>
+                                    <a href='@Url.Action("Post", "Home", new {id = @Model[0].url})'><img src="@Model[0].ImgUrl" alt=""></a>
                                 </div>
                                 <div class="post-data">
                                     <a href='@Url.Action("Post", "Home", new {id = @Model[0].url})' class="post-catagory">@Model[0].categorieName</a>
@@ -38,7 +38,7 @@
                             <!-- Single Featured Post -->
                             <div class="single-blog-post featured-post-2">
                                 <div class="post-thumb">
-                                    <a href='@Url.Action("Post", "Home", new {id = @Model[1].url})'><img src="newspaper-template/img/bg-img/17.jpg" alt=""></a>
+                                    <a href='@Url.Action("Post", "Home", new {id = @Model[1].url})'><img src="@Model[1].ImgUrl" alt=""></a>
                                 </div>
                                 <div class="post-data">
                                     <a href='@Url.Action("Post", "Home", new {id = @Model[1].url})' class="post-catagory">@Model[1].categorieName</a>
@@ -58,7 +58,7 @@
                             <!-- Single Featured Post -->
                             <div class="single-blog-post featured-post-2">
                                 <div class="post-thumb">
-                                    <a href='@Url.Action("Post", "Home", new {id = @Model[0].url})'><img src="newspaper-template/img/bg-img/18.jpg" alt=""></a>
+                                    <a href='@Url.Action("Post", "Home", new {id = @Model[0].url})'><img src="@Model[2].ImgUrl" alt=""></a>
                                 </div>
                                 <div class="post-data">
                                     <a href='@Url.Action("Post", "Home", new {id = @Model[2].url})' class="post-catagory wrap-text">@Model[2].categorieName</a>
@@ -85,7 +85,7 @@
 <!-- Single Featured Post -->
                     <div class="single-blog-post small-featured-post d-flex">
                         <div class="post-thumb">
-                            <a href='@Url.Action("Post", "Home", new {id = Model[i].url})'><img src="newspaper-template/img/bg-img/19.jpg" alt=""></a>
+                            <a href='@Url.Action("Post", "Home", new {id = Model[i].url})'><img src="@Model[i].ImgUrl" alt=""></a>
                         </div>
                         <div class="post-data">
                             <a href='@Url.Action("Post", "Home", new {id = Model[i].url})' class="post-catagory">@Model[i].categorieName)</a>
@@ -123,7 +123,7 @@
                         <div class="col-12 col-md-6">
                             <div class="single-blog-post style-3">
                                 <div class="post-thumb">
-                                    <a href='@Url.Action("Post", "Home", new {id = Model[i].url})'><img src="newspaper-template/img/bg-img/12.jpg" alt=""></a>
+                                    <a href='@Url.Action("Post", "Home", new {id = Model[i].url})'><img src="@Model[i].ImgUrl" alt=""></a>
                                 </div>
                                 <div class="post-data">
                                     <a href='@Url.Action("Post", "Home", new {id = Model[i].url})' class="post-catagory">@ViewBag.TopTen[i].categorieName</a>

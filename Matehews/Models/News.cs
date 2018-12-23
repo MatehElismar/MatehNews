@@ -1,12 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks; 
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace Matehews.Models 
 {  
     public class News 
     {
+//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+        //Who post the News
+        public int userID{get;set;}
+        public int userAccessKey{get;set;}
+        //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
         private int Id;
         public string ImgUrl{ get; set; }
         public int id
@@ -31,6 +37,7 @@ namespace Matehews.Models
         public string status { get; set; }
         public List<Comment> comments { get; set; }
         public DateTime datetimePosted { get; set; }  
+        public IFormFile portrait { get; set; }  
         public string url { 
             get{
                 if(title == null)

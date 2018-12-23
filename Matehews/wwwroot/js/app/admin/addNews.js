@@ -5,7 +5,15 @@ function setEditorHtml(content){
     $('#froala-editor').froalaEditor('html.set', content)
 }
 
-function addPost(){ 
+async function addPost(){ 
+    let formData = new  FormData();
+    let files = document.querySelector('#portrait').files;
+    for (var i = 0; i != files.length; i++) {
+        console.log(files[i]);
+        formData.append("portrait", files[i]);
+    }
+    
+    
     let user = getUser();
     let post = {};
     post.title = $('#title').val();
@@ -13,24 +21,33 @@ function addPost(){
     post.categorieName = $('#selectedCat').html();
     post.content = $('#froala-editor').froalaEditor('html.get', true);
     post.author = user.id;
+    post.userID = user.id;
+    post.userAccessKey = user.accessKey;
+ 
+    await Object.keys(post)
+    .forEach(key=>{
+        formData.append(key, post[key]);
+    }) 
 
-    //Do the requestd
-    let opts = {}
-    opts.url = `${URL}/Admin/AddPost`;
-    opts.type = 'POST';
-    opts.contentType = 'application/json'; 
-    opts.data = JSON.stringify({user: getUser(), post: post});
-    opts.success = (res)=>{
-        alert('Proceso Exitoso')  
-    };
-    opts.error = (err)=>{
-        alert(err);
-    };
-
-    $.ajax(opts)
+    fetch(`${URL}/Admin/AddPost`, {method: 'POST', body: formData })
+    .then(res => res.json())
+    .then(res=>{ 
+            alert('Proceso Exitoso')   
+            alert(err); 
+        console.log(res) 
+    })
+    .catch(err=>console.log(err)) 
 } 
 
-function updatePost(){
+async function updatePost(){
+
+    let formData = new  FormData();
+    let files = document.querySelector('#portrait').files;
+    for (var i = 0; i != files.length; i++) {
+        console.log(files[i]);
+        formData.append("portrait", files[i]);
+    }
+
     var user = getUser();
     var post = {
         title: $('#title').val(),
@@ -44,23 +61,19 @@ function updatePost(){
     post.author = user.id; 
     console.log(user)
 
-    console.log('Post need update: ',post)
+    await Object.keys(post)
+    .forEach(key=>{
+        formData.append(key, post[key]);
+    }) 
 
-        // console.log("I am here")
-       $.ajax({
-           url: `${URL}/Admin/UpdatePost`,
-           type: 'post',
-           data: JSON.stringify({user: getUser(), post: post}),
-           contentType: "application/json; charset=utf-8",//Recuerda siempre poner los headers correspondientes
-            success: (res)=>{
-                console.log(res);
-                alert('Proceso Exitoso')
-            },
-            error: (error)=>{
-                console.error(error);
-                alert('Se ha encontrado un erro; revise la consola de depuracion')
-            }
-       })
+    fetch(`${URL}/Admin/UpdatePost`, {method: 'POST', body: formData })
+    .then(res => res.json())
+    .then(res=>{ 
+            alert('Proceso Exitoso')   
+            alert(err); 
+        console.log(res) 
+    })
+    .catch(err=>{alert('Se ha encontrado un erro; revise la consola de depuracion'); console.log(err)}) 
 }
 
 function changeCategorie(event){  

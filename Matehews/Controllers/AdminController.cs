@@ -6,11 +6,17 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Matehews.Models;
 using Services;
-
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 namespace Matehews.Controllers
 {
     public class AdminController : Controller
     {
+        private readonly IHostingEnvironment env;
+        public AdminController(IHostingEnvironment env)
+        {
+            this.env = env;
+        }
         public IActionResult CPanel( )
         {  
             return View( ); 
@@ -67,11 +73,21 @@ namespace Matehews.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddPost([FromBody]newsRequest data)
-        {
-            if(AccountService.GetUserByID(data.user.id) != null && data.user.accessKey < 102)
+        public IActionResult AddPost(News form)
+        { 
+            if(AccountService.GetUserByID(form.userID) != null && form.userAccessKey < 102)
             { 
-                var postsResults = PostService.AddPost(data.post);
+                        if(form.portrait != null)
+                    {
+                        form.ImgUrl = "posts/"+form.title+form.portrait.FileName;
+                        var path = string.Format("{0}/{1}/{2}",env.WebRootPath,"posts", form.title+form.portrait.FileName);
+                        using (var s = System.IO.File.Create(path)) 
+                        {
+                            form.portrait.CopyTo(s);
+                        }
+
+                    }
+                var postsResults = PostService.AddPost(form);
                 
                 return Json(postsResults);
             }
@@ -88,23 +104,28 @@ namespace Matehews.Controllers
                 return Json(postsResults);
             }
             return Json(null);
-        }
-
-        public ActionResult GetDate(){
-            return Json(DateTime.UtcNow);
-        }
-
+        } 
         [HttpPost]
-        public IActionResult UpdatePost([FromBody]newsRequest body)
+        public IActionResult UpdatePost(News form)
         {
-            if(AccountService.GetUserByID(body.user.id) != null && body.user.accessKey < 102)
+            if(AccountService.GetUserByID(form.userID) != null && form.userAccessKey < 102)
             { 
+                        if(form.portrait != null)
+                    {
+                        form.ImgUrl = "posts/"+form.title+form.portrait.FileName;
+                        var path = string.Format("{0}/{1}/{2}",env.WebRootPath,"posts", form.title+form.portrait.FileName);
+                        using (var s = System.IO.File.Create(path)) 
+                        {
+                            form.portrait.CopyTo(s);
+                        }
+
+                    }
                 Debug.WriteLine("Param is OK"); 
                 
-                return Json(PostService.UpdatePost(body.post));
+                return Json(PostService.UpdatePost(form)); 
             }
             Debug.WriteLine("Param is null"); 
-            return Json(null);
+            return Json(null);  
         }
 
         [HttpPost]

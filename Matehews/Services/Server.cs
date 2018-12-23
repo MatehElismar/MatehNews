@@ -42,7 +42,7 @@ namespace Services
                 Cmd.ExecuteNonQuery(); 
                 Conn.Close(); 
                 
-                if(Cmd.Parameters["id"].Value != null)
+                if(Cmd.Parameters.Contains("id"))
                 {
                     this.Id = Convert.ToInt32(Cmd.Parameters["id"].Value);
                 } 
