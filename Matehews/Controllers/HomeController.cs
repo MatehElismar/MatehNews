@@ -32,19 +32,14 @@ namespace Matehews.Controllers
             post.comments = CommentService.GetComments(post.id);
             if(post != null)
             { 
+                ViewBag.AboutAuthor = AccountService.GetUserProfileByID(post.userID).aboutMe;
                 ViewBag.Categories = PostService.SelectCategories(); 
                 return View(post);
 
             }
             return Json("Post not found");
             
-        } 
- 
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page."; 
-            return View( );
-        }
+        }  
 
         public IActionResult Contact()
         {

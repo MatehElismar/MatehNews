@@ -1,6 +1,6 @@
 using Matehews.Models;
 
-namespace Matehews.Controllers
+namespace Matehews.Models
 {
     public class CategorieRequest
     {

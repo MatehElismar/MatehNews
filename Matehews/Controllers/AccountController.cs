@@ -133,6 +133,18 @@ namespace Matehews.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult AddUser([FromBody]userRequest form){
+            if(AccountService.GetUserByID(form.admin.id) != null && form.admin.accessKey == 100)
+            { 
+              var user = AccountService.Register(form.user);
+              return Json( user );
+            }
+            return Json(null);
+        }
+
+        
+
         [HttpGet]
         public ActionResult GetAdministrativeUsers()
         {

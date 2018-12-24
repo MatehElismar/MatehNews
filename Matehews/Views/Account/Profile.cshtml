@@ -213,8 +213,9 @@ body {
 	}
 
 	$(()=>{
+		console.log('loading', $('#userID').val())
 		let button = `<button id="editBtn" onclick="updateMode()" type="button" class="btn btn-danger btn-sm">Editar</button>`
-		if($('#userID').val() === getUser().id){
+		if($('#userID').val() == getUser().id){
 			$('#about-container').append(button)
 		}
 	})

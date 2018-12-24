@@ -112,6 +112,7 @@ using System.Diagnostics;
             if (reader.Read())
             {   
                  var post = new News();
+                 post.userID = Convert.ToInt32(reader["idAuthor"]);
                 post.id = Convert.ToInt32(reader["id"]);
                 post.likesCount = Convert.ToInt32(reader["likes"]);
                 post.title = reader["title"].ToString();

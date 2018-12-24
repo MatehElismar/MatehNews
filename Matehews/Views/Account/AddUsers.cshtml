@@ -18,7 +18,7 @@
         </div>
         <div class="form-group">
                 <label for="username">Nombre de Usuario</label>
-                <input type="text" name="username" id="username" class="form-control" aria-describedby="usernameHelp" placeholder="Ej: Mateh_Elismar">
+                <input type="text" name="username" id="user-name" class="form-control" aria-describedby="usernameHelp" placeholder="Ej: Mateh_Elismar">
                 <small name="usernameHelp" id="usernameHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
         <div class="form-group">
@@ -31,18 +31,18 @@
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Privilegios de Acceso
                 </button>  
-                    <b id="selectedAccess">@ViewBag.AccessKeys[0].description</b> 
+                <span id="selectedAccessID" style="color:red;">@ViewBag.AccessKeys[0].id </span> <b id="selectedAccess"> @ViewBag.AccessKeys[0].description</b> 
                 <div id="post-status" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     @for(int i = 0; i < ViewBag.AccessKeys.Count; i++)
                     {
                         if(i == 0)
                         {
                             //ADD THE SELECTED CATEGORIE CLASS
-                            <a id="@Html.DisplayFor(modelItem => i)" onclick="changeAccess(event)" class="selectedAccessKey dropdown-item">@ViewBag.AccessKeys[i].description</a> 
+                            <a id="@ViewBag.AccessKeys[i].id" onclick="changeAccess(event)" class="selectedAccessKey dropdown-item">@ViewBag.AccessKeys[i].description</a> 
                         }
                         else
                         {
-                            <a id="@Html.DisplayFor(modelItem => i)" onclick="changeAccess(event)" class="dropdown-item">@ViewBag.AccessKeys[i].description</a>
+                            <a id="@ViewBag.AccessKeys[i].id" onclick="changeAccess(event)" class="dropdown-item">@ViewBag.AccessKeys[i].description</a>
                         }
                     } 
                 </div>
@@ -70,20 +70,22 @@
                 first: $('#first').val(),
                 last: $('#last').val(),
                 email: $('#email').val(),
-                username: $('#username').val(),
+                username: $('#user-name').val(),
                 pass: $('#pass').val(),
-                accessKey: $('#selectedAccess').html()
+                accessKey: $('#selectedAccessID').html()
             }
-
+            console.log (user);
             $.ajax({
                 url: `${URL}/Account/AddUser`,
                 type: 'POST',
-                data: {user: getUser(), post: user},
+                data: JSON.stringify({admin: getUser(), user: user}),
                 contentType: 'application/json',
                 success: (res)=>{
                     console.log(res)
+                    alert('proceso exitoso')
                 },
                 error: (err)=>{
+                    alert('ha ocuarrido algun error, revise la consola de depuracion')
                     console.error(err)
                 }
             })
@@ -93,6 +95,8 @@
             $('.selectedAccessKey').removeClass('selectedAccessKey');
             $('#'+ event.target.id).addClass('selectedAccessKey');
             $('#selectedAccess').html(event.target.innerHTML)  
+            $('#selectedAccessID').html(event.target.id) 
+            console.log(event.target.id)
         } 
 
         
