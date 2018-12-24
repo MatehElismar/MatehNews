@@ -75,7 +75,7 @@
                             <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                         </a>
                         <ul id="" class="dropdown-menu dropdown-user">
-                            <li><a href="~/Account/Profile"><i class="fa fa-user fa-fw"></i>Perfil de Usuario</a>
+                            <li><a id="perfil" href="~/Account/Profile"><i class="fa fa-user fa-fw"></i>Perfil de Usuario</a>
                             </li>
                             <li class="divider"></li> 
                             <li><a onclick="logout()"><i class="fa fa-sign-out fa-fw"></i>Cerrar Sesion</a>
@@ -110,7 +110,10 @@
             isLogged(
                 (user)=>{
                     console.log("IsAdmin? : ", isAdmin())
-                    if(isAdmin()){ $('.only-admin').show();  }
+                    if(isAdmin()){
+                         $('.only-admin').show();
+                    }
+                    $('#perfil').attr('href', `${URL}/Account/Profile/${user.id}`)  
                    $('.noLogged').hide()
                    $('#username').val(user.first + ' ' + user.last)
                 },

@@ -14,7 +14,7 @@
                         <!-- Single Featured Post -->
                         <div class="single-blog-post featured-post single-post">
                             <div class="post-thumb">
-                                <a href="#"><img src="@Model.ImgUrl" alt="No carga la imagen"></a>
+                                <a href="#"><img src="../../@Model.ImgUrl" alt="No carga la imagen"></a>
                             </div>
                             <div class="post-data">
                                 <a href="#" class="post-catagory">@Model.categorieName</a>
@@ -44,7 +44,76 @@
                                 </div>
                             </div>
                         </div>
-
+                         <!-- Comment Area Start -->
+                         <a name="poster-comment"></a>
+                         <div class="comment_area clearfix">
+                              <div class="post-a-comment-area section-padding-80-0">
+                             <h4>Deja un comentario</h4>
+                             
+                             <!-- Reply Form -->
+                             <div id="poster-comment" class="contact-form-area">
+                                 <form action="#" method="post">
+                                     <div class="row"> 
+                                         <div class="col-12">
+                                             <textarea name="message" class="form-control" id="message" cols="30" rows="5" placeholder="Message"></textarea>
+                                         </div>
+                                         <div class="col-12 text-center">
+                                             <a onclick="addComment()" class="btn newspaper-btn mt-30 w-100" type="submit">Submit Comment</a>
+                                         </div>
+                                     </div>
+                                 </form>
+                             </div>
+                         </div>
+                             <h5 class="title">@Model.comments.Count Comentarios</h5>
+ 
+                             <ol id="comments-container">
+                                 <!-- Single Comment Area -->
+                                 @for (int i = 0; i < Model.comments.Count; i++)
+                                 {
+                                     var comment = Model.comments[i];
+                                 <li class="single_comment_area">
+                                     <!-- Comment Content -->
+                                     <div class="comment-content d-flex">
+                                         <!-- Comment Author -->
+                                         <div class="comment-author">
+                                             <img src="~/newspaper-template/img/bg-img/30.jpg" alt="author">
+                                         </div>
+                                         <!-- Comment Meta -->
+                                         <div class="comment-meta">
+                                             <a href="#" class="post-author">@Html.DisplayFor(modelItem => comment.user.username)</a>
+                                             <a href="#" class="post-date">April 15, 2018</a>
+                                             <p>@Html.DisplayFor(modelItem =>comment.content)</p>
+                                         </div>
+                                     </div>
+                                     <div class="d-flex align-items-center post-like--comments">
+                                             <a onclick="likeComment()" href="#" class="post-like"><img src="~/newspaper-template/img/core-img/like.png" alt=""> <span>Me Gusta</span></a>
+                                             <a onclick="responseComment()" href="#poster-comment" class="post-comment"><img src="~/newspaper-template/img/core-img/chat.png" alt=""> <span>Responder</span></a>
+                                         </div>
+                                     <ol class="children">
+                                        @for (int a = 0; a < comment.Replies.Count; a++)
+                                        {
+                                            var replie = comment.Replies[a];
+                                         <li class="single_comment_area">
+                                             <!-- Comment Content -->
+                                             <div class="comment-content d-flex">
+                                                 <!-- Comment Author -->
+                                                 <div class="comment-author">
+                                                     <img src="~/newspaper-template/img/bg-img/31.jpg" alt="author">
+                                                 </div>
+                                                 <!-- Comment Meta -->
+                                                 <div class="comment-meta">
+                                                     <a href="#" class="post-author">@Html.DisplayFor(modelItem =>replie.user.username)</a>
+                                                     <a href="#" class="post-date">April 15, 2018</a>
+                                                     <p>@Html.DisplayFor(modelItem =>replie.content)</p>
+                                                 </div>
+                                             </div>
+                                         </li>
+                                        }
+                                     </ol>
+                                 </li>
+                                 }
+                             </ol>
+                         </div> 
                         <!-- About Author -->
                         <div class="blog-post-author d-flex">
                             <div class="author-thumbnail">
@@ -57,7 +126,7 @@
                         </div> 
 
                         <div class="section-heading">
-                            <h6>Related</h6>
+                            <h6>Relacionado</h6>
                         </div>
 
                         <div class="row">
@@ -98,77 +167,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>  
-                        <!-- Comment Area Start -->
-                        <a name="poster-comment"></a>
-                        <div class="comment_area clearfix">
-                             <div class="post-a-comment-area section-padding-80-0">
-                            <h4>Deja un comentario</h4>
-                            
-                            <!-- Reply Form -->
-                            <div id="poster-comment" class="contact-form-area">
-                                <form action="#" method="post">
-                                    <div class="row"> 
-                                        <div class="col-12">
-                                            <textarea name="message" class="form-control" id="message" cols="30" rows="5" placeholder="Message"></textarea>
-                                        </div>
-                                        <div class="col-12 text-center">
-                                            <a onclick="addComment()" class="btn newspaper-btn mt-30 w-100" type="submit">Submit Comment</a>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                            <h5 class="title">@Model.comments.Count Comentarios</h5>
-
-                            <ol id="comments-container">
-                                <!-- Single Comment Area -->
-                                @for (int i = 0; i < Model.comments.Count; i++)
-                                {
-                                    var comment = Model.comments[i];
-                                <li class="single_comment_area">
-                                    <!-- Comment Content -->
-                                    <div class="comment-content d-flex">
-                                        <!-- Comment Author -->
-                                        <div class="comment-author">
-                                            <img src="~/newspaper-template/img/bg-img/30.jpg" alt="author">
-                                        </div>
-                                        <!-- Comment Meta -->
-                                        <div class="comment-meta">
-                                            <a href="#" class="post-author">@Html.DisplayFor(modelItem => comment.user.username)</a>
-                                            <a href="#" class="post-date">April 15, 2018</a>
-                                            <p>@Html.DisplayFor(modelItem =>comment.content)</p>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center post-like--comments">
-                                            <a onclick="likeComment()" href="#" class="post-like"><img src="~/newspaper-template/img/core-img/like.png" alt=""> <span>Me Gusta</span></a>
-                                            <a onclick="responseComment()" href="#poster-comment" class="post-comment"><img src="~/newspaper-template/img/core-img/chat.png" alt=""> <span>Responder</span></a>
-                                        </div>
-                                    <ol class="children">
-                                       @for (int a = 0; a < comment.Replies.Count; a++)
-                                       {
-                                           var replie = comment.Replies[a];
-                                        <li class="single_comment_area">
-                                            <!-- Comment Content -->
-                                            <div class="comment-content d-flex">
-                                                <!-- Comment Author -->
-                                                <div class="comment-author">
-                                                    <img src="~/newspaper-template/img/bg-img/31.jpg" alt="author">
-                                                </div>
-                                                <!-- Comment Meta -->
-                                                <div class="comment-meta">
-                                                    <a href="#" class="post-author">@Html.DisplayFor(modelItem =>replie.user.username)</a>
-                                                    <a href="#" class="post-date">April 15, 2018</a>
-                                                    <p>@Html.DisplayFor(modelItem =>replie.content)</p>
-                                                </div>
-                                            </div>
-                                        </li>
-                                       }
-                                    </ol>
-                                </li>
-                                }
-                            </ol>
-                        </div> 
+                        </div>   
                     </div>
                 </div>
 
@@ -177,7 +176,7 @@
 
                         <!-- Latest Posts Widget -->
                         <div class="latest-posts-widget mb-50">
-
+                            <h4>Otras categorias</h4>
                               <!-- Single Featured Post -->
                             @for(int i = 0; i < ViewBag.Categories.Count; i++)
                             { 
@@ -186,7 +185,7 @@
                                         <a href='@Url.Action("Sections", "Home", new {name = @ViewBag.Categories[i].name})'><img src="~/newspaper-template/~/newspaper-template/img/bg-img/19.jpg" alt=""></a>
                                     </div>
                                     <div class="post-data"> 
-                                        <a href='@Url.Action("Sections", "Home", new {name = @ViewBag.Categories[i].name})' class="post-catagory">ViewBag.Categories[i].name)</a>
+                                        <a href='@Url.Action("Sections", "Home", new {name = @ViewBag.Categories[i].name})' class="post-catagory">@ViewBag.Categories[i].name</a>
                                         <div class="post-meta">
                                             <a href='@Url.Action("Sections", "Home", new {name = @ViewBag.Categories[i].name})' class="post-title">
                                                 <h6>@ViewBag.Categories[i].description</h6>

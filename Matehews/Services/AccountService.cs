@@ -34,6 +34,20 @@ using Matehews.Models;
             return res;
         }
 
+           public static UserProfile UpdateProfile(UserProfile u)
+        {
+            var c = new Server();
+            var p = new List<DbParameter>();
+            p.Add(new DbParameter("AboutMe", u.aboutMe));  
+            p.Add(new DbParameter("userID", u.id));  
+            var res = c.InsertOrUpdate("updateProfile", p);
+            Msg = c.Msg;
+            if(res){
+                return GetUserProfileByID(u.id);
+            }
+            return null;
+        }
+
         public static string Login(string user, string pass)
         {
             var c = new Server();
@@ -91,6 +105,28 @@ using Matehews.Models;
                 u.email = reader["Email"].ToString(); 
                 u.accessKey = Convert.ToInt32(reader["AccessKey"]); 
                 u.DateRegistred = Convert.ToDateTime(reader["DateRegistred"]); 
+                return u;
+            }
+            return null;
+        }
+
+        public static UserProfile GetUserProfileByID(int id)
+        {
+            var c = new Server(); 
+            var p = new List<DbParameter>();
+            p.Add(new DbParameter("userID", id));
+           
+           var reader = c.QueryList("getUserProfile", p);
+            var u = new UserProfile();
+            if (reader.Read())
+            {
+                u.id = Convert.ToInt32(reader["id"]);  
+                u.fullName = reader["fullName"].ToString(); 
+                u.aboutMe = reader["aboutMe"].ToString(); 
+                u.email = reader["Email"].ToString(); 
+                u.access = (reader["access"]).ToString(); 
+                u.DateRegistred = Convert.ToDateTime(reader["DateRegistred"]); 
+                u.cantPosts = Convert.ToInt32(reader["cantPosts"]); 
                 return u;
             }
             return null;

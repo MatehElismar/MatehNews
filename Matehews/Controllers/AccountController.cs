@@ -24,6 +24,25 @@ namespace Matehews.Controllers
             return View( );
         } 
 
+        public IActionResult Profile(int id)
+        {
+            var user = AccountService.GetUserProfileByID(id);
+            return View( user );
+        } 
+
+        [HttpPost]
+         public IActionResult AboutMe([FromBody]UserProfile profile)
+        {
+            
+            if(AccountService.GetUserByID(profile.id) != null)
+            { 
+              var user = AccountService.UpdateProfile(profile);
+            return Json( user );
+            }
+            return Json(null);
+            
+        } 
+
 
         [HttpPost]
         public IActionResult Register(User form)
